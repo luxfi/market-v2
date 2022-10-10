@@ -7,7 +7,7 @@ import { useEffect } from 'react'
 
 const PROXY_API_BASE = process.env.NEXT_PUBLIC_PROXY_API_BASE
 
-type SalesGetRequest = paths['/sales/v4']['get']
+type SalesGetRequest = paths['/sales/v3']['get']
 type SalesData = SalesGetRequest['responses']['200']['schema']
 
 const getKey: (
@@ -36,7 +36,6 @@ const getKey: (
   let query: SalesGetRequest['parameters']['query'] = {
     limit: 20,
     collection: collectionId || '',
-    includeTokenMetadata: true,
   }
 
   if (
@@ -51,7 +50,7 @@ const getKey: (
 }
 
 export default function useSales(collectionId?: string | undefined) {
-  const pathname = `${PROXY_API_BASE}/sales/v4`
+  const pathname = `${PROXY_API_BASE}/sales/v3`
 
   const { ref, inView } = useInView()
 

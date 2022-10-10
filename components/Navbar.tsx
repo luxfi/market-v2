@@ -7,10 +7,13 @@ import setParams from 'lib/params'
 import NavbarLogo from 'components/navbar/NavbarLogo'
 import ThemeSwitcher from './ThemeSwitcher'
 import CartMenu from './CartMenu'
+<<<<<<< HEAD
 import SearchMenu from './SearchMenu'
 import { useMediaQuery } from '@react-hookz/web'
 import useMounted from 'hooks/useMounted'
 import ListItemButton from './navbar/ListItemButton'
+=======
+>>>>>>> 96757b6 (Update look and feel)
 
 const SearchCollections = dynamic(() => import('./SearchCollections'))
 const CommunityDropdown = dynamic(() => import('./CommunityDropdown'))
@@ -42,10 +45,13 @@ const Navbar: FC = () => {
   const [filterComponent, setFilterComponent] = useState<ReactElement | null>(
     null
   )
+<<<<<<< HEAD
   const isMobile = useMediaQuery('(max-width: 770px)')
   const showDesktopSearch = useMediaQuery('(min-width: 1200px)')
   const [hasCommunityDropdown, setHasCommunityDropdown] =
     useState<boolean>(false)
+=======
+>>>>>>> 96757b6 (Update look and feel)
 
   const externalLinks: { name: string; url: string }[] = []
 
@@ -86,21 +92,20 @@ const Navbar: FC = () => {
           initialResults.collections.length >= 2 &&
           initialResults.collections.length <= 10
 
-        const hasCommunityDropdown =
+        if (
           !DEFAULT_TO_SEARCH &&
           (COMMUNITY || COLLECTION_SET_ID) &&
           smallCommunity
-
-        if (hasCommunityDropdown) {
+        ) {
           setFilterComponent(
             <CommunityDropdown
               collections={initialResults?.collections}
               defaultCollectionId={COLLECTION}
             />
           )
-          setHasCommunityDropdown(true)
         } else {
           setShowLinks(false)
+<<<<<<< HEAD
           setHasCommunityDropdown(false)
           !showDesktopSearch
             ? setFilterComponent(
@@ -119,6 +124,18 @@ const Navbar: FC = () => {
       })
     }
   }, [filterableCollection, showDesktopSearch])
+=======
+          setFilterComponent(
+            <SearchCollections
+              communityId={COMMUNITY}
+              initialResults={initialResults}
+            />
+          )
+        }
+      })
+    }
+  }, [filterableCollection])
+>>>>>>> 96757b6 (Update look and feel)
 
 <<<<<<< HEAD
   if (!isMounted) {
@@ -151,6 +168,7 @@ const Navbar: FC = () => {
           ))}
         </div>
       )}
+<<<<<<< HEAD
       {(hasCommunityDropdown || showDesktopSearch) && (
         <div className="absolute top-0 left-0 right-0 flex h-full w-full items-center justify-center">
           {filterComponent && filterComponent}
@@ -179,6 +197,19 @@ const Navbar: FC = () => {
           <ThemeSwitcher />
         </div>
       )}
+=======
+      <div className="flex h-full w-full items-center justify-center">
+        <div className="absolute left-0 right-0 z-[1] flex w-full justify-center">
+          {filterComponent && filterComponent}
+        </div>
+      </div>
+      <HamburgerMenu externalLinks={externalLinks} />
+      <div className="z-10 ml-auto hidden shrink-0 md:flex md:gap-2">
+        <ConnectWallet />
+        <ThemeSwitcher />
+      </div>
+      <CartMenu />
+>>>>>>> 96757b6 (Update look and feel)
     </nav>
   )
 }

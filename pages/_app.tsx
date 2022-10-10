@@ -92,6 +92,7 @@ import presetColors from '../colors'
 const FEE_BPS = process.env.NEXT_PUBLIC_FEE_BPS
 const FEE_RECIPIENT = process.env.NEXT_PUBLIC_FEE_RECIPIENT
 const SOURCE_DOMAIN = process.env.NEXT_PUBLIC_SOURCE_DOMAIN
+<<<<<<< HEAD
 const API_BASE = process.env.NEXT_PUBLIC_RESERVOIR_API_BASE
 <<<<<<< HEAD
 const SOURCE_NAME = process.env.NEXT_PUBLIC_SOURCE_NAME
@@ -138,6 +139,8 @@ const App: FC<AppProps & { baseUrl: string }> = ({
 }) => {
   const { theme } = useTheme()
 =======
+=======
+>>>>>>> 79e0b24 (Update look and feel)
 
 // Set up chains
 const { chains, provider } = configureChains(allChains, [
@@ -174,8 +177,12 @@ function MyApp({
   pageProps,
   baseUrl,
 }: AppProps & { baseUrl: string }) {
+<<<<<<< HEAD
 >>>>>>> d73def8 (initial commit)
   const defaultTheme = DARK_MODE_ENABLED ? 'dark' : 'light'
+=======
+  const defaultTheme = DARK_MODE_ENABLED ? 'light' : 'dark'
+>>>>>>> 79e0b24 (Update look and feel)
   const [reservoirKitTheme, setReservoirKitTheme] = useState<
     ReservoirKitTheme | undefined
   >()
@@ -254,8 +261,8 @@ function MyApp({
   if (FEE_BPS && FEE_RECIPIENT) {
     options = {
       ...options,
-      marketplaceFee: +FEE_BPS,
-      marketplaceFeeRecipient: FEE_RECIPIENT,
+      fee: `${FEE_BPS}`,
+      feeRecipient: `${FEE_RECIPIENT}`,
     }
   }
 
@@ -308,8 +315,6 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
 
   if (appContext.ctx.req?.headers.host) {
     baseUrl = `http://${appContext.ctx.req?.headers.host}`
-  } else if (API_BASE) {
-    baseUrl = API_BASE
   }
 
   return { ...appProps, baseUrl }

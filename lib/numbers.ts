@@ -1,11 +1,12 @@
 import { utils } from 'ethers'
 import { BigNumberish } from '@ethersproject/bignumber'
 
-const { format: formatUsdCurrency } = new Intl.NumberFormat('en-US', {
+const { format: formatDollar } = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
 })
 
+<<<<<<< HEAD
 function formatDollar(price?: number | null) {
   return price !== undefined && price !== null ? formatUsdCurrency(price) : '-'
 }
@@ -44,18 +45,18 @@ const trauncateFractionAndFormat = (
     .reduce((string, part) => string + part)
 }
 
+=======
+>>>>>>> 79e0b24 (Update look and feel)
 function formatNumber(
   amount: number | null | undefined,
   maximumFractionDigits: number = 2
 ) {
-  if (!amount) {
-    return '-'
-  }
-
   const { format } = new Intl.NumberFormat('en-US', {
     maximumFractionDigits: maximumFractionDigits,
   })
-
+  if (!amount) {
+    return '-'
+  }
   return format(amount)
 }
 
@@ -67,16 +68,13 @@ function formatNumber(
  */
 function formatBN(
   amount: BigNumberish | null | undefined,
-  maximumFractionDigits: number,
-  decimals?: number
+  maximumFractionDigits: number
 ) {
   if (typeof amount === 'undefined' || amount === null) return '-'
 
-  const amountToFormat =
-    typeof amount === 'number'
-      ? amount
-      : +utils.formatUnits(amount, decimals || 18)
+  let value = ''
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   if (amountToFormat === 0) {
     return amountToFormat
@@ -107,9 +105,23 @@ function formatBN(
     const maxDecimals = amountToFormat > 1000 ? 1 : maximumFractionDigits
     return trauncateFractionAndFormat(parts, maxDecimals)
 >>>>>>> d73def8 (initial commit)
+=======
+  if (typeof amount === 'number') {
+    value = new Intl.NumberFormat('en-US', {
+      maximumFractionDigits,
+      notation: 'compact',
+      compactDisplay: 'short',
+    }).format(amount)
+>>>>>>> 79e0b24 (Update look and feel)
   } else {
-    return amount
+    value = new Intl.NumberFormat('en-US', {
+      maximumFractionDigits,
+      notation: 'compact',
+      compactDisplay: 'short',
+    }).format(+utils.formatEther(amount))
   }
+
+  return value
 }
 
 export { formatDollar, formatBN, formatNumber }

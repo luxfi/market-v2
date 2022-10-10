@@ -1,11 +1,4 @@
-import React, {
-  Dispatch,
-  FC,
-  SetStateAction,
-  useCallback,
-  useRef,
-  useState,
-} from 'react'
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Downshift from 'downshift'
 import { useRouter } from 'next/router'
@@ -14,25 +7,17 @@ import debounce from 'lodash.debounce'
 import { FiSearch, FiXCircle } from 'react-icons/fi'
 import { paths } from '@reservoir0x/reservoir-kit-client'
 
-export type SearchCollectionsAPISuccessResponse =
+type SearchCollectionsAPISuccessResponse =
   paths['/search/collections/v1']['get']['responses']['200']['schema']
 
 type Props = {
   communityId?: string
   initialResults?: SearchCollectionsAPISuccessResponse
-  isMobile?: boolean
-  setOpen?: Dispatch<SetStateAction<boolean>>
 }
 
 const PROXY_API_BASE = process.env.NEXT_PUBLIC_PROXY_API_BASE
-const COLLECTION_SET_ID = process.env.NEXT_PUBLIC_COLLECTION_SET_ID
 
-const SearchCollections: FC<Props> = ({
-  communityId,
-  initialResults,
-  isMobile,
-  setOpen,
-}) => {
+const SearchCollections: FC<Props> = ({ communityId, initialResults }) => {
   const router = useRouter()
   const [focused, setFocused] = useState<boolean>(false)
   const [results, setResults] = useState<SearchCollectionsAPISuccessResponse>(
@@ -49,10 +34,6 @@ const SearchCollections: FC<Props> = ({
 
     if (communityId && communityId !== 'www' && communityId !== 'localhost') {
       query.community = communityId
-    }
-
-    if (COLLECTION_SET_ID) {
-      query.collectionsSetId = COLLECTION_SET_ID
     }
 
     if (search) query.name = search
@@ -115,21 +96,15 @@ const SearchCollections: FC<Props> = ({
           onBlur={() => setFocused(false)}
           className="relative"
         >
-          {!isMobile && (
-            <FiSearch
-              className={`absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-[#4b5563] dark:text-neutral-300 ${
-                focused ? 'text-[#9CA3AF]' : ''
-              }`}
-            />
-          )}
+          <FiSearch
+            className={`absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-[#4b5563] dark:text-neutral-300 ${
+              focused ? 'text-[#9CA3AF]' : ''
+            }`}
+          />
           <input
             type="text"
-            tabIndex={isMobile ? 1 : -1}
-            className={
-              isMobile
-                ? 'ml-[72px] h-[72px] w-full outline-none dark:bg-black'
-                : `reservoir-label-l input-primary-outline w-full pl-9 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white dark:ring-primary-900 dark:placeholder:text-neutral-400  dark:focus:ring-4 lg:w-[447px]`
-            }
+            tabIndex={-1}
+            className="reservoir-label-l input-primary-outline w-full pl-9 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white dark:ring-primary-900 dark:placeholder:text-neutral-400  dark:focus:ring-4 lg:w-[447px]"
             placeholder="Search for a collection"
             {...getInputProps()}
           />
@@ -140,13 +115,7 @@ const SearchCollections: FC<Props> = ({
                 setFocused(false)
               }}
             >
-              <FiXCircle
-                className={
-                  isMobile
-                    ? 'absolute right-[24px] top-[27px]'
-                    : 'absolute top-1/2 right-3 z-20 h-4 w-4 -translate-y-1/2 text-[#9CA3AF]'
-                }
-              />
+              <FiXCircle className="absolute top-1/2 right-3 z-20 h-4 w-4 -translate-y-1/2 text-[#9CA3AF]" />
             </button>
           )}
 
@@ -155,11 +124,7 @@ const SearchCollections: FC<Props> = ({
             initialResults?.collections &&
             initialResults?.collections.length > 0 && (
               <div
-                className={`divide-y-[1px] divide-[#D1D5DB] overflow-hidden  border-[#D1D5DB] bg-white dark:divide-neutral-600 dark:border-neutral-600  ${
-                  isMobile
-                    ? 'top-[72px] border-y dark:bg-black'
-                    : 'absolute top-[50px] z-10 w-full rounded-[8px] border dark:bg-neutral-900'
-                }`}
+                className="absolute top-[50px] z-10 w-full divide-y-[1px] divide-[#D1D5DB] overflow-hidden rounded-[8px] border border-[#D1D5DB] bg-white dark:divide-neutral-600 dark:border-neutral-600 dark:bg-neutral-900"
                 {...getMenuProps()}
               >
                 {initialResults?.collections
@@ -178,9 +143,8 @@ const SearchCollections: FC<Props> = ({
                         onClick={() => {
                           reset()
                           setFocused(false)
-                          setOpen && setOpen(false)
                         }}
-                        className={`flex items-center py-4 px-6 hover:bg-[#F3F4F6] dark:hover:bg-neutral-600 ${
+                        className={`flex items-center p-4 hover:bg-[#F3F4F6] dark:hover:bg-neutral-600 ${
                           highlightedIndex === index
                             ? 'bg-[#F3F4F6] dark:bg-neutral-600'
                             : ''
@@ -194,7 +158,7 @@ const SearchCollections: FC<Props> = ({
                           alt={`${collection?.name}'s logo.`}
                           className="h-9 w-9 shrink-0 overflow-hidden rounded-full"
                         />
-                        <span className="reservoir-subtitle ml-2 overflow-hidden text-ellipsis dark:text-white">
+                        <span className="reservoir-subtitle ml-2 dark:text-white">
                           {collection?.name}
                         </span>
                       </a>
@@ -204,11 +168,7 @@ const SearchCollections: FC<Props> = ({
             )}
           {(focused || isOpen) && inputValue !== '' && isEmpty && (
             <div
-              className={`absolute z-10 w-full divide-y-[1px] divide-[#D1D5DB] overflow-hidden border-[#D1D5DB] bg-white dark:divide-neutral-600 dark:border-neutral-600 ${
-                isMobile
-                  ? 'top-[72px] border-y dark:bg-black'
-                  : 'top-[50px] rounded-[8px] border dark:bg-neutral-900'
-              }`}
+              className="absolute top-[50px] z-10 w-full divide-y-[1px] divide-[#D1D5DB] overflow-hidden rounded-[8px] border border-[#D1D5DB] bg-white dark:divide-neutral-600 dark:border-neutral-600 dark:bg-neutral-900"
               {...getMenuProps()}
             >
               <div className="flex items-center p-4">No collections found</div>
@@ -216,11 +176,7 @@ const SearchCollections: FC<Props> = ({
           )}
           {(focused || isOpen) && inputValue !== '' && !isEmpty && (
             <div
-              className={`absolute z-10 w-full divide-y-[1px] divide-[#D1D5DB] overflow-hidden border-[#D1D5DB] bg-white dark:divide-neutral-600 dark:border-neutral-600 ${
-                isMobile
-                  ? 'top-[72px] border-y dark:bg-black'
-                  : 'top-[50px] rounded-[8px] border dark:bg-neutral-900'
-              }`}
+              className="absolute top-[50px] z-10 w-full divide-y-[1px] divide-[#D1D5DB] overflow-hidden rounded-[8px] border border-[#D1D5DB] bg-white dark:divide-neutral-600 dark:border-neutral-600 dark:bg-neutral-900"
               {...getMenuProps()}
             >
               {results?.collections?.slice(0, 6).map((collection, index) => (
@@ -237,9 +193,8 @@ const SearchCollections: FC<Props> = ({
                     onClick={() => {
                       reset()
                       setFocused(false)
-                      setOpen && setOpen(false)
                     }}
-                    className={`flex items-center py-4 px-6 hover:bg-[#F3F4F6] dark:hover:bg-neutral-600 ${
+                    className={`flex items-center p-4 hover:bg-[#F3F4F6] dark:hover:bg-neutral-600 ${
                       highlightedIndex === index
                         ? 'bg-[#F3F4F6] dark:bg-neutral-600'
                         : ''
@@ -252,7 +207,7 @@ const SearchCollections: FC<Props> = ({
                       alt={`${collection?.name}'s logo.`}
                       className="h-9 w-9 shrink-0 overflow-hidden rounded-full"
                     />
-                    <span className="reservoir-subtitle ml-2 overflow-hidden text-ellipsis dark:text-white">
+                    <span className="reservoir-subtitle ml-2 dark:text-white">
                       {collection?.name}
                     </span>
                   </a>

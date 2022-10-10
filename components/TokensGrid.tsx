@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
 import LoadingCard from './LoadingCard'
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useInView } from 'react-intersection-observer'
 import Masonry from 'react-masonry-css'
 import useTokens from '../hooks/useTokens'
@@ -11,21 +12,22 @@ import { Collection } from 'types/reservoir'
 
 const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID
 =======
+=======
+import { SWRInfiniteResponse } from 'swr/infinite/dist/infinite'
+>>>>>>> 79e0b24 (Update look and feel)
 import Link from 'next/link'
 import { optimizeImage } from 'lib/optmizeImage'
 import { useInView } from 'react-intersection-observer'
+import FormatEth from './FormatEth'
 import Masonry from 'react-masonry-css'
+import { paths } from '@reservoir0x/reservoir-kit-client'
 import Image from 'next/image'
 import { FaShoppingCart } from 'react-icons/fa'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { atom, useRecoilState, useRecoilValue } from 'recoil'
+import { recoilTokensMap } from './CartMenu'
 import { useAccount, useNetwork, useSigner } from 'wagmi'
 import BuyNow from 'components/BuyNow'
 import { useReservoirClient } from '@reservoir0x/reservoir-kit-ui'
-import FormatCrypto from 'components/FormatCrypto'
-import useTokens from '../hooks/useTokens'
-import recoilCartTokens from 'recoil/cart/atom'
-import { getCartCurrency, getTokensMap } from 'recoil/cart'
-import SwapCartModal from 'components/SwapCartModal'
 
 const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID
 const SOURCE_ICON = process.env.NEXT_PUBLIC_SOURCE_ICON
@@ -34,7 +36,10 @@ const API_BASE =
 >>>>>>> d73def8 (initial commit)
 
 type Props = {
-  tokens: ReturnType<typeof useTokens>['tokens']
+  tokens: SWRInfiniteResponse<
+    paths['/tokens/v4']['get']['responses']['200']['schema'],
+    any
+  >
   collectionImage: string | undefined
   collectionSize?: number | undefined
   collectionAttributes?: Collection['attributes']
@@ -42,6 +47,7 @@ type Props = {
   isLoading: boolean
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 const TokensGrid: FC<Props> = ({
   tokens,
@@ -52,6 +58,17 @@ const TokensGrid: FC<Props> = ({
   isLoading,
 }) => {
 =======
+=======
+type Tokens = NonNullable<
+  paths['/tokens/v4']['get']['responses']['200']['schema']['tokens']
+>
+
+export const recoilCartTokens = atom<Tokens>({
+  key: 'cartTokens',
+  default: [],
+})
+
+>>>>>>> 96757b6 (Update look and feel)
 const TokensGrid: FC<Props> = ({ tokens, viewRef, collectionImage }) => {
 <<<<<<< HEAD
 >>>>>>> 183137d (initial commit)
@@ -60,18 +77,26 @@ const TokensGrid: FC<Props> = ({ tokens, viewRef, collectionImage }) => {
   const [cartToSwap, setCartToSwap] = useState<undefined | Token[]>()
 =======
   const [cartTokens, setCartTokens] = useRecoilState(recoilCartTokens)
-  const cartCurrency = useRecoilValue(getCartCurrency)
-  const tokensMap = useRecoilValue(getTokensMap)
+  const tokensMap = useRecoilValue(recoilTokensMap)
   const { data: signer } = useSigner()
   const { chain: activeChain } = useNetwork()
-  const { data, mutate } = tokens
+  const { data, error, mutate } = tokens
   const account = useAccount()
   const reservoirClient = useReservoirClient()
+<<<<<<< HEAD
   const [clearCartOpen, setClearCartOpen] = useState(false)
   const [cartToSwap, setCartToSwap] = useState<undefined | typeof cartTokens>()
 >>>>>>> d73def8 (initial commit)
+=======
+>>>>>>> 79e0b24 (Update look and feel)
 
-  const didReachEnd = tokens.isFetchingInitialData || !tokens.hasNextPage
+  // Reference: https://swr.vercel.app/examples/infinite-loading
+  const mappedTokens = data ? data.flatMap(({ tokens }) => tokens) : []
+  const isLoadingInitialData = !data && !error
+  const didReachEnd =
+    data &&
+    (data[data.length - 1]?.tokens?.length === 0 ||
+      data[data.length - 1]?.continuation === null)
 
   if (!CHAIN_ID) return null
 
@@ -81,6 +106,7 @@ const TokensGrid: FC<Props> = ({ tokens, viewRef, collectionImage }) => {
 
 >>>>>>> d73def8 (initial commit)
   return (
+<<<<<<< HEAD
     <>
       <SwapCartModal
         open={clearCartOpen}
@@ -126,207 +152,186 @@ const TokensGrid: FC<Props> = ({ tokens, viewRef, collectionImage }) => {
                 ...tokenData?.market,
               }
               if (!token) return null
+=======
+    <Masonry
+      key="tokensGridMasonry"
+      breakpointCols={{
+        default: 6,
+        1900: 5,
+        1536: 4,
+        1280: 3,
+        1024: 2,
+        768: 2,
+        640: 2,
+        500: 1,
+      }}
+      className="masonry-grid"
+      columnClassName="masonry-grid_column"
+    >
+      {isLoadingInitialData
+        ? Array(10)
+            .fill(null)
+            .map((_, index) => <LoadingCard key={`loading-card-${index}`} />)
+        : mappedTokens?.map((token, idx) => {
+            const isInCart = Boolean(
+              tokensMap[`${token?.contract}:${token?.tokenId}`]
+            )
+            if (!token) return null
+            return (
+              <div
+                key={`${token.contract}${token.tokenId}`}
+                className="group relative mb-6 grid transform-gpu self-start overflow-hidden rounded-[16px] border border-[#D4D4D4] bg-white transition ease-in hover:-translate-y-0.5 hover:scale-[1.01] hover:shadow-lg hover:ease-out dark:border-0 dark:bg-neutral-800 dark:ring-1 dark:ring-neutral-600"
+              >
+                {isInCart ? (
+                  <div className="absolute top-4 right-4 z-10 flex h-[34px] w-[34px] animate-slide-down items-center justify-center overflow-hidden rounded-full bg-primary-700">
+                    <FaShoppingCart className="h-[18px] w-[18px] text-white" />
+                  </div>
+                ) : null}
+>>>>>>> 79e0b24 (Update look and feel)
 
-              const isInCart = Boolean(
-                tokensMap[`${token.contract}:${token.tokenId}`]
-              )
-              const isOwner =
-                token.owner?.toLowerCase() === account?.address?.toLowerCase()
-              return (
-                <div
-                  key={`${token.contract}${token.tokenId}`}
-                  className="group relative mb-6 grid transform-gpu self-start overflow-hidden rounded-[16px] border border-[#D4D4D4] bg-white transition ease-in hover:-translate-y-0.5 hover:scale-[1.01] hover:shadow-lg hover:ease-out dark:border-0 dark:bg-neutral-800 dark:ring-1 dark:ring-neutral-600"
+                <Link
+                  key={`${token?.collection?.name}${idx}`}
+                  href={`/${token?.contract}/${token?.tokenId}`}
                 >
-                  {isInCart ? (
-                    <div className="absolute top-4 right-4 z-10 flex h-[34px] w-[34px] animate-slide-down items-center justify-center overflow-hidden rounded-full bg-primary-700">
-                      <FaShoppingCart className="h-[18px] w-[18px] text-white" />
-                    </div>
-                  ) : null}
-
-                  <Link
-                    key={`${token?.collection?.name}${idx}`}
-                    href={`/${token?.contract}/${token?.tokenId}`}
-                  >
-                    <a className="mb-[85px]">
-                      {token?.image ? (
-                        <Image
-                          loader={({ src }) => src}
-                          src={optimizeImage(token?.image, 250)}
-                          alt={`${token?.name}`}
-                          className="w-full"
-                          width={250}
-                          height={250}
-                          objectFit="cover"
-                          layout="responsive"
-                        />
-                      ) : (
-                        <div className="relative w-full">
-                          <div className="absolute inset-0 grid place-items-center backdrop-blur-lg">
-                            <div>
-                              <img
-                                src={optimizeImage(collectionImage, 250)}
-                                alt={`${token?.collection?.name}`}
-                                className="mx-auto mb-4 h-16 w-16 overflow-hidden rounded-full border-2 border-white"
-                                width="64"
-                                height="64"
-                              />
-                              <div className="reservoir-h6 text-white">
-                                No Content Available
-                              </div>
+                  <a className="mb-[85px]">
+                    {token?.image ? (
+                      <Image
+                        loader={({ src }) => src}
+                        src={optimizeImage(token?.image, 250)}
+                        alt={`${token?.name}`}
+                        className="w-full"
+                        width={250}
+                        height={250}
+                        objectFit="cover"
+                        layout="responsive"
+                      />
+                    ) : (
+                      <div className="relative w-full">
+                        <div className="absolute inset-0 grid place-items-center backdrop-blur-lg">
+                          <div>
+                            <img
+                              src={optimizeImage(collectionImage, 250)}
+                              alt={`${token?.collection?.name}`}
+                              className="mx-auto mb-4 h-16 w-16 overflow-hidden rounded-full border-2 border-white"
+                              width="64"
+                              height="64"
+                            />
+                            <div className="reservoir-h6 text-white">
+                              No Content Available
                             </div>
                           </div>
-                          <img
-                            src={optimizeImage(collectionImage, 250)}
-                            alt={`${token?.collection?.name}`}
-                            className="aspect-square w-full object-cover"
-                            width="250"
-                            height="250"
-                          />
                         </div>
-                      )}
-                    </a>
-                  </Link>
+                        <img
+                          src={optimizeImage(collectionImage, 250)}
+                          alt={`${token?.collection?.name}`}
+                          className="aspect-square w-full object-cover"
+                          width="250"
+                          height="250"
+                        />
+                      </div>
+                    )}
+                  </a>
+                </Link>
+                <div
+                  className={`absolute bottom-[0px] w-full bg-white transition-all group-hover:bottom-[0px] dark:bg-neutral-800 ${
+                    token.floorAskPrice != null &&
+                    token.floorAskPrice != undefined
+                      ? 'md:-bottom-[41px]'
+                      : ''
+                  }`}
+                >
                   <div
-                    className={`absolute bottom-[0px] w-full bg-white transition-all group-hover:bottom-[0px] dark:bg-neutral-800 ${
-                      token.floorAsk?.price?.amount != null &&
-                      token.floorAsk.price.amount != undefined &&
-                      !isOwner
-                        ? 'md:-bottom-[41px]'
-                        : ''
-                    }`}
+                    className="reservoir-subtitle mb-3 overflow-hidden truncate px-4 pt-4 dark:text-white lg:pt-3"
+                    title={token?.name || token?.tokenId}
                   >
-                    <div
-                      className="reservoir-subtitle mb-3 overflow-hidden truncate px-4 pt-4 dark:text-white lg:pt-3"
-                      title={token?.name || token?.tokenId}
-                    >
-                      {token?.name || `#${token?.tokenId}`}
-                    </div>
-                    <div className="flex items-center justify-between px-4 pb-4 lg:pb-3">
-                      {token?.floorAsk?.price !== null ? (
-                        <>
-                          <div className="reservoir-h6">
-                            <FormatCrypto
-                              amount={token?.floorAsk?.price?.amount?.decimal}
-                              address={
-                                token?.floorAsk?.price?.currency?.contract
-                              }
-                              decimals={
-                                token.floorAsk?.price?.currency?.decimals
-                              }
-                              maximumFractionDigits={2}
-                            />
-                          </div>
-                          <div className="text-right">
-                            {token?.floorAsk?.source && (
-                              <img
-                                className="h-6 w-6"
-                                src={
-                                  reservoirClient?.source &&
-                                  reservoirClient.source ===
-                                    token.floorAsk.source.domain &&
-                                  SOURCE_ICON
-                                    ? SOURCE_ICON
-                                    : `${API_BASE}/redirect/sources/${token?.floorAsk.source.domain}/logo/v2`
-                                }
-                                alt=""
-                              />
-                            )}
-                          </div>
-                        </>
-                      ) : (
-                        <div className="h-6"></div>
-                      )}
-                    </div>
-                    {token.floorAsk?.price?.amount?.decimal != null &&
-                      token.floorAsk?.price?.amount?.decimal != undefined &&
-                      !isOwner && (
-                        <div className="grid grid-cols-2">
-                          <BuyNow
-                            data={{
-                              token: tokenData,
-                            }}
-                            mutate={mutate}
-                            signer={signer}
-                            isInTheWrongNetwork={isInTheWrongNetwork}
-                            buttonClassName="btn-primary-fill reservoir-subtitle flex h-[40px] items-center justify-center whitespace-nowrap rounded-none text-white focus:ring-0"
-                          />
-                          {isInCart ? (
-                            <button
-                              onClick={() => {
-                                const newCartTokens = [...cartTokens]
-                                const index = newCartTokens.findIndex(
-                                  (newCartToken) =>
-                                    newCartToken.token.contract ===
-                                      token?.contract &&
-                                    newCartToken.token.tokenId === token.tokenId
-                                )
-                                newCartTokens.splice(index, 1)
-                                setCartTokens(newCartTokens)
-                              }}
-                              className="reservoir-subtitle flex h-[40px] items-center justify-center border-t border-neutral-300 text-[#FF3B3B] disabled:cursor-not-allowed dark:border-neutral-600 dark:text-red-300"
-                            >
-                              Remove
-                            </button>
-                          ) : (
-                            <button
-                              disabled={isInTheWrongNetwork}
-                              onClick={() => {
-                                if (
-                                  tokenData &&
-                                  tokenData.token &&
-                                  tokenData.market
-                                ) {
-                                  if (
-                                    !cartCurrency ||
-                                    tokenData.market.floorAsk?.price?.currency
-                                      ?.contract === cartCurrency?.contract
-                                  ) {
-                                    setCartTokens([
-                                      ...cartTokens,
-                                      {
-                                        token: tokenData.token,
-                                        market: tokenData.market,
-                                      },
-                                    ])
-                                  } else {
-                                    setCartToSwap([
-                                      {
-                                        token: tokenData.token,
-                                        market: tokenData.market,
-                                      },
-                                    ])
-                                    setClearCartOpen(true)
-                                  }
-                                }
-                              }}
-                              className="reservoir-subtitle flex h-[40px] items-center justify-center border-t border-neutral-300 disabled:cursor-not-allowed dark:border-neutral-600"
-                            >
-                              Add to Cart
-                            </button>
-                          )}
-                        </div>
-                      )}
+                    {token?.name || `#${token?.tokenId}`}
                   </div>
+                  <div className="flex items-center justify-between px-4 pb-4 lg:pb-3">
+                    <div className="reservoir-h6">
+                      <FormatEth amount={token?.floorAskPrice} logoWidth={7} />
+                    </div>
+                    <div className="text-right">
+                      {token?.source && (
+                        <img
+                          className="h-6 w-6"
+                          src={
+                            reservoirClient?.source &&
+                            token?.sourceDomain &&
+                            reservoirClient?.source === token.sourceDomain &&
+                            SOURCE_ICON
+                              ? SOURCE_ICON
+                              : `${API_BASE}/redirect/sources/${token?.sourceDomain}/logo/v2`
+                          }
+                          alt=""
+                        />
+                      )}
+                    </div>
+                  </div>
+                  {token.floorAskPrice != null &&
+                    token.floorAskPrice != undefined && (
+                      <div className="grid grid-cols-2">
+                        {token &&
+                          token.owner?.toLowerCase() !==
+                            account?.address?.toLowerCase() && (
+                            <BuyNow
+                              data={{
+                                token: token,
+                              }}
+                              mutate={mutate}
+                              signer={signer}
+                              isInTheWrongNetwork={isInTheWrongNetwork}
+                              buttonClassName="btn-primary-fill reservoir-subtitle flex h-[40px] items-center justify-center whitespace-nowrap rounded-none text-white focus:ring-0"
+                            />
+                          )}
+                        {isInCart ? (
+                          <button
+                            onClick={() => {
+                              const newCartTokens = [...cartTokens]
+                              const index = newCartTokens.findIndex(
+                                ({ contract, tokenId }) =>
+                                  contract === token?.contract &&
+                                  tokenId === token.tokenId
+                              )
+                              newCartTokens.splice(index, 1)
+                              setCartTokens(newCartTokens)
+                            }}
+                            className="reservoir-subtitle flex h-[40px] items-center justify-center border-t border-neutral-300 text-[#FF3B3B] disabled:cursor-not-allowed dark:border-neutral-600 dark:text-red-300"
+                          >
+                            Remove
+                          </button>
+                        ) : (
+                          <button
+                            disabled={isInTheWrongNetwork}
+                            onClick={() => {
+                              setCartTokens([...cartTokens, token])
+                            }}
+                            className="reservoir-subtitle flex h-[40px] items-center justify-center border-t border-neutral-300 disabled:cursor-not-allowed dark:border-neutral-600"
+                          >
+                            Add to Cart
+                          </button>
+                        )}
+                      </div>
+                    )}
                 </div>
+<<<<<<< HEAD
 >>>>>>> d73def8 (initial commit)
+=======
+              </div>
+            )
+          })}
+      {!didReachEnd &&
+        Array(10)
+          .fill(null)
+          .map((_, index) => {
+            if (index === 0) {
+              return (
+                <LoadingCard viewRef={viewRef} key={`loading-card-${index}`} />
+>>>>>>> 79e0b24 (Update look and feel)
               )
-            })}
-        {!didReachEnd &&
-          Array(10)
-            .fill(null)
-            .map((_, index) => {
-              if (index === 0) {
-                return (
-                  <LoadingCard
-                    viewRef={viewRef}
-                    key={`loading-card-${index}`}
-                  />
-                )
-              }
-              return <LoadingCard key={`loading-card-${index}`} />
-            })}
-      </Masonry>
-    </>
+            }
+            return <LoadingCard key={`loading-card-${index}`} />
+          })}
+    </Masonry>
   )
 }
 

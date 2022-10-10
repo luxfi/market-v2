@@ -1,8 +1,13 @@
 import { FC } from 'react'
 import Link from 'next/link'
 import { optimizeImage } from 'lib/optmizeImage'
+<<<<<<< HEAD
 import FormatNativeCrypto from 'components/FormatNativeCrypto'
 import usePaginatedCollections from 'hooks/usePaginatedCollections'
+=======
+import FormatEth from 'components/FormatEth'
+import useCollections from 'hooks/useCollections'
+>>>>>>> 96757b6 (Update look and feel)
 import { paths } from '@reservoir0x/reservoir-kit-client'
 import { formatNumber } from 'lib/numbers'
 import { useRouter } from 'next/router'
@@ -15,7 +20,7 @@ const FOOTER_ENABLED = process.env.NEXT_PUBLIC_FOOTER_ENABLED == 'true'
 
 type Props = {
   fallback: {
-    collections: paths['/collections/v5']['get']['responses']['200']['schema']
+    collections: paths['/collections/v4']['get']['responses']['200']['schema']
   }
 }
 
@@ -24,12 +29,16 @@ type Volumes = '1DayVolume' | '7DayVolume' | '30DayVolume'
 const TrendingCollectionTable: FC<Props> = ({ fallback }) => {
   const isSmallDevice = useMediaQuery('only screen and (max-width : 600px)')
   const router = useRouter()
+<<<<<<< HEAD
   const [expanded, setExpanded] = useState<boolean>(false)
 
   const { collections, ref } = usePaginatedCollections(
     router,
     fallback.collections
   )
+=======
+  const { collections, ref } = useCollections(router, fallback.collections)
+>>>>>>> 96757b6 (Update look and feel)
 
   const shouldInfiniteLoad =
     !FOOTER_ENABLED || (FOOTER_ENABLED && expanded && collections.size < 5)
@@ -192,6 +201,15 @@ const TrendingCollectionTable: FC<Props> = ({ fallback }) => {
 
 export default TrendingCollectionTable
 
+function getFloorDelta(
+  currentFloor: number | undefined,
+  previousFloor: number | undefined
+) {
+  if (!currentFloor || !previousFloor) return 0
+
+  return (currentFloor - previousFloor) / previousFloor
+}
+
 function processCollection(
   collection:
     | NonNullable<
@@ -216,7 +234,7 @@ function processCollection(
     floorSaleChange1Days: collection?.floorSaleChange?.['1day'],
     floorSaleChange7Days: collection?.floorSaleChange?.['7day'],
     floorSaleChange30Days: collection?.floorSaleChange?.['30day'],
-    floorPrice: collection?.floorAsk?.price?.amount?.native,
+    floorPrice: collection?.floorAskPrice,
     supply: collection?.tokenCount,
   }
 

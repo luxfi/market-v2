@@ -1,18 +1,25 @@
 import Layout from 'components/Layout'
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 79e0b24 (Update look and feel)
 import {
   GetStaticPaths,
   GetStaticProps,
   InferGetStaticPropsType,
   NextPage,
 } from 'next'
+<<<<<<< HEAD
 =======
 import { NextPage } from 'next'
 >>>>>>> d73def8 (initial commit)
+=======
+>>>>>>> 79e0b24 (Update look and feel)
 import { useRouter } from 'next/router'
 import { useAccount, useNetwork, useEnsName, useEnsAvatar } from 'wagmi'
 import * as Tabs from '@radix-ui/react-tabs'
 import { toggleOnItem } from 'lib/router'
+import useUserTokens from 'hooks/useUserTokens'
 import UserOffersTable from 'components/tables/UserOffersTable'
 <<<<<<< HEAD
 import UserOffersReceivedTable from 'components/tables/UserOffersReceivedTable'
@@ -35,14 +42,23 @@ import useMounted from 'hooks/useMounted'
 =======
 =======
 import useUserAsks from 'hooks/useUserAsks'
-import { useUserTokens, useBids } from '@reservoir0x/reservoir-kit-ui'
+import useUserBids from 'hooks/useUserBids'
+import { paths, setParams } from '@reservoir0x/reservoir-kit-client'
 import useSearchCommunity from 'hooks/useSearchCommunity'
 import { truncateAddress } from 'lib/truncateText'
 >>>>>>> d73def8 (initial commit)
 >>>>>>> 183137d (initial commit)
 
+// Environment variables
+// For more information about these variables
+// refer to the README.md file on this repository
+// Reference: https://nextjs.org/docs/basic-features/environment-variables#exposing-environment-variables-to-the-browser
+// REQUIRED
 const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID
-const COLLECTION = process.env.NEXT_PUBLIC_COLLECTION
+const RESERVOIR_API_KEY = process.env.RESERVOIR_API_KEY
+const RESERVOIR_API_BASE = process.env.NEXT_PUBLIC_RESERVOIR_API_BASE
+
+// OPTIONAL
 const COMMUNITY = process.env.NEXT_PUBLIC_COMMUNITY
 const COLLECTION_SET_ID = process.env.NEXT_PUBLIC_COLLECTION_SET_ID
 <<<<<<< HEAD
@@ -53,10 +69,13 @@ type Props = InferGetStaticPropsType<typeof getStaticProps>
 =======
 >>>>>>> d73def8 (initial commit)
 
+type Props = InferGetStaticPropsType<typeof getStaticProps>
+
 const metadata = {
   title: (title: string) => <title>{title}</title>,
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 const Address: NextPage<Props> = ({ address, fallback }) => {
   const isMounted = useMounted()
@@ -72,20 +91,15 @@ const Address: NextPage = () => {
   if (!address) {
     throw 'No address set'
   }
+=======
+const Address: NextPage<Props> = ({ address, fallback }) => {
+  const accountData = useAccount()
+>>>>>>> 79e0b24 (Update look and feel)
 
   const { data: ensAvatar } = useEnsAvatar({
     addressOrName: address,
   })
-
-  const { data: ensName } = useEnsName({
-    address,
-    onSettled(data, error) {
-      console.log('Settled', { data, error })
-    },
-    onError(error) {
-      console.log('Error', error)
-    },
-  })
+  const { data: ensName } = useEnsName({ address })
   const { chain: activeChain } = useNetwork()
 <<<<<<< HEAD
   const collections = useSearchCommunity()
@@ -103,22 +117,11 @@ const Address: NextPage = () => {
   }
 =======
   const { data: signer } = useSigner()
-  const userTokensParams: Parameters<typeof useUserTokens>['1'] = {
-    limit: 20,
-    includeTopBid: true,
-  }
-  if (COLLECTION_SET_ID) {
-    userTokensParams.collectionsSetId = COLLECTION_SET_ID
-  } else {
-    if (COMMUNITY) userTokensParams.community = COMMUNITY
-  }
-
-  if (COLLECTION && (!COMMUNITY || !COLLECTION_SET_ID)) {
-    userTokensParams.collection = COLLECTION
-  }
-  const userTokens = useUserTokens(address, userTokensParams)
+  const router = useRouter()
+  const userTokens = useUserTokens(address)
   const collections = useSearchCommunity()
   const listings = useUserAsks(address, collections)
+<<<<<<< HEAD
   const params: Parameters<typeof useBids>[0] = {
     status: 'active',
     maker: address,
@@ -140,6 +143,9 @@ const Address: NextPage = () => {
   }
   const bidsResponse = useBids(params)
 >>>>>>> d73def8 (initial commit)
+=======
+  const buyPositions = useUserBids([], address, collections)
+>>>>>>> 79e0b24 (Update look and feel)
 
   if (!CHAIN_ID) {
     console.debug({ CHAIN_ID })
@@ -156,20 +162,31 @@ const Address: NextPage = () => {
 
   const isInTheWrongNetwork = activeChain?.id !== +CHAIN_ID
   const isOwner = address?.toLowerCase() === accountData?.address?.toLowerCase()
-  const formattedAddress = truncateAddress(address as string)
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   let tabs = [
     { name: 'Tokens', id: 'portfolio' },
     { name: 'Listings', id: 'listings' },
   ]
 =======
+=======
+>>>>>>> 96757b6 (Update look and feel)
 <<<<<<< HEAD
   let tabs = [{ name: 'Tokens', id: 'portfolio' }]
 =======
   let tabs = [{ name: 'Portfolio', id: 'portfolio' }]
 >>>>>>> d73def8 (initial commit)
+<<<<<<< HEAD
 >>>>>>> 183137d (initial commit)
+=======
+=======
+  let tabs = [
+    { name: 'Portfolio', id: 'portfolio' },
+    // { name: 'History', id: 'history' },
+  ]
+>>>>>>> 79e0b24 (Update look and feel)
+>>>>>>> 96757b6 (Update look and feel)
 
   if (isOwner) {
     tabs = [
@@ -185,7 +202,11 @@ const Address: NextPage = () => {
       { name: 'Offers', id: 'buying' },
 >>>>>>> d73def8 (initial commit)
       { name: 'Listings', id: 'selling' },
+<<<<<<< HEAD
 >>>>>>> 183137d (initial commit)
+=======
+      // { name: 'History', id: 'history' },
+>>>>>>> 96757b6 (Update look and feel)
     ]
   }
 
@@ -203,15 +224,14 @@ const Address: NextPage = () => {
             {address && (
               <Avatar address={address} avatar={ensAvatar} size={80} />
             )}
-            <div className="ml-4 flex flex-col justify-center">
+            <div className="ml-4">
               <p className="reservoir-h6 text-xl font-semibold dark:text-white">
-                {ensName || formattedAddress}
+                {ensName || truncateAddress(address as string)}
               </p>
-              {ensName && (
-                <p className="reservoir-label text-md font-semibold opacity-60">
-                  {formattedAddress}
-                </p>
-              )}
+
+              <p className="reservoir-label text-md font-semibold opacity-60">
+                {truncateAddress(address as string)}
+              </p>
             </div>
           </div>
         </div>
@@ -246,10 +266,11 @@ const Address: NextPage = () => {
                 <UserTokensGrid fallback={fallback} owner={address || ''} />
 =======
                 <UserTokensGrid
-                  userTokens={userTokens}
+                  data={userTokens}
                   mutate={() => {
-                    userTokens.mutate()
-                    bidsResponse.mutate()
+                    buyPositions.orders.mutate()
+                    userTokens.tokens.mutate()
+                    // userActivity.transfers.mutate()
                     listings.mutate()
                   }}
                   isOwner={isOwner}
@@ -264,10 +285,12 @@ const Address: NextPage = () => {
 >>>>>>> d73def8 (initial commit)
               </div>
             </Tabs.Content>
+            <Tabs.Content value="history"></Tabs.Content>
             {isOwner && (
               <>
                 <Tabs.Content value="buying">
                   <UserOffersTable
+<<<<<<< HEAD
 <<<<<<< HEAD
                     collectionIds={collectionIds}
                     modal={{
@@ -285,11 +308,15 @@ const Address: NextPage = () => {
                       setToast,
 =======
                     data={bidsResponse}
+=======
+                    data={buyPositions}
+>>>>>>> 79e0b24 (Update look and feel)
                     mutate={() => {
-                      userTokens.mutate()
-                      bidsResponse.mutate()
+                      buyPositions.orders.mutate()
+                      userTokens.tokens.mutate()
                     }}
                     isOwner={isOwner}
+                    maker={address || ''}
                     modal={{
                       accountData,
                       isInTheWrongNetwork,
@@ -337,7 +364,7 @@ const Address: NextPage = () => {
 =======
                     data={listings}
                     mutate={() => {
-                      userTokens.mutate()
+                      userTokens.tokens.mutate()
                       listings.mutate()
                     }}
                     isOwner={isOwner}
@@ -369,6 +396,9 @@ const Address: NextPage = () => {
 
 export default Address
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 79e0b24 (Update look and feel)
 
 export const getStaticPaths: GetStaticPaths = () => {
   return {
@@ -380,7 +410,11 @@ export const getStaticPaths: GetStaticPaths = () => {
 export const getStaticProps: GetStaticProps<{
   address: string | undefined
   fallback: {
+<<<<<<< HEAD
     tokens: paths['/users/{user}/tokens/v5']['get']['responses']['200']['schema']
+=======
+    tokens: paths['/users/{user}/tokens/v3']['get']['responses']['200']['schema']
+>>>>>>> 79e0b24 (Update look and feel)
   }
 }> = async ({ params }) => {
   const options: RequestInit | undefined = {}
@@ -393,9 +427,15 @@ export const getStaticProps: GetStaticProps<{
     }
   }
 
+<<<<<<< HEAD
   const url = new URL(`${RESERVOIR_API_BASE}/users/${address}/tokens/v5`)
 
   let query: paths['/users/{user}/tokens/v5']['get']['parameters']['query'] = {
+=======
+  const url = new URL(`/users/${address}/tokens/v3`, RESERVOIR_API_BASE)
+
+  let query: paths['/users/{user}/tokens/v3']['get']['parameters']['query'] = {
+>>>>>>> 79e0b24 (Update look and feel)
     limit: 20,
     offset: 0,
   }
@@ -421,5 +461,8 @@ export const getStaticProps: GetStaticProps<{
     },
   }
 }
+<<<<<<< HEAD
 =======
 >>>>>>> d73def8 (initial commit)
+=======
+>>>>>>> 79e0b24 (Update look and feel)

@@ -1,4 +1,3 @@
-import useEnvChain from 'hooks/useEnvChain'
 import Link from 'next/link'
 import { FC } from 'react'
 
@@ -24,8 +23,11 @@ const NavbarLogo: FC<Props> = ({ variant, className }) => {
 =======
   const logo = NAVBAR_LOGO || '/reservoir.svg'
   const desktopLogo = DESKTOP_NAVBAR_LOGO || '/reservoir-desktop.svg'
+<<<<<<< HEAD
 >>>>>>> d73def8 (initial commit)
   const chain = useEnvChain()
+=======
+>>>>>>> 79e0b24 (Update look and feel)
   let logoAlt = 'Logo'
 
   if (SOURCE_NAME) {
@@ -36,6 +38,7 @@ const NavbarLogo: FC<Props> = ({ variant, className }) => {
 
   const mobileVariant = variant == 'mobile'
   const desktopVariant = variant == 'desktop'
+  const isTestNet = CHAIN_ID === '4'
 
   return (
     <Link href={NAVBAR_LOGO_LINK || '/'}>
@@ -56,7 +59,7 @@ const NavbarLogo: FC<Props> = ({ variant, className }) => {
             !variant ? 'hidden md:block' : ''
           } ${mobileVariant ? 'hidden' : ''} ${desktopVariant ? 'block' : ''}`}
         />
-        {chain?.testnet && (
+        {isTestNet && (
           <div
             className={`reservoir-tiny inline rounded-[4px] bg-[#EFC45C] p-1 py-[2px]
           ${

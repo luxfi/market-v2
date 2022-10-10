@@ -1,5 +1,6 @@
-import { ComponentProps, FC, useEffect } from 'react'
+import { ComponentProps, FC } from 'react'
 import { DateTime } from 'luxon'
+import FormatEth from 'components/FormatEth'
 import Link from 'next/link'
 import { optimizeImage } from 'lib/optmizeImage'
 import CancelOffer from 'components/CancelOffer'
@@ -9,6 +10,7 @@ import { useSigner } from 'wagmi'
 import { useAccount, useSigner } from 'wagmi'
 >>>>>>> d73def8 (initial commit)
 import Toast from 'components/Toast'
+<<<<<<< HEAD
 import FormatCrypto from 'components/FormatCrypto'
 import { useBids } from '@reservoir0x/reservoir-kit-ui'
 import { useInView } from 'react-intersection-observer'
@@ -61,10 +63,14 @@ const UserOffersTable: FC<Props> = ({ modal, collectionIds }) => {
   const isMobile = useMediaQuery('only screen and (max-width : 730px)')
 
 =======
+=======
+import useUserBids from 'hooks/useUserBids'
+>>>>>>> 79e0b24 (Update look and feel)
 
 type Props = {
-  data: ReturnType<typeof useBids>
+  data: ReturnType<typeof useUserBids>
   isOwner: boolean
+  maker: string
   mutate: () => any
   modal: {
     accountData: ReturnType<typeof useAccount>
@@ -75,6 +81,7 @@ type Props = {
   }
 }
 
+<<<<<<< HEAD
 const UserOffersTable: FC<Props> = ({ data, mutate, modal, isOwner }) => {
 >>>>>>> d73def8 (initial commit)
   const { ref, inView } = useInView()
@@ -97,6 +104,19 @@ const UserOffersTable: FC<Props> = ({ data, mutate, modal, isOwner }) => {
 =======
 >>>>>>> d73def8 (initial commit)
   if (bids.length === 0) {
+=======
+const UserOffersTable: FC<Props> = ({
+  data: { orders, ref },
+  maker,
+  mutate,
+  modal,
+  isOwner,
+}) => {
+  const { data } = orders
+  const ordersFlat = data ? data.flatMap(({ orders }) => orders) : []
+
+  if (ordersFlat.length === 0) {
+>>>>>>> 79e0b24 (Update look and feel)
     return (
       <div className="reservoir-body mt-14 grid justify-center dark:text-white">
         You have not made any offers.
@@ -272,8 +292,12 @@ const UserOffersTable: FC<Props> = ({ data, mutate, modal, isOwner }) => {
           </tr>
         </thead>
         <tbody>
+<<<<<<< HEAD
           {bids?.map((position, index, arr) => {
 >>>>>>> d73def8 (initial commit)
+=======
+          {ordersFlat?.map((position, index, arr) => {
+>>>>>>> 79e0b24 (Update look and feel)
             const {
               collectionName,
               contract,
@@ -334,7 +358,6 @@ const UserOffersTable: FC<Props> = ({ data, mutate, modal, isOwner }) => {
                           <div className="aspect-w-1 aspect-h-1 relative">
                             <img
                               src={optimizeImage(image, 35)}
-                              alt="Bid Image"
                               className="w-[35px] object-contain"
                               width="35"
                               height="35"
@@ -428,11 +451,7 @@ const UserOffersTable: FC<Props> = ({ data, mutate, modal, isOwner }) => {
                   <div className="flex items-center">
 =======
                 <td className="reservoir-body whitespace-nowrap px-6 py-4 dark:text-white">
-                  <FormatCrypto
-                    amount={price?.amount?.decimal}
-                    address={price?.currency?.contract}
-                    decimals={price?.currency?.decimals}
-                  />
+                  <FormatEth amount={price} />
                 </td>
 
                 {/* EXPIRATION */}
@@ -444,6 +463,7 @@ const UserOffersTable: FC<Props> = ({ data, mutate, modal, isOwner }) => {
 >>>>>>> d73def8 (initial commit)
                     <CancelOffer
                       data={{
+                        collectionId: modal?.collectionId,
                         id,
                         contract,
                         tokenId,
@@ -500,13 +520,16 @@ function processBid(bid: ReturnType<typeof useBids>['data']['0']) {
       tokenId = bid?.tokenSetId?.split(':')[2]
 =======
 function processPosition(
-  position: NonNullable<NonNullable<Props['data']['data']>>[0] | undefined
+  position:
+    | NonNullable<NonNullable<Props['data']['orders']['data']>[0]['orders']>[0]
+    | undefined
 ) {
   const kind = position?.metadata?.kind
   // @ts-ignore
   const key = position?.metadata?.data?.attributes?.[0]?.key
   // @ts-ignore
   const value = position?.metadata?.data?.attributes?.[0]?.value
+
   let tokenId
   let contract = position?.tokenSetId?.split(':')[1]
   let href
@@ -567,8 +590,12 @@ function processPosition(
         : DateTime.fromMillis(+`${position?.expiration}000`).toRelative(),
     id: position?.id,
     collectionName: position?.metadata?.data?.collectionName,
+<<<<<<< HEAD
     price: position?.price,
 >>>>>>> d73def8 (initial commit)
+=======
+    price: position?.value,
+>>>>>>> 79e0b24 (Update look and feel)
   }
 
   return { ...data, href }

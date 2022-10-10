@@ -1,7 +1,7 @@
 import { setParams } from '@reservoir0x/reservoir-kit-client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-const RESERVOIR_API_KEY = process.env.NEXT_PUBLIC_RESERVOIR_API_KEY
+const RESERVOIR_API_KEY = process.env.RESERVOIR_API_KEY
 const RESERVOIR_API_BASE = process.env.NEXT_PUBLIC_RESERVOIR_API_BASE
 
 // A proxy API endpoint to redirect all requests to `/api/reservoir/*` to
@@ -11,8 +11,8 @@ const RESERVOIR_API_BASE = process.env.NEXT_PUBLIC_RESERVOIR_API_BASE
 // Reservoir API key is not exposed to the client.
 
 // https://nextjs.org/docs/api-routes/dynamic-api-routes#catch-all-api-routes
-const proxy = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { query, body, method, headers: reqHeaders } = req
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+  const { query, body, method } = req
   const { slug } = query
 
   // Isolate the query object
@@ -50,20 +50,6 @@ const proxy = async (req: NextApiRequest, res: NextApiResponse) => {
       options.body = JSON.stringify(body)
     }
 
-    if (
-      reqHeaders['x-rkc-version'] &&
-      typeof reqHeaders['x-rkc-version'] === 'string'
-    ) {
-      headers.set('x-rkc-version', reqHeaders['x-rkc-version'])
-    }
-
-    if (
-      reqHeaders['x-rkui-version'] &&
-      typeof reqHeaders['x-rkui-version'] === 'string'
-    ) {
-      headers.set('x-rkui-version', reqHeaders['x-rkui-version'])
-    }
-
     options.headers = headers
 
     const response = await fetch(url.href, options)
@@ -94,5 +80,3 @@ const proxy = async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(400).json(error)
   }
 }
-
-export default proxy

@@ -1,7 +1,9 @@
 import { useMediaQuery } from '@react-hookz/web'
+import { paths } from '@reservoir0x/reservoir-kit-client'
 import { FC } from 'react'
 import { FiGlobe, FiMoreVertical, FiRefreshCcw } from 'react-icons/fi'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+<<<<<<< HEAD
 import { Collection } from 'types/reservoir'
 import { useNetwork } from 'wagmi'
 import useEnvChain from 'hooks/useEnvChain'
@@ -9,6 +11,13 @@ import useEnvChain from 'hooks/useEnvChain'
 type Props = {
   refreshCollection: (collectionId: string | undefined) => Promise<void>
   collection?: Collection
+=======
+
+type Props = {
+  collection:
+    | paths['/collection/v3']['get']['responses']['200']['schema']['collection']
+    | undefined
+>>>>>>> 96757b6 (Update look and feel)
 }
 
 const DARK_MODE = process.env.NEXT_PUBLIC_DARK_MODE
@@ -17,12 +26,19 @@ const HeroSocialLinks: FC<Props> = ({ refreshCollection, collection }) => {
   const envChain = useEnvChain()
   const isSmallDevice = useMediaQuery('only screen and (max-width : 768px)')
   const social = {
+<<<<<<< HEAD
     twitterUsername: collection?.twitterUsername,
     externalUrl: collection?.externalUrl,
     discordUrl: collection?.discordUrl,
     blockExplorerUrl: `${
       envChain?.blockExplorers?.default.url || 'https://etherscan.io'
     }/address/${collection?.id}`,
+=======
+    twitterUsername: collection?.metadata?.twitterUsername,
+    externalUrl: collection?.metadata?.externalUrl,
+    discordUrl: collection?.metadata?.discordUrl,
+    etherscanUrl: `https://etherscan.io/address/${collection?.id}`,
+>>>>>>> 96757b6 (Update look and feel)
   }
 
   if (!social.twitterUsername && !social.externalUrl && !social.discordUrl) {

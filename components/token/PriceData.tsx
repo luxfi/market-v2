@@ -1,17 +1,20 @@
+import AcceptOffer from 'components/AcceptOffer'
 import BuyNow from 'components/BuyNow'
 import CancelListing from 'components/CancelListing'
 import CancelOffer from 'components/CancelOffer'
-import {
-  ListModal,
-  BidModal,
-  useReservoirClient,
-  AcceptBidModal,
-  useTokens,
-} from '@reservoir0x/reservoir-kit-ui'
-import React, { ComponentPropsWithoutRef, FC, ReactNode, useState } from 'react'
+import { recoilTokensMap } from 'components/CartMenu'
+import FormatEth from 'components/FormatEth'
+import FormatWEth from 'components/FormatWEth'
+import { ListModal, useReservoirClient } from '@reservoir0x/reservoir-kit-ui'
+import TokenOfferModal from 'components/TokenOfferModal'
+import { recoilCartTokens } from 'components/TokensGrid'
+import useCollection from 'hooks/useCollection'
+import useDetails from 'hooks/useDetails'
+import React, { FC, ReactNode } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { useAccount, useNetwork, useSigner } from 'wagmi'
 import { setToast } from './setToast'
+<<<<<<< HEAD
 import recoilCartTokens, { getCartCurrency, getTokensMap } from 'recoil/cart'
 import FormatCrypto from 'components/FormatCrypto'
 import { Collection } from 'types/reservoir'
@@ -28,16 +31,21 @@ import { useRouter } from 'next/router'
 =======
 import ConnectWalletModal from 'components/ConnectWalletModal'
 >>>>>>> d73def8 (initial commit)
+<<<<<<< HEAD
 >>>>>>> 183137d (initial commit)
+=======
+=======
+>>>>>>> 79e0b24 (Update look and feel)
+>>>>>>> 96757b6 (Update look and feel)
 
 const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID
 const SOURCE_ID = process.env.NEXT_PUBLIC_SOURCE_ID
 const SOURCE_ICON = process.env.NEXT_PUBLIC_SOURCE_ICON
 const API_BASE =
   process.env.NEXT_PUBLIC_RESERVOIR_API_BASE || 'https://api.reservoir.tools'
-const CURRENCIES = process.env.NEXT_PUBLIC_LISTING_CURRENCIES
 
 type Props = {
+<<<<<<< HEAD
   details: ReturnType<typeof useTokens>
   collection?: Collection
   isOwner: boolean
@@ -50,18 +58,22 @@ let listingCurrencies: ListingCurrencies = undefined
 
 if (CURRENCIES) {
   listingCurrencies = JSON.parse(CURRENCIES)
+=======
+  details: ReturnType<typeof useDetails>
+  collection: ReturnType<typeof useCollection>
+>>>>>>> 96757b6 (Update look and feel)
 }
 
 const PriceData: FC<Props> = ({ details, collection, isOwner }) => {
   const router = useRouter()
   const isMounted = useMounted()
   const [cartTokens, setCartTokens] = useRecoilState(recoilCartTokens)
-  const tokensMap = useRecoilValue(getTokensMap)
-  const cartCurrency = useRecoilValue(getCartCurrency)
+  const tokensMap = useRecoilValue(recoilTokensMap)
   const accountData = useAccount()
   const { data: signer } = useSigner()
   const { chain: activeChain } = useNetwork()
   const reservoirClient = useReservoirClient()
+<<<<<<< HEAD
   const [clearCartOpen, setClearCartOpen] = useState(false)
   const [cartToSwap, setCartToSwap] = useState<undefined | typeof cartTokens>()
   const account = useAccount()
@@ -69,7 +81,10 @@ const PriceData: FC<Props> = ({ details, collection, isOwner }) => {
 
   const queryBidId = router.query.bidId as string
   const deeplinkToAcceptBid = router.query.acceptBid === 'true'
+=======
+>>>>>>> 96757b6 (Update look and feel)
 
+<<<<<<< HEAD
   const token = details.data ? details.data[0] : undefined
 
   const topBidUsdConversion = useCoinConversion(
@@ -111,6 +126,9 @@ const PriceData: FC<Props> = ({ details, collection, isOwner }) => {
     ? floorAskUsdConversion * token?.market?.floorAsk?.price?.amount?.decimal
     : null
 >>>>>>> d73def8 (initial commit)
+=======
+  const token = details.data?.tokens?.[0]
+>>>>>>> 79e0b24 (Update look and feel)
 
   const sourceName = token?.market?.floorAsk?.source?.name as string | undefined
   const sourceDomain = token?.market?.floorAsk?.source?.domain as
@@ -182,6 +200,7 @@ const PriceData: FC<Props> = ({ details, collection, isOwner }) => {
               )
             }
             price={
+<<<<<<< HEAD
               <FormatCrypto
                 amount={token?.market?.floorAsk?.price?.amount?.decimal}
                 address={token?.market?.floorAsk?.price?.currency?.contract}
@@ -191,13 +210,18 @@ const PriceData: FC<Props> = ({ details, collection, isOwner }) => {
                 maximumFractionDigits={8}
 =======
 >>>>>>> d73def8 (initial commit)
+=======
+              <FormatEth
+                amount={token?.market?.floorAsk?.price}
+                logoWidth={16}
+>>>>>>> 79e0b24 (Update look and feel)
               />
             }
-            usdPrice={floorAskUsdPrice}
           />
           <Price
             title="Top Offer"
             price={
+<<<<<<< HEAD
               <FormatCrypto
                 amount={token?.market?.topBid?.price?.amount?.decimal}
                 address={token?.market?.topBid?.price?.currency?.contract}
@@ -207,12 +231,17 @@ const PriceData: FC<Props> = ({ details, collection, isOwner }) => {
                 maximumFractionDigits={8}
 =======
 >>>>>>> d73def8 (initial commit)
+=======
+              <FormatWEth
+                amount={token?.market?.topBid?.value}
+                logoWidth={16}
+>>>>>>> 79e0b24 (Update look and feel)
               />
             }
-            usdPrice={topBidUsdPrice}
           />
         </div>
         <div className="mt-6 grid grid-cols-1 gap-3 md:grid-cols-2">
+<<<<<<< HEAD
           {account.isDisconnected ? (
 <<<<<<< HEAD
             <ConnectWalletButton className="w-full">
@@ -380,52 +409,149 @@ const PriceData: FC<Props> = ({ details, collection, isOwner }) => {
                     })
                     return
                   }
+=======
+          {isOwner && (
+            <ListModal
+              trigger={
+                token?.market?.floorAsk?.price ? (
+                  <p className="btn-primary-fill w-full dark:ring-primary-900 dark:focus:ring-4">
+                    Edit Listing
+                  </p>
+                ) : (
+                  <div className="btn-primary-fill w-full dark:ring-primary-900 dark:focus:ring-4">
+                    {token?.market?.floorAsk?.price
+                      ? 'Edit Listing'
+                      : 'List for Sale'}
+                  </div>
+                )
+              }
+              collectionId={contract}
+              tokenId={tokenId}
+              onListingComplete={() => {
+                details && details.mutate()
+              }}
+              onListingError={(err: any) => {
+                if (err?.code === 4001) {
+>>>>>>> 79e0b24 (Update look and feel)
                   setToast({
                     kind: 'error',
-                    message: 'The transaction was not completed.',
-                    title: 'Could not accept offer',
+                    message: 'You have canceled the transaction.',
+                    title: 'User canceled transaction',
                   })
-                }}
-              />
-
-              {!isOwner && (
-                <BidModal
-                  collectionId={collection?.id}
-                  tokenId={token?.token?.tokenId}
-                  trigger={
-                    <button
-                      disabled={isInTheWrongNetwork}
-                      className="btn-primary-outline w-full dark:border-neutral-600 dark:text-white dark:ring-primary-900 dark:focus:ring-4"
-                    >
-                      Make Offer
-                    </button>
-                  }
-                  onBidComplete={() => {
-                    details && details.mutate()
-                  }}
-                />
-              )}
-
-              <CancelOffer
-                data={{
-                  details,
-                }}
-                signer={signer}
-                show={isTopBidder}
-                isInTheWrongNetwork={isInTheWrongNetwork}
-                setToast={setToast}
-              />
-              <CancelListing
-                data={{
-                  details,
-                }}
-                signer={signer}
-                show={isOwner && isListed}
-                isInTheWrongNetwork={isInTheWrongNetwork}
-                setToast={setToast}
-              />
-            </>
+                  return
+                }
+                setToast({
+                  kind: 'error',
+                  message: 'The transaction was not completed.',
+                  title: 'Could not list token',
+                })
+              }}
+            />
           )}
+          {!isOwner && (
+            <BuyNow
+              buttonClassName="btn-primary-fill col-span-1"
+              data={{
+                collection: collection.data,
+                details,
+              }}
+              signer={signer}
+              isInTheWrongNetwork={isInTheWrongNetwork}
+              mutate={details.mutate}
+            />
+          )}
+          {isInCart && !isOwner && (
+            <button
+              onClick={() => {
+                const newCartTokens = [...cartTokens]
+                const index = newCartTokens.findIndex(
+                  (cartToken) =>
+                    cartToken.contract === contract &&
+                    cartToken.tokenId === tokenId
+                )
+                newCartTokens.splice(index, 1)
+                setCartTokens(newCartTokens)
+              }}
+              className="outline-none"
+            >
+              <div className="btn-primary-outline w-full text-[#FF3B3B] disabled:cursor-not-allowed dark:border-neutral-600  dark:text-red-300 dark:ring-primary-900 dark:focus:ring-4">
+                Remove
+              </div>
+            </button>
+          )}
+          {!isInCart && !isOwner && isListed && (
+            <button
+              disabled={!token?.market?.floorAsk?.price}
+              onClick={() => {
+                if (tokenId && contract) {
+                  setCartTokens([
+                    ...cartTokens,
+                    {
+                      tokenId,
+                      contract,
+                      collection: { name: token.token?.collection?.name },
+                      image: token.token?.image,
+                      floorAskPrice: token.market?.floorAsk?.price,
+                      name: token.token?.name,
+                    },
+                  ])
+                }
+              }}
+              className="outline-none"
+            >
+              <div className="btn-primary-outline w-full px-[10px] dark:border-neutral-600 dark:text-white dark:ring-primary-900  dark:focus:ring-4">
+                Add to Cart
+              </div>
+            </button>
+          )}
+          <AcceptOffer
+            data={{
+              collection: collection.data,
+              details,
+            }}
+            isInTheWrongNetwork={isInTheWrongNetwork}
+            setToast={setToast}
+            show={showAcceptOffer}
+            signer={signer}
+          />
+          {!isOwner && (
+            <TokenOfferModal
+              signer={signer}
+              data={{
+                collection: collection.data,
+                details,
+              }}
+              royalties={{
+                bps: collection.data?.collection?.royalties?.bps,
+                recipient: collection.data?.collection?.royalties?.recipient,
+              }}
+              env={{
+                chainId: +CHAIN_ID as ChainId,
+              }}
+              setToast={setToast}
+            />
+          )}
+
+          <CancelOffer
+            data={{
+              collection: collection.data,
+              details,
+            }}
+            signer={signer}
+            show={isTopBidder}
+            isInTheWrongNetwork={isInTheWrongNetwork}
+            setToast={setToast}
+          />
+          <CancelListing
+            data={{
+              collection: collection.data,
+              details,
+            }}
+            signer={signer}
+            show={isOwner && isListed}
+            isInTheWrongNetwork={isInTheWrongNetwork}
+            setToast={setToast}
+          />
         </div>
 <<<<<<< HEAD
         {isInCart && !isOwner && (
@@ -494,33 +620,22 @@ const PriceData: FC<Props> = ({ details, collection, isOwner }) => {
 =======
 >>>>>>> d73def8 (initial commit)
       </article>
-      <SwapCartModal
-        open={clearCartOpen}
-        setOpen={setClearCartOpen}
-        cart={cartToSwap}
-      />
     </div>
   )
 }
 
 export default PriceData
 
-const Price: FC<{
-  title: string
-  price: ReactNode
-  source?: ReactNode
-  usdPrice: number | null
-}> = ({ title, price, usdPrice, source }) => (
+const Price: FC<{ title: string; price: ReactNode; source?: ReactNode }> = ({
+  title,
+  price,
+  source,
+}) => (
   <div className="flex flex-col space-y-5">
     <div className="flex-grow">
       <div className="reservoir-h5 font-headings dark:text-white">{title}</div>
       {source}
     </div>
-    <div className="reservoir-h3 font-headings dark:text-white">
-      {price}
-      <div className="text-sm text-neutral-600 dark:text-neutral-300">
-        {formatDollar(usdPrice)}
-      </div>
-    </div>
+    <div className="reservoir-h3 font-headings dark:text-white">{price}</div>
   </div>
 )

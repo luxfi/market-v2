@@ -13,7 +13,7 @@
     "@google/model-viewer": "^2.0.2",
 =======
     "@react-hookz/web": "^14.2.2",
-    "@reservoir0x/reservoir-kit-ui": "0.4.2",
+    "@reservoir0x/reservoir-kit-ui": "0.1.12",
     "next": "12.1.7-canary.10",
     "next-themes": "^0.2.0",
     "react": "17.0.2",
@@ -23,6 +23,7 @@
 >>>>>>> d73def8 (initial commit)
     "@headlessui/react": "^1.5.0",
     "@radix-ui/colors": "^0.1.8",
+<<<<<<< HEAD
     "@radix-ui/react-accordion": "1.0.0",
     "@radix-ui/react-checkbox": "^1.0.1",
     "@radix-ui/react-dialog": "1.0.1-rc.2",
@@ -42,12 +43,26 @@
     "@stitches/react": "^1.2.8",
     "downshift": "^6.1.7",
 =======
+=======
+    "@radix-ui/react-accordion": "^0.1.5",
+    "@radix-ui/react-dialog": "^0.1.7",
+    "@radix-ui/react-dropdown-menu": "^0.1.6",
+    "@radix-ui/react-popover": "^0.1.6",
+    "@radix-ui/react-slider": "^0.1.4",
+    "@radix-ui/react-tabs": "^0.1.5",
+    "@radix-ui/react-toggle-group": "^0.1.4",
+    "@radix-ui/react-tooltip": "^0.1.7",
+>>>>>>> 79e0b24 (Update look and feel)
     "@ramosdiego/reservoir": "^0.0.15",
     "@ramosdiego/ui": "^0.0.10",
     "@reservoir0x/sdk": "^0.0.123",
     "@stitches/react": "^1.2.8",
+<<<<<<< HEAD
 >>>>>>> d73def8 (initial commit)
     "ethers": "^5.7.1",
+=======
+    "ethers": "^5.6.8",
+>>>>>>> 79e0b24 (Update look and feel)
     "lodash.debounce": "^4.0.8",
     "luxon": "^2.3.0",
     "match-sorter": "^6.3.1",
@@ -75,12 +90,18 @@
     "tailwindcss": "^3.0.15",
     "tailwindcss-radix": "^1.6.0",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "wagmi": "^0.6.7"
 =======
+=======
+>>>>>>> 96757b6 (Update look and feel)
     "wagmi": "^0.6.7",
 <<<<<<< HEAD
     "web3": "^1.8.0"
 =======
+=======
+    "wagmi": "^0.6.0",
+>>>>>>> 79e0b24 (Update look and feel)
     "downshift": "^6.1.7"
 >>>>>>> d73def8 (initial commit)
 >>>>>>> 183137d (initial commit)

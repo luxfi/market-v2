@@ -10,9 +10,16 @@ import FormatEth from 'components/FormatEth'
 import useAsks from 'hooks/useAsks'
 =======
 import { useListings } from '@reservoir0x/reservoir-kit-ui'
+<<<<<<< HEAD
 import FormatCrypto from '../FormatCrypto'
 >>>>>>> d73def8 (initial commit)
+<<<<<<< HEAD
 >>>>>>> 183137d (initial commit)
+=======
+=======
+import FormatEth from 'components/FormatEth'
+>>>>>>> 79e0b24 (Update look and feel)
+>>>>>>> 96757b6 (Update look and feel)
 import { truncateAddress } from 'lib/truncateText'
 import { DateTime } from 'luxon'
 import Link from 'next/link'
@@ -51,7 +58,6 @@ type Props = {
 const Listings: FC<Props> = ({ token }) => {
   const { data: listings } = useListings({
     token,
-    sortBy: 'price',
   })
 
   if (!listings || listings.length === 0) return null
@@ -102,6 +108,7 @@ const Listings: FC<Props> = ({ token }) => {
                   >
                     {/* UNIT PRICE */}
                     <td className="reservoir-h6 whitespace-nowrap px-6 py-4 font-headings dark:text-white">
+<<<<<<< HEAD
                       <FormatCrypto
                         amount={unitPrice?.amount?.decimal}
                         address={unitPrice?.currency?.contract}
@@ -111,6 +118,9 @@ const Listings: FC<Props> = ({ token }) => {
 =======
 >>>>>>> d73def8 (initial commit)
                       />
+=======
+                      <FormatEth amount={unitPrice} />
+>>>>>>> 79e0b24 (Update look and feel)
                     </td>
 
                     {/* TIME */}

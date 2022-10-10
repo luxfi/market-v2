@@ -2,19 +2,19 @@ import { styled, keyframes } from '@stitches/react'
 import * as Popover from '@radix-ui/react-popover'
 import { FC, useState } from 'react'
 import { FaShoppingCart, FaTrashAlt } from 'react-icons/fa'
+<<<<<<< HEAD
 import FormatNativeCrypto from './FormatNativeCrypto'
 import { useRecoilState, useRecoilValue } from 'recoil'
+=======
+import FormatEth from './FormatEth'
+import { useRecoilState, selector, useRecoilValue } from 'recoil'
+import { recoilCartTokens } from './TokensGrid'
+>>>>>>> 96757b6 (Update look and feel)
 import { Execute } from '@reservoir0x/reservoir-kit-client'
 import { Signer } from 'ethers'
 import { setToast } from './token/setToast'
 import { useAccount, useBalance, useSigner } from 'wagmi'
 import { useReservoirClient } from '@reservoir0x/reservoir-kit-ui'
-import cartTokensAtom, {
-  getCartCount,
-  getCartCurrency,
-  getCartTotalPrice,
-} from 'recoil/cart'
-import FormatCrypto from 'components/FormatCrypto'
 
 const slideDown = keyframes({
   '0%': { opacity: 0, transform: 'translateY(-10px)' },
@@ -34,11 +34,49 @@ const StyledContent = styled(Popover.Content, {
   '&[data-side="bottom"]': { animationName: slideDown },
 })
 
+const recoilCartCount = selector({
+  key: 'cartCount',
+  get: ({ get }) => {
+    const arr = get(recoilCartTokens)
+
+    return arr.length
+  },
+})
+
+export const recoilTokensMap = selector({
+  key: 'cartMapping',
+  get: ({ get }) => {
+    const arr = get(recoilCartTokens)
+
+    return arr.reduce<Record<string, any>>((map, token) => {
+      map[`${token.contract}:${token.tokenId}`] = true
+      return map
+    }, {})
+  },
+})
+
+const initialValue = 0
+export const recoilCartTotal = selector({
+  key: 'cartTotal',
+  get: ({ get }) => {
+    const arr = get(recoilCartTokens)
+
+    const prices = arr.map(({ floorAskPrice }) => {
+      if (!floorAskPrice) return 0
+      return floorAskPrice
+    })
+
+    return prices.reduce(
+      (prevVal, currentVal) => prevVal + currentVal,
+      initialValue
+    )
+  },
+})
+
 const CartMenu: FC = () => {
-  const cartCount = useRecoilValue(getCartCount)
-  const cartTotal = useRecoilValue(getCartTotalPrice)
-  const cartCurrency = useRecoilValue(getCartCurrency)
-  const [cartTokens, setCartTokens] = useRecoilState(cartTokensAtom)
+  const cartCount = useRecoilValue(recoilCartCount)
+  const cartTotal = useRecoilValue(recoilCartTotal)
+  const [cartTokens, setCartTokens] = useRecoilState(recoilCartTokens)
   const [_open, setOpen] = useState(false)
   const [_steps, setSteps] = useState<Execute['steps']>()
   const [waitingTx, setWaitingTx] = useState<boolean>(false)
@@ -47,7 +85,6 @@ const CartMenu: FC = () => {
   const reservoirClient = useReservoirClient()
   const { data: balance } = useBalance({
     addressOrName: address,
-    token: cartCurrency?.symbol !== 'ETH' ? cartCurrency?.contract : undefined,
   })
 
   const execute = async (signer: Signer) => {
@@ -66,7 +103,7 @@ const CartMenu: FC = () => {
     await reservoirClient.actions
       .buyToken({
         expectedPrice: cartTotal,
-        tokens: cartTokens.map((token) => token.token),
+        tokens: cartTokens,
         signer,
         onProgress: setSteps,
         options: {
@@ -139,7 +176,7 @@ const CartMenu: FC = () => {
           {cartCount > 0 && (
             <button
               onClick={() => setCartTokens([])}
-              className="text-primary-700 dark:text-white"
+              className="text-primary-700 dark:text-primary-300 dark:text-white"
             >
               Clear
             </button>
@@ -148,7 +185,7 @@ const CartMenu: FC = () => {
         <div className="mb-6 grid max-h-[300px] gap-2 overflow-auto">
           {cartTokens.map(
             (
-              { token: { collection, contract, name, image, tokenId }, market },
+              { collection, contract, name, image, floorAskPrice, tokenId },
               index
             ) => {
               return (
@@ -158,7 +195,7 @@ const CartMenu: FC = () => {
                 >
                   <div className="flex items-center gap-2">
                     <div className="h-14 w-14 overflow-hidden rounded-[4px]">
-                      <img src={image || collection?.image} alt="" />
+                      <img src={image} alt="" />
                     </div>
                     <div>
                       <div className="reservoir-subtitle">
@@ -168,11 +205,7 @@ const CartMenu: FC = () => {
                         {collection?.name}
                       </div>
                       <div className="reservoir-h6">
-                        <FormatCrypto
-                          amount={market.floorAsk?.price?.amount?.decimal}
-                          address={market.floorAsk?.price?.currency?.contract}
-                          decimals={market.floorAsk?.price?.currency?.decimals}
-                        />
+                        <FormatEth amount={floorAskPrice} logoWidth={7} />
                       </div>
                     </div>
                   </div>
@@ -194,11 +227,7 @@ const CartMenu: FC = () => {
         <div className="mb-4 flex justify-between">
           <div className="reservoir-h6">You Pay</div>
           <div className="reservoir-h6">
-            <FormatCrypto
-              amount={cartTotal}
-              address={cartCurrency?.contract}
-              decimals={cartCurrency?.decimals}
-            />
+            <FormatEth amount={cartTotal} logoWidth={7} />
           </div>
         </div>
         {balance?.formatted && +balance.formatted < cartTotal && (
@@ -206,11 +235,7 @@ const CartMenu: FC = () => {
             <span className="reservoir-headings text-[#FF6369]">
               Insufficient balance{' '}
             </span>
-            <FormatCrypto
-              amount={+balance.formatted}
-              address={cartCurrency?.contract}
-              decimals={cartCurrency?.decimals}
-            />
+            {<FormatEth amount={+balance.formatted}></FormatEth>}
           </div>
         )}
         <button

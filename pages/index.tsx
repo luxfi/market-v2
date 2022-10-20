@@ -153,9 +153,19 @@ const Home: NextPage<Props> = ({ fallback }) => {
             Trending Collections
           </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> d73def8 (initial commit)
+=======
+
+          <nft-card
+            contractAddress="0xf4910c763ed4e47a585e2d34baa9a4b611ae448c"
+            tokenId="51250856759839486109436124612722239585040863806988663268517547152527046213652"
+            network="rinkeby"
+          ></nft-card>
+          <script src="https://unpkg.com/embeddable-nfts/dist/nft-card.min.js"></script>
+>>>>>>> 8c45ba3 (hardhat test netw nfts)
           {!isSmallDevice && <SortTrendingCollections />}
         </div>
         <TrendingCollectionTable fallback={fallback} />

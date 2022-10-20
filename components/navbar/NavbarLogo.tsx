@@ -18,6 +18,7 @@ type Props = {
 
 const NavbarLogo: FC<Props> = ({ variant, className }) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
   const logo = NAVBAR_LOGO || '/vera-logo.png'
   const desktopLogo = DESKTOP_NAVBAR_LOGO || '/vera-logo-desktop.png'
 =======
@@ -28,6 +29,10 @@ const NavbarLogo: FC<Props> = ({ variant, className }) => {
   const chain = useEnvChain()
 =======
 >>>>>>> 79e0b24 (Update look and feel)
+=======
+  const logo = NAVBAR_LOGO || '/luxlogo.png'
+  const desktopLogo = DESKTOP_NAVBAR_LOGO || '/luxlogo.png'
+>>>>>>> adabfbe (navb logos)
   let logoAlt = 'Logo'
 
   if (SOURCE_NAME) {

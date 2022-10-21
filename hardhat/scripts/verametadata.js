@@ -3,7 +3,6 @@ require("dotenv").config({ path: ".env" });
 const fs = require("fs")
 const process = require("process")
 
-
 function one_lb() {
     let ONE_POUND = {
         "description": "Backed by one pound of Uranium (U3O8) from the Madison North mine.", 
@@ -43,7 +42,6 @@ function one_lb() {
     JSON.stringify(ONE_POUND)
    );
 }
-
 function ten_lb() {
     let TEN_POUND = {
         "description": "Backed by ten pounds of Uranium (U3O8) from the Madison North mine.", 
@@ -83,7 +81,6 @@ function ten_lb() {
     JSON.stringify(TEN_POUND)
    );
 }
-
 function hundred_lbs() {
     let HUNDRED_POUNDS = {
         "description": "Backed by one hundred pounds of Uranium (U3O8) from the Madison North mine.", 
@@ -123,7 +120,6 @@ function hundred_lbs() {
     JSON.stringify(HUNDRED_POUNDS)
    );
 }
-
 function thousand_lbs() {
     let THOUSAND_POUNDS = {
         "description": "Backed by one thousand pounds of Uranium (U3O8) from the Madison North mine.", 
@@ -203,16 +199,9 @@ function two_thousand_lbs() {
    );
 }
 
-
-// 2,000	1	2,000	$70,000	$70,000					
-// 100	10	1,000	$35,000	$3,500	
-// 10	100	1,000	$35,000	$350	
-// 1	1,000	1,000	$35,000	$35	
-
 async function main() {  
 
     // ONE POUND x 0 - 999
-    // 1000 
 
     for (let i = 0; i < 1000; i++) {
         console.log(`${process.cwd()}/uranium/${i}.json`);
@@ -265,6 +254,7 @@ async function main() {
     }    
 
     console.log(`${process.cwd()}/uranium/1110.json`);
+
     fs.writeFileSync(`${process.cwd()}/uranium/1110.json`,
     two_thousand_lbs(),
         {
@@ -290,3 +280,10 @@ main()
 // 100	200	20,000	$700,000	$3,500	
 // 10	2,000	20,000	$700,000	$350	
 // 1	4,000	4,000	$140,000	$35	
+
+
+//bafybeics3tb4ms3c55ditmrdisxpp7w7q4wzbsj764eibcr75ir7qpanfu
+//ipfs://bafybeics3tb4ms3c55ditmrdisxpp7w7q4wzbsj764eibcr75ir7qpanfu
+//https://nftstorage.link/ipfs/bafybeics3tb4ms3c55ditmrdisxpp7w7q4wzbsj764eibcr75ir7qpanfu
+
+//0x6d7914AF9CA056E16d50a67e0Fe9Ff818272156a

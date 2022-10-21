@@ -241,10 +241,11 @@ async function main() {
         );
     }
     
+    //THOUSAND
     for (let i = 1100; i < 1110; i++) {
         console.log(`${process.cwd()}/uranium/${i}.json`);
         fs.writeFileSync(`${process.cwd()}/uranium/${i}.json`,
-        hundred_lbs(),
+        thousand_lbs(),
             {
                 encoding: "utf8",
                 flag: "a+",

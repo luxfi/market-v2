@@ -165,14 +165,14 @@ function thousand_lbs() {
 }
 function two_thousand_lbs() {
     let TWO_THOUSAND_POUNDS = {
-        "description": "Backed by one thousand pounds of Uranium (U3O8) from the Madison North mine.", 
+        "description": "Backed by two thousand pounds of Uranium (U3O8) from the Madison North mine.", 
         "external_url": "https://lux.market", 
         "image": "https://bafkreie257sonrjtpxkyo6jymz7dfn3dytzu24bxo3nmlfwnzupkup7az4.ipfs.nftstorage.link", 
         "name": "Lux Uranium",
         "animation_url" : "https://bafybeibajrcv6iuleltwr6jnwn3ggzzyc2sonbns3gcjjvy73q2fa6lewe.ipfs.nftstorage.link",
         "attributes": [
             {
-                "Pounds": "1000"
+                "Pounds": "2000"
             },  
             {
                 "Type": "43-101 Verified"
@@ -251,8 +251,7 @@ async function main() {
             }
         );
     }
-
-
+    
     for (let i = 1100; i < 1110; i++) {
         console.log(`${process.cwd()}/uranium/${i}.json`);
         fs.writeFileSync(`${process.cwd()}/uranium/${i}.json`,
@@ -264,6 +263,17 @@ async function main() {
             }
         );
     }    
+
+    console.log(`${process.cwd()}/uranium/1110.json`);
+    fs.writeFileSync(`${process.cwd()}/uranium/1110.json`,
+    two_thousand_lbs(),
+        {
+            encoding: "utf8",
+            flag: "a+",
+            mode: 0o666
+        }
+    );
+
 }
 
 main()
@@ -272,8 +282,6 @@ main()
     console.error(error);
     process.exit(1);
 });
-
-
 
 
 // 20,000	1	20,000	$700,000	$700,000	

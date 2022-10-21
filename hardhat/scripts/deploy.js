@@ -7,10 +7,14 @@ async function main() {
 
   const metadataURL =
 <<<<<<< HEAD
+<<<<<<< HEAD
     'https://gateway.pinata.cloud/ipfs/QmQgQXFmpMNLZrqvxD7KZS6wqxKaKvjrRyRP1TX73biQYA/'
 =======
     "https://nftstorage.link/ipfs/bafybeics3tb4ms3c55ditmrdisxpp7w7q4wzbsj764eibcr75ir7qpanfu";
 >>>>>>> 2421992 (nft)
+=======
+    "https://nftstorage.link/ipfs/bafybeih3ahotlfnmvar4cfzureqduoum2aube2wyxj2ohupktgh5ctgry4";
+>>>>>>> f2a50e0 (uranium)
   /*
   A ContractFactory in ethers.js is an abstraction used to deploy new smart contracts,
   so luxNftstest here is a factory for instances of our LW3Punks contract.

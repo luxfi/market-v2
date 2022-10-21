@@ -3,37 +3,47 @@ require("dotenv").config({ path: ".env" });
 const fs = require("fs")
 const process = require("process")
 
-function one_lb() {
+function one_lb(tokenId) {
     let ONE_POUND = {
         "description": "Backed by one pound of Uranium (U3O8) from the Madison North mine.", 
+        "tokenId": tokenId,
         "external_url": "https://lux.market", 
         "image": "https://bafkreie257sonrjtpxkyo6jymz7dfn3dytzu24bxo3nmlfwnzupkup7az4.ipfs.nftstorage.link", 
         "name": "Lux Uranium",
         "animation_url" : "https://bafybeibajrcv6iuleltwr6jnwn3ggzzyc2sonbns3gcjjvy73q2fa6lewe.ipfs.nftstorage.link",
         "attributes": [
             {
-                "Pounds": "1"
+                "trait_type" : "Pounds",
+                "value" : 1
             },  
             {
-                "Type": "43-101 Verified"
+                "trait_type" : "Type",
+                "value" : "43-101 Verified"
             },
             {
-                "Location" : "Madison North, Rössing Formation, Namibia"
+                "trait_type" : "Location",
+                "value" : "Madison North, Rössing Formation, Namibia"
             },
             {
-                "Issuer": "Madison Metals"
+                "trait_type" : "Issuer",
+                "value": "Madison Metals"
             },
             {
-                "Auditor" : "SRK Consulting (UK) Limite"
+                "trait_type" : "Auditor",
+                "value": "SRK Consulting (UK) Limited"
             },
             {
-                "Resource Estimate" : "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/43101.pdf",
+                "trait_type" : "Resource Estimate",
+                "value" : "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/43101.pdf",
+            },
+
+            {
+                "trait_type" : "Tokenization Agreement",
+                "value": "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/agreement.pdf"
             },
             {
-                "Tokenization Agreement" : "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/agreement.pdf"
-            },
-            {
-                "Abstract" : "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/whitepaper.pdf"
+                "trait_type" : "Abstract",
+                "value" : "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/whitepaper.pdf"
             },
         ], 
     }
@@ -42,37 +52,47 @@ function one_lb() {
     JSON.stringify(ONE_POUND)
    );
 }
-function ten_lb() {
+function ten_lb(tokenId) {
     let TEN_POUND = {
         "description": "Backed by ten pounds of Uranium (U3O8) from the Madison North mine.", 
+        "tokenId": tokenId,
         "external_url": "https://lux.market", 
         "image": "https://bafkreie257sonrjtpxkyo6jymz7dfn3dytzu24bxo3nmlfwnzupkup7az4.ipfs.nftstorage.link", 
         "name": "Lux Uranium",
         "animation_url" : "https://bafybeibajrcv6iuleltwr6jnwn3ggzzyc2sonbns3gcjjvy73q2fa6lewe.ipfs.nftstorage.link",
         "attributes": [
             {
-                "Pounds": "10"
+                "trait_type" : "Pounds",
+                "value" : 10
             },  
             {
-                "Type": "43-101 Verified"
+                "trait_type" : "Type",
+                "value" : "43-101 Verified"
             },
             {
-                "Location" : "Madison North, Rössing Formation, Namibia"
+                "trait_type" : "Location",
+                "value" : "Madison North, Rössing Formation, Namibia"
             },
             {
-                "Issuer": "Madison Metals"
+                "trait_type" : "Issuer",
+                "value": "Madison Metals"
             },
             {
-                "Auditor" : "SRK Consulting (UK) Limite"
+                "trait_type" : "Auditor",
+                "value": "SRK Consulting (UK) Limited"
             },
             {
-                "Resource Estimate" : "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/43101.pdf",
+                "trait_type" : "Resource Estimate",
+                "value" : "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/43101.pdf",
+            },
+
+            {
+                "trait_type" : "Tokenization Agreement",
+                "value": "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/agreement.pdf"
             },
             {
-                "Tokenization Agreement" : "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/agreement.pdf"
-            },
-            {
-                "Abstract" : "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/whitepaper.pdf"
+                "trait_type" : "Abstract",
+                "value" : "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/whitepaper.pdf"
             },
         ], 
     }
@@ -81,37 +101,48 @@ function ten_lb() {
     JSON.stringify(TEN_POUND)
    );
 }
-function hundred_lbs() {
+
+function hundred_lbs(tokenId) {
     let HUNDRED_POUNDS = {
         "description": "Backed by one hundred pounds of Uranium (U3O8) from the Madison North mine.", 
+        "tokenId": tokenId,
         "external_url": "https://lux.market", 
         "image": "https://bafkreie257sonrjtpxkyo6jymz7dfn3dytzu24bxo3nmlfwnzupkup7az4.ipfs.nftstorage.link", 
         "name": "Lux Uranium",
         "animation_url" : "https://bafybeibajrcv6iuleltwr6jnwn3ggzzyc2sonbns3gcjjvy73q2fa6lewe.ipfs.nftstorage.link",
         "attributes": [
             {
-                "Pounds": "100"
+                "trait_type" : "Pounds",
+                "value" : 100
             },  
             {
-                "Type": "43-101 Verified"
+                "trait_type" : "Type",
+                "value" : "43-101 Verified"
             },
             {
-                "Location" : "Madison North, Rössing Formation, Namibia"
+                "trait_type" : "Location",
+                "value" : "Madison North, Rössing Formation, Namibia"
             },
             {
-                "Issuer": "Madison Metals"
+                "trait_type" : "Issuer",
+                "value": "Madison Metals"
             },
             {
-                "Auditor" : "SRK Consulting (UK) Limite"
+                "trait_type" : "Auditor",
+                "value": "SRK Consulting (UK) Limited"
             },
             {
-                "Resource Estimate" : "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/43101.pdf",
+                "trait_type" : "Resource Estimate",
+                "value" : "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/43101.pdf",
+            },
+
+            {
+                "trait_type" : "Tokenization Agreement",
+                "value": "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/agreement.pdf"
             },
             {
-                "Tokenization Agreement" : "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/agreement.pdf"
-            },
-            {
-                "Abstract" : "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/whitepaper.pdf"
+                "trait_type" : "Abstract",
+                "value" : "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/whitepaper.pdf"
             },
         ], 
     }
@@ -120,37 +151,47 @@ function hundred_lbs() {
     JSON.stringify(HUNDRED_POUNDS)
    );
 }
-function thousand_lbs() {
+function thousand_lbs(tokenId) {
     let THOUSAND_POUNDS = {
         "description": "Backed by one thousand pounds of Uranium (U3O8) from the Madison North mine.", 
+        "tokenId": tokenId,
         "external_url": "https://lux.market", 
         "image": "https://bafkreie257sonrjtpxkyo6jymz7dfn3dytzu24bxo3nmlfwnzupkup7az4.ipfs.nftstorage.link", 
         "name": "Lux Uranium",
         "animation_url" : "https://bafybeibajrcv6iuleltwr6jnwn3ggzzyc2sonbns3gcjjvy73q2fa6lewe.ipfs.nftstorage.link",
         "attributes": [
             {
-                "Pounds": "1000"
+                "trait_type" : "Pounds",
+                "value" : 1000
             },  
             {
-                "Type": "43-101 Verified"
+                "trait_type" : "Type",
+                "value" : "43-101 Verified"
             },
             {
-                "Location" : "Madison North, Rössing Formation, Namibia"
+                "trait_type" : "Location",
+                "value" : "Madison North, Rössing Formation, Namibia"
             },
             {
-                "Issuer": "Madison Metals"
+                "trait_type" : "Issuer",
+                "value": "Madison Metals"
             },
             {
-                "Auditor" : "SRK Consulting (UK) Limite"
+                "trait_type" : "Auditor",
+                "value": "SRK Consulting (UK) Limited"
             },
             {
-                "Resource Estimate" : "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/43101.pdf",
+                "trait_type" : "Resource Estimate",
+                "value" : "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/43101.pdf",
+            },
+
+            {
+                "trait_type" : "Tokenization Agreement",
+                "value": "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/agreement.pdf"
             },
             {
-                "Tokenization Agreement" : "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/agreement.pdf"
-            },
-            {
-                "Abstract" : "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/whitepaper.pdf"
+                "trait_type" : "Abstract",
+                "value" : "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/whitepaper.pdf"
             },
         ], 
     }
@@ -159,37 +200,47 @@ function thousand_lbs() {
     JSON.stringify(THOUSAND_POUNDS)
    );
 }
-function two_thousand_lbs() {
+function two_thousand_lbs(tokenId) {
     let TWO_THOUSAND_POUNDS = {
         "description": "Backed by two thousand pounds of Uranium (U3O8) from the Madison North mine.", 
+        "tokenId": tokenId,
         "external_url": "https://lux.market", 
         "image": "https://bafkreie257sonrjtpxkyo6jymz7dfn3dytzu24bxo3nmlfwnzupkup7az4.ipfs.nftstorage.link", 
         "name": "Lux Uranium",
         "animation_url" : "https://bafybeibajrcv6iuleltwr6jnwn3ggzzyc2sonbns3gcjjvy73q2fa6lewe.ipfs.nftstorage.link",
         "attributes": [
             {
-                "Pounds": "2000"
+                "trait_type" : "Pounds",
+                "value" : 2000
             },  
             {
-                "Type": "43-101 Verified"
+                "trait_type" : "Type",
+                "value" : "43-101 Verified"
             },
             {
-                "Location" : "Madison North, Rössing Formation, Namibia"
+                "trait_type" : "Location",
+                "value" : "Madison North, Rössing Formation, Namibia"
             },
             {
-                "Issuer": "Madison Metals"
+                "trait_type" : "Issuer",
+                "value": "Madison Metals"
             },
             {
-                "Auditor" : "SRK Consulting (UK) Limite"
+                "trait_type" : "Auditor",
+                "value": "SRK Consulting (UK) Limited"
             },
             {
-                "Resource Estimate" : "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/43101.pdf",
+                "trait_type" : "Resource Estimate",
+                "value" : "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/43101.pdf",
+            },
+
+            {
+                "trait_type" : "Tokenization Agreement",
+                "value": "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/agreement.pdf"
             },
             {
-                "Tokenization Agreement" : "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/agreement.pdf"
-            },
-            {
-                "Abstract" : "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/whitepaper.pdf"
+                "trait_type" : "Abstract",
+                "value" : "https://bafybeihqg7al5dbhk3kuuecxpedmpb5z6x5epnwuqgmb3i7lb6lhi5qx2e.ipfs.nftstorage.link/whitepaper.pdf"
             },
         ], 
     }
@@ -206,7 +257,7 @@ async function main() {
     for (let i = 0; i < 1000; i++) {
         console.log(`${process.cwd()}/uranium/${i}.json`);
         fs.writeFileSync(`${process.cwd()}/uranium/${i}.json`,
-            one_lb(),
+            one_lb(i),
             {
                 encoding: "utf8",
                 flag: "a+",
@@ -219,7 +270,7 @@ async function main() {
     for (let i = 1000; i < 1100; i++) {
         console.log(`${process.cwd()}/uranium/${i}.json`);
         fs.writeFileSync(`${process.cwd()}/uranium/${i}.json`,
-            ten_lb(),
+            ten_lb(i),
             {
                 encoding: "utf8",
                 flag: "a+",
@@ -232,7 +283,7 @@ async function main() {
     for (let i = 1100; i < 1110; i++) {
         console.log(`${process.cwd()}/uranium/${i}.json`);
         fs.writeFileSync(`${process.cwd()}/uranium/${i}.json`,
-        hundred_lbs(),
+        hundred_lbs(i),
             {
                 encoding: "utf8",
                 flag: "a+",
@@ -245,7 +296,7 @@ async function main() {
     for (let i = 1100; i < 1110; i++) {
         console.log(`${process.cwd()}/uranium/${i}.json`);
         fs.writeFileSync(`${process.cwd()}/uranium/${i}.json`,
-        thousand_lbs(),
+        thousand_lbs(i),
             {
                 encoding: "utf8",
                 flag: "a+",
@@ -257,7 +308,7 @@ async function main() {
     console.log(`${process.cwd()}/uranium/1110.json`);
 
     fs.writeFileSync(`${process.cwd()}/uranium/1110.json`,
-    two_thousand_lbs(),
+    two_thousand_lbs(1110),
         {
             encoding: "utf8",
             flag: "a+",

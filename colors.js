@@ -154,6 +154,7 @@ const primaryColors = {
     900: '#111827',
   },
   default: {
+<<<<<<< HEAD
     100: '#F1E5FF',
     300: '#E2CCFF',
     500: '#A966FF',
@@ -164,6 +165,13 @@ const primaryColors = {
     700: '#7000FF',
     900: '#430099',
 >>>>>>> d73def8 (initial commit)
+=======
+    100: '#f3f4f6',
+    300: '#d1d5db',
+    500: '#6b7280',
+    700: '#374151',
+    900: '#111827',
+>>>>>>> 947dedb (theme colors test smartcontract)
   },
 }
 

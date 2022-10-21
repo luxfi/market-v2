@@ -3,13 +3,13 @@
   "symbol": "U",
   "description": "Backed by one thousand pounds of Uranium (U3O8) from the Madison North mine.",
   "seller_fee_basis_points": 500,
-  "image": "",
+  "image": "https://gateway.pinata.cloud/ipfs/QmWpH7DqMc8VNoGfvQD4PK39ctyTYk6pQgNSg5XVTfrg49",
   "external_url": "https://lux.market",
   "edition": "Genesis",
   "attributes": [
     {
       "trait_type": "Pounds",
-      "value": "1000"
+      "value": "2000"
     },
     {
       "trait_type": "Type",

@@ -3,8 +3,14 @@ require('dotenv').config({ path: '.env' })
 
 async function main() {
   // URL from where we can extract the metadata for a LW3Punks
+
+
   const metadataURL =
+<<<<<<< HEAD
     'https://gateway.pinata.cloud/ipfs/QmQgQXFmpMNLZrqvxD7KZS6wqxKaKvjrRyRP1TX73biQYA/'
+=======
+    "https://nftstorage.link/ipfs/bafybeics3tb4ms3c55ditmrdisxpp7w7q4wzbsj764eibcr75ir7qpanfu";
+>>>>>>> 2421992 (nft)
   /*
   A ContractFactory in ethers.js is an abstraction used to deploy new smart contracts,
   so luxNftstest here is a factory for instances of our LW3Punks contract.

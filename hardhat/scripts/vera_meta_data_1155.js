@@ -6,6 +6,7 @@ const process = require("process")
 function one_lb(tokenId) {
 
     let ONE_POUND ={
+        "tokenId" : tokenId,
         "name": "LUX Uranium",
         "symbol": "U",
         "description": "Backed by one pound of Uranium (U3O8) from the Madison North mine.",
@@ -60,6 +61,7 @@ function one_lb(tokenId) {
 function ten_lb(tokenId) {
     let TEN_POUNDS ={
         "name": "LUX Uranium",
+        "tokenId" : tokenId,
         "symbol": "U",
         "description": "Backed by ten pounds of Uranium (U3O8) from the Madison North mine.",
         "seller_fee_basis_points": 500,
@@ -269,14 +271,19 @@ function two_thousand_lbs(tokenId) {
    );
 }
 
+function toHex(index){
+    return `${process.cwd()}/vera_mint/${ethers.utils.hexZeroPad(ethers.utils.hexlify(index), 32).toString().slice(2,)}.json`
+}
+
 
 async function main() {  
 
     // ONE POUND x 0 - 999
 
     for (let i = 0; i < 1000; i++) {
-        console.log(`${process.cwd()}/uranium/${ethers.utils.hexZeroPad(ethers.utils.hexlify(i), 32).toString().slice(2,)}.json`);
-        fs.writeFileSync(`${process.cwd()}/uranium/${ethers.utils.hexZeroPad(ethers.utils.hexlify(i), 32).toString().slice(2,)}.json`,
+        console.log(toHex(i));
+        fs.writeFileSync(
+            `${toHex(i)}`,
             one_lb(i),
             {
                 encoding: "utf8",

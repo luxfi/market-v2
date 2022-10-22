@@ -19,7 +19,7 @@ async function main() {
           value: ethers.utils.parseEther("0.001")
         }
       );
-      sleep(6000);
+      sleep(2000);
     } catch (e) {
       console.log(e);
     }

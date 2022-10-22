@@ -1,25 +1,29 @@
-const { ethers } = require("hardhat");
+const { ethers} = require("hardhat");
 require("dotenv").config({ path: ".env" });
 
+const sleep = (milliseconds) => {
+  return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
+
 async function main() {
-  // URL from where we can extract the metadata for a LW3Punks
-
-
-//   const metadataURL =
-//     "https://nftstorage.link/ipfs/bafybeih3ahotlfnmvar4cfzureqduoum2aube2wyxj2ohupktgh5ctgry4";
-  /*
-  A ContractFactory in ethers.js is an abstraction used to deploy new smart contracts,
-  so luxNftstest here is a factory for instances of our LW3Punks contract.
-  */
   const luxNftstest = await ethers.getContractFactory("LUXTokens");
+  console.log("wow");
 
-  await luxNftstest.attach(0x6d7914af9ca056e16d50a67e0fe9ff818272156a);
-
-  for (i = 0; i > 1111; i++) {
-    console.log("minting")
-    await luxNftstest.mint();
+  let contract = await luxNftstest.attach("0x256E6b3199eC11129a84c4Ae6c3704c7beC6213E");
+  
+  for (let i = 0; i < 1111; i++) {
+    try {
+      console.log(i);
+      await contract.mint(
+        {
+          value: ethers.utils.parseEther("0.001")
+        }
+      );
+      sleep(6000);
+    } catch (e) {
+      console.log(e);
+    }
   }
-
 }
 
 // Call the main function and catch if there is any error

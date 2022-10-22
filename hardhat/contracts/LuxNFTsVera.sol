@@ -20,7 +20,7 @@
         bool public _paused;
 
         // max number of LUXTokens
-        uint256 public maxTokenIds = 5;
+        uint256 public maxTokenIds = 1111;
 
         // total number of tokenIds minted
         uint256 public tokenIds;

@@ -6,7 +6,16 @@ const GROELI_PRIVATE_KEY = process.env.GROELI_PRIVATE_KEY
 const ETHERSCAN = process.env.ETHERSCAN
 
 module.exports = {
-  solidity: '0.8.4',
+  solidity: {
+    compilers: [
+      {
+        version: "0.8.4",
+      },
+      {
+        version: "0.8.7",
+      },
+    ],
+  },
   networks: {
     goerli: {
       url: ALCHEMY_API_KEY_URL,

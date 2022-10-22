@@ -42,6 +42,10 @@ function one_lb(tokenId) {
             {
             "uri": "https://bafybeibajrcv6iuleltwr6jnwn3ggzzyc2sonbns3gcjjvy73q2fa6lewe.ipfs.nftstorage.link",
             "type": "video/mp4"
+            },
+            {
+            "uri": "https://bafybeibzco6uxryk2spsz7tctrdsuc3k52uv3q2adbdg2o44lxnhd3oed4.ipfs.nftstorage.link/",
+            "type": "gltf-binary"
             }
         ],
         "creators": [

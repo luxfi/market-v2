@@ -293,55 +293,57 @@ async function main() {
         );
     }
 
-    // // TEN Pounds x 100
-    // for (let i = 1000; i < 1100; i++) {
-    //     console.log(`${process.cwd()}/uranium/${i}.json`);
-    //     fs.writeFileSync(`${process.cwd()}/uranium/${i}.json`,
-    //         ten_lb(i),
-    //         {
-    //             encoding: "utf8",
-    //             flag: "a+",
-    //             mode: 0o666
-    //         }
-    //     );
-    // }
+    // TEN Pounds x 100
+    for (let i = 1000; i < 1100; i++) {
+        console.log(toHex(i));
+        fs.writeFileSync(
+            `${toHex(i)}`,
+            ten_lb(i),
+            {
+                encoding: "utf8",
+                flag: "a+",
+                mode: 0o666
+            }
+        );
+    }
 
-    // // HUNDRED Pounds x 10
-    // for (let i = 1100; i < 1110; i++) {
-    //     console.log(`${process.cwd()}/uranium/${i}.json`);
-    //     fs.writeFileSync(`${process.cwd()}/uranium/${i}.json`,
-    //     hundred_lbs(i),
-    //         {
-    //             encoding: "utf8",
-    //             flag: "a+",
-    //             mode: 0o666
-    //         }
-    //     );
-    // }
+    // HUNDRED Pounds x 10
+    for (let i = 1100; i < 1110; i++) {
+        console.log(toHex(i));
+        fs.writeFileSync(
+        `${toHex(i)}`,
+        hundred_lbs(i),
+            {
+                encoding: "utf8",
+                flag: "a+",
+                mode: 0o666
+            }
+        );
+    }
     
-    // //THOUSAND
-    // for (let i = 1100; i < 1110; i++) {
-    //     console.log(`${process.cwd()}/uranium/${i}.json`);
-    //     fs.writeFileSync(`${process.cwd()}/uranium/${i}.json`,
-    //     thousand_lbs(i),
-    //         {
-    //             encoding: "utf8",
-    //             flag: "a+",
-    //             mode: 0o666
-    //         }
-    //     );
-    // }    
+    //THOUSAND
+    for (let i = 1100; i < 1110; i++) {
+        console.log(toHex(i));
+        fs.writeFileSync(
+        `${toHex(i)}`,
+        thousand_lbs(i),
+            {
+                encoding: "utf8",
+                flag: "a+",
+                mode: 0o666
+            }
+        );
+    }    
 
-    // console.log(`${process.cwd()}/uranium/1110.json`);
-
-    // fs.writeFileSync(`${process.cwd()}/uranium/1110.json`,
-    // two_thousand_lbs(1110),
-    //     {
-    //         encoding: "utf8",
-    //         flag: "a+",
-    //         mode: 0o666
-    //     }
-    // );
+    fs.writeFileSync(
+    `${toHex(1110)}`,
+    two_thousand_lbs(1110),
+        {
+            encoding: "utf8",
+            flag: "a+",
+            mode: 0o666
+        }
+    );
 
 }
 

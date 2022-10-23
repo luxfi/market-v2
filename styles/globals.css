@@ -4,12 +4,16 @@
 
 @layer components {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e64d8d6 (modelviecomp)
   .reservoir-h1,
   .reservoir-h2,
   .reservoir-h3,
   .reservoir-h4,
   .reservoir-h5,
   .reservoir-h6 {
+<<<<<<< HEAD
     @apply font-headings dark:text-white;
   }
   .reservoir-body,
@@ -30,18 +34,32 @@ model-viewer {
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 =======
   .reservoir-h1, .reservoir-h2, .reservoir-h3, .reservoir-h4, .reservoir-h5, .reservoir-h6 {
+=======
+>>>>>>> e64d8d6 (modelviecomp)
     @apply font-headings dark:text-white;
   }
-  .reservoir-body, .reservoir-subtitle, .reservoir-label-s,.btn-primary-outline {
-    @apply dark:text-white
+  .reservoir-body,
+  .reservoir-subtitle,
+  .reservoir-label-s,
+  .btn-primary-outline {
+    @apply dark:text-white;
   }
 }
 
-
+/* model viewer */
 model-viewer {
+<<<<<<< HEAD
   width: 100%;
   min-height: 500px;
 >>>>>>> d73def8 (initial commit)
+=======
+  width: inherit;
+  height: inherit;
+  background-color: transparent;
+  --poster-color: transparent;
+  outline: none;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+>>>>>>> e64d8d6 (modelviecomp)
 }
 
 .masonry-grid {

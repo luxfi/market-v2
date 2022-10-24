@@ -264,6 +264,7 @@ const Home: NextPage<Props> = ({ fallback, id }) => {
           {description}
           {image}
         </Head>
+
         <Hero collectionId={id} fallback={fallback} />
         <Tabs.Root
           value={router.query?.tab?.toString() || 'items'}
@@ -374,6 +375,7 @@ const Home: NextPage<Props> = ({ fallback, id }) => {
               </div>
             </>
           </Tabs.Content>
+
           <Tabs.Content
             value="activity"
             className="col-span-full mx-[25px] grid lg:col-start-2 lg:col-end-[-2]"
@@ -466,7 +468,7 @@ export const getStaticProps: GetStaticProps<{
     }
   }
 
-  const id = '0xf5853fD632755C663398ea2fF95Ac32cEF65006E'
+  const id = '0x256E6b3199eC11129a84c4Ae6c3704c7beC6213E'
 
   // COLLECTION
   const collectionUrl = new URL('/collection/v3', RESERVOIR_API_BASE)

@@ -9,6 +9,7 @@
   },
   "dependencies": {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "@datadog/browser-rum": "^4.2.0",
     "@google/model-viewer": "^2.0.2",
 =======
@@ -21,6 +22,10 @@
     "react-markdown": "^8.0.3",
     "@datadog/browser-rum": "^4.2.0",
 >>>>>>> d73def8 (initial commit)
+=======
+    "@datadog/browser-rum": "^4.2.0",
+    "@google/model-viewer": "^2.0.2",
+>>>>>>> 1fd6bd6 (modelv component)
     "@headlessui/react": "^1.5.0",
     "@radix-ui/colors": "^0.1.8",
 <<<<<<< HEAD
@@ -55,17 +60,24 @@
 >>>>>>> 79e0b24 (Update look and feel)
     "@ramosdiego/reservoir": "^0.0.15",
     "@ramosdiego/ui": "^0.0.10",
+    "@react-hookz/web": "^14.2.2",
+    "@reservoir0x/reservoir-kit-ui": "0.1.12",
     "@reservoir0x/sdk": "^0.0.123",
     "@stitches/react": "^1.2.8",
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> d73def8 (initial commit)
     "ethers": "^5.7.1",
 =======
+=======
+    "downshift": "^6.1.7",
+>>>>>>> 1fd6bd6 (modelv component)
     "ethers": "^5.6.8",
 >>>>>>> 79e0b24 (Update look and feel)
     "lodash.debounce": "^4.0.8",
     "luxon": "^2.3.0",
     "match-sorter": "^6.3.1",
+<<<<<<< HEAD
 <<<<<<< HEAD
     "next": "12.1.7-canary.10",
     "next-themes": "^0.2.0",
@@ -76,20 +88,32 @@
 =======
     "react-debounce-input": "^3.2.5",
 >>>>>>> d73def8 (initial commit)
+=======
+    "next": "12.1.7-canary.10",
+    "next-themes": "^0.2.0",
+    "react": "17.0.2",
+    "react-debounce-input": "^3.2.5",
+    "react-dom": "17.0.2",
+>>>>>>> 1fd6bd6 (modelv component)
     "react-hook-form": "^7.28.1",
     "react-hot-toast": "^2.2.0",
     "react-icons": "^4.3.1",
     "react-intersection-observer": "^8.33.1",
     "react-jazzicon": "^1.0.3",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "react-markdown": "^8.0.3",
 =======
 >>>>>>> d73def8 (initial commit)
+=======
+    "react-markdown": "^8.0.3",
+>>>>>>> 1fd6bd6 (modelv component)
     "react-masonry-css": "^1.0.16",
     "recoil": "^0.7.4",
     "swr": "^1.1.2",
     "tailwindcss": "^3.0.15",
     "tailwindcss-radix": "^1.6.0",
+<<<<<<< HEAD
 <<<<<<< HEAD
     "wagmi": "^0.6.7",
 <<<<<<< HEAD
@@ -100,6 +124,9 @@
 >>>>>>> 79e0b24 (Update look and feel)
     "downshift": "^6.1.7"
 >>>>>>> d73def8 (initial commit)
+=======
+    "wagmi": "^0.6.0"
+>>>>>>> 1fd6bd6 (modelv component)
   },
   "prettier": {
     "semi": false,

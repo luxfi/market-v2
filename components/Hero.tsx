@@ -16,6 +16,11 @@ import HeroStats from 'components/hero/HeroStats'
 import Sweep from './Sweep'
 import ReactMarkdown from 'react-markdown'
 import { useMediaQuery } from '@react-hookz/web'
+import dynamic from 'next/dynamic'
+
+const ModelViewerComp = dynamic(() => import('./ModelViewerComp'), {
+  ssr: false,
+})
 
 const envBannerImage = process.env.NEXT_PUBLIC_BANNER_IMAGE
 const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID
@@ -181,17 +186,25 @@ const Hero: FC<Props> = ({ fallback, collectionId }) => {
     <>
       <HeroBackground banner={header.banner}>
         <div className="z-10 flex w-full flex-col items-center gap-6">
+<<<<<<< HEAD
           <img
 <<<<<<< HEAD
             className={`h-20 w-20 rounded-full ${
               header.image ? 'visible' : 'hidden'
             }`}
 =======
+=======
+          {/* <img
+>>>>>>> 1fd6bd6 (modelv component)
             className="h-20 w-20 rounded-full"
 >>>>>>> d73def8 (initial commit)
             alt={`${header.name} Logo`}
             src={header.image}
-          />
+          /> */}
+
+          <div className="h-20 w-20">
+            <ModelViewerComp></ModelViewerComp>
+          </div>
           <h1 className="reservoir-h4 text-center text-black dark:text-white">
             {header.name}
           </h1>

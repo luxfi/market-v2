@@ -187,6 +187,7 @@ const Hero: FC<Props> = ({ fallback, collectionId }) => {
       <HeroBackground banner={header.banner}>
         <div className="z-10 flex w-full flex-col items-center gap-6">
 <<<<<<< HEAD
+<<<<<<< HEAD
           <img
 <<<<<<< HEAD
             className={`h-20 w-20 rounded-full ${
@@ -196,15 +197,18 @@ const Hero: FC<Props> = ({ fallback, collectionId }) => {
 =======
           {/* <img
 >>>>>>> 1fd6bd6 (modelv component)
+=======
+          <img
+>>>>>>> b327316 (modelvi)
             className="h-20 w-20 rounded-full"
 >>>>>>> d73def8 (initial commit)
             alt={`${header.name} Logo`}
             src={header.image}
-          /> */}
+          />
 
-          <div className="h-20 w-20">
+          {/* <div className="h-20 w-20">
             <ModelViewerComp></ModelViewerComp>
-          </div>
+          </div> */}
           <h1 className="reservoir-h4 text-center text-black dark:text-white">
             {header.name}
           </h1>

@@ -468,7 +468,7 @@ export const getStaticProps: GetStaticProps<{
     }
   }
 
-  const id = '0x256E6b3199eC11129a84c4Ae6c3704c7beC6213E'
+  const id = '0xf5853fD632755C663398ea2fF95Ac32cEF65006E'
 
   // COLLECTION
   const collectionUrl = new URL('/collection/v3', RESERVOIR_API_BASE)

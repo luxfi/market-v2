@@ -30,14 +30,6 @@ const TokenMedia: FC<Props> = ({ details, tokenOpenSea }) => {
 
   return (
     <div className="col-span-full md:col-span-4 lg:col-span-5 lg:col-start-2">
-      <Script
-        type="module"
-        src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
-      ></Script>
-      <Script
-        noModule
-        src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"
-      ></Script>
       {tokenOpenSea?.extension === null ? (
         <img
 >>>>>>> d73def8 (initial commit)

@@ -1,24 +1,13 @@
-<h3 align="center">Reservoir Market</h3>
+<h3 align="center">Vera Market</h3>
   <p align="center">
-An open source NFT marketplace built on Reservoir.
+An open source NFT marketplace.
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
 
-Reservoir Market is an open source marketplace that enables communities to easily launch their own NFT marketplace, accessing instant liquidity aggregated from other major marketplaces.
+Vera Market is an open source NFT marketplace.
 
-The marketplace supports 3 different modes:
-
--  Single collection (e.g.  [Crypto Coven](https://cryptocoven.reservoir.market/))
--  Multi collection community (e.g.  [BAYC](https://bayc.reservoir.market/))
--  All collections ([example](https://www.reservoir.market/))
-  
-With each deployment, communities are given full control over their marketplace from designing their look and feel to setting their own marketplace fees.
-
-We currently offer hosted and self hosted deployment options. For self hosted deployments you can simply fork this repository and follow the instructions below to configure and deploy your marketplace. For hosted deployments please submit your request and we will be in touch.
-
-[Submit your request for a Hosted Deployment here.](https://forms.gle/o6mbPJb7bwaG22pm6)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -91,17 +80,5 @@ With npm:
 This is a Next.js app that can be easily deployed using  [Vercel](https://vercel.com/). For  more information on how to deploy your Github repository with Vercel visit their [docs](https://vercel.com/docs/concepts/projects/overview).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- Contributing -->
-## Contributing
-
-If you'd like to contribute please follow the [guidelines](https://github.com/reservoirprotocol/marketplace/blob/main/CONTRIBUTING.md).
-
-<!-- CONTACT -->
-## Contact
-
-Twitter: [@reservoir0x](https://twitter.com/reservoir0x)
-Discord: [Reservoir Protocol](https://discord.gg/j5K9fESNwh)
-Project Link: [Reservoir Protocol](https://reservoirprotocol.github.io/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>

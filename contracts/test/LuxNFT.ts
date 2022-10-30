@@ -5,9 +5,9 @@ import { BigNumber, Signer } from "ethers";
 import { LuxDrop } from "../typechain-types/contracts/LuxDrop";
 import { LuxDrop__factory } from "../typechain-types/factories/contracts/LuxDrop__factory";
 
-describe ("LuxDrop", function () {
+describe ("LuxNFT", function () {
 
-    let luxDrop: LuxDrop;
+    let luxNFT: LuxNFT;
 
     let owner: Signer
     let minter: Signer
@@ -19,7 +19,7 @@ describe ("LuxDrop", function () {
     beforeEach(async () => {
         [owner, minter, bridge, amanda, ben, charlie] = await ethers.getSigners();
 
-        let luxDrop = await new LuxDrop__factory(owner).deploy(
+        let luxNFT = await new LuxDrop__factory(owner).deploy(
             owner.getAddress(),
             minter.getAddress(),
             "ipfs://somewhere/",
@@ -31,18 +31,18 @@ describe ("LuxDrop", function () {
         it('addDrop ', async function () {
 
             //mint 30 tokens 
-            await luxDrop.addDrop("http://jawn.net/whack.json", 30);
+            await luxNFT.addDrop("http://jawn.net/whack.json", 30);
 
-            let balance: BigNumber = await luxDrop.balanceOf(owner.getAddress())
+            let balance: BigNumber = await luxNFT.balanceOf(owner.getAddress())
 
             console.log(balance);
             //xsexpect(balance).to.eq(0);
 
-            // let uri = await luxDrop.tokenURI(29)
+            // let uri = await luxNFT.tokenURI(29)
 
             // console.log(uri)
             // expect(uri).to.be("tooth");
-            //console.log(luxDrop.totalSupply_);
+            //console.log(luxNFT.totalSupply_);
 
         });
     });

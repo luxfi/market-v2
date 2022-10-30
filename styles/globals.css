@@ -3,18 +3,30 @@
 @tailwind utilities;
 
 @layer components {
-  .reservoir-h1, .reservoir-h2, .reservoir-h3, .reservoir-h4, .reservoir-h5, .reservoir-h6 {
+  .reservoir-h1,
+  .reservoir-h2,
+  .reservoir-h3,
+  .reservoir-h4,
+  .reservoir-h5,
+  .reservoir-h6 {
     @apply font-headings dark:text-white;
   }
-  .reservoir-body, .reservoir-subtitle, .reservoir-label-s,.btn-primary-outline {
-    @apply dark:text-white
+  .reservoir-body,
+  .reservoir-subtitle,
+  .reservoir-label-s,
+  .btn-primary-outline {
+    @apply dark:text-white;
   }
 }
 
-
+/* model viewer */
 model-viewer {
-  width: 100%;
-  min-height: 500px;
+  width: inherit;
+  height: inherit;
+  background-color: transparent;
+  --poster-color: transparent;
+  outline: none;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
 .masonry-grid {
@@ -44,11 +56,15 @@ model-viewer {
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
-.markdown-support h1, .markdown-support h2, .markdown-support h3, .markdown-support h4, .markdown-support h5 {
+.markdown-support h1,
+.markdown-support h2,
+.markdown-support h3,
+.markdown-support h4,
+.markdown-support h5 {
   font-weight: bold;
   margin-top: 0;
   margin-bottom: 1em;

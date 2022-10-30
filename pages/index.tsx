@@ -8,6 +8,11 @@ import SortTrendingCollections from 'components/SortTrendingCollections'
 import { useMediaQuery } from '@react-hookz/web'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import dynamic from 'next/dynamic'
+
+const ModelViewComp = dynamic(() => import('../components/ModelViewComp'), {
+  ssr: false,
+})
 
 // Environment variables
 // For more information about these variables
@@ -82,14 +87,38 @@ const Home: NextPage<Props> = ({ fallback }) => {
         {description}
         {image}
       </Head>
+
       <header className="col-span-full mb-12 mt-[66px] px-4 md:mt-40 lg:px-0">
-        <h1 className="reservoir-h1 text-center dark:text-white">{tagline}</h1>
+        <h1 className="reservoir-h1 text-center dark:text-white">
+          LUX URANIUM NFT
+        </h1>
+        <p className="reservoir-h4 text-center dark:text-white">
+          Buy Uranium at over 30% off for a limited time.
+        </p>
       </header>
+
       <div className="col-span-full px-6 md:px-16">
+        <div className="min-w-screen flex min-h-screen flex-col items-center justify-center ">
+          <div className=" ">
+            <div className="mt-2 h-[400px] w-[400px]">
+              <ModelViewComp></ModelViewComp>
+            </div>
+            <h1 className="p-2 text-xl text-white">Uranium DROP</h1>
+            <div className="grid h-[100px] w-[400px] grid-cols-2 gap-4">
+              <button className="mt-2 w-full rounded-md  bg-black p-2 text-xl text-white hover:bg-white hover:text-black ">
+                Learn More
+              </button>
+              <button className="mt-2 w-full rounded-md  p-2 text-xl hover:bg-black hover:text-white ">
+                Buy Now
+              </button>
+            </div>
+          </div>
+        </div>
         <div className="mb-9 flex w-full items-center justify-between">
           <div className="reservoir-h4 dark:text-white">
             Trending Collections
           </div>
+
           {!isSmallDevice && <SortTrendingCollections />}
         </div>
         <TrendingCollectionTable fallback={fallback} />

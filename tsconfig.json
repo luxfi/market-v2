@@ -23,5 +23,5 @@
     "ui/index.js",
     "ui/buttons.js"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["contracts", "node_modules"]
 }

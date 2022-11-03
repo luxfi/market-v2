@@ -9,6 +9,7 @@ import { useMediaQuery } from '@react-hookz/web'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 
 const ModelViewComp = dynamic(() => import('../components/ModelViewComp'), {
   ssr: false,
@@ -59,6 +60,7 @@ const metadata = {
 const Home: NextPage<Props> = ({ fallback }) => {
   const isSmallDevice = useMediaQuery('only screen and (max-width : 600px)')
   const router = useRouter()
+  const tokenHref = `/collections/0x666E74369eCEC7621dA5b7336E0C5D3e5b720544/`
 
   const title = META_TITLE && metadata.title(META_TITLE)
   const description = META_DESCRIPTION && metadata.description(META_DESCRIPTION)
@@ -99,19 +101,19 @@ const Home: NextPage<Props> = ({ fallback }) => {
 
       <div className="col-span-full px-6 md:px-16">
         <div className="min-w-screen flex min-h-screen flex-col items-center justify-center ">
-          <div className=" ">
-            <div className="mt-2 h-[400px] w-[400px]">
-              <ModelViewComp></ModelViewComp>
-            </div>
-            <h1 className="p-2 text-xl text-white">Uranium DROP</h1>
-            <div className="grid h-[100px] w-[400px] grid-cols-2 gap-4">
-              <button className="mt-2 w-full rounded-md  bg-black p-2 text-xl text-white hover:bg-white hover:text-black ">
-                Learn More
-              </button>
-              <button className="mt-2 w-full rounded-md  p-2 text-xl hover:bg-black hover:text-white ">
+          <div className="mt-2 h-[300px] w-[250px] md:h-[400px] md:w-[400px]">
+            <ModelViewComp></ModelViewComp>
+          </div>
+          <h1 className="p-2 text-xl text-white">Uranium DROP</h1>
+          <div className="grid h-[100px] w-[400px] grid-cols-2 gap-4">
+            <button className="mt-2 h-[50px] w-full rounded-md bg-black  p-2 text-xl text-white    ">
+              Learn More
+            </button>
+            <Link href={tokenHref}>
+              <button className="mt-2 h-[50px] w-full rounded-md bg-black  p-2 text-xl text-white    ">
                 Buy Now
               </button>
-            </div>
+            </Link>
           </div>
         </div>
         <div className="mb-9 flex w-full items-center justify-between">

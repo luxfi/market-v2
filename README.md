@@ -8,6 +8,18 @@ An open source NFT marketplace.
 
 Vera Market is an open source NFT marketplace.
 
+CID 
+
+bafybeihpzncecide2ymairuiylbb4dw664s33q625oojivyacyuhdsck7m
+
+IPFS URL 
+
+ipfs://bafybeihpzncecide2ymairuiylbb4dw664s33q625oojivyacyuhdsck7m
+
+Gateway URL 
+
+https://nftstorage.link/ipfs/bafybeihpzncecide2ymairuiylbb4dw664s33q625oojivyacyuhdsck7m
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

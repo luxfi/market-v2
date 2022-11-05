@@ -9,6 +9,10 @@ require("dotenv").config({ path: ".env" });
 
 const NFT_STORAGE_KEY = process.env.NFT_STORAGE_KEY;
 
+//new traits
+//https://bafybeihs6bkgfwjlhk75wzopwf3bzzydsrh3uxh3czrdkyjvv7sbe5exeu.ipfs.nftstorage.link/
+//https://bafybeifyp2l3tyay5nrn7hrv624wyswkpu7h6sf5e7hlej27u4eri557oq.ipfs.nftstorage.link/
+
 function one_lb(tokenId: number) {
 
     let ONE_POUND ={

@@ -111,15 +111,15 @@ async function mint_nfts(start_id: number, end_id: number, poundage: number, des
 
 async function render_pdf(tokenId: number, poundage: number) {
 
-        let doc = new PDFDocument({
-            pdfVersion: '1.5',
-            lang: 'en-US',
-            tagged: true,
-            displayTitle: true
-          });
+        // let doc = new PDFDocument({
+        //     pdfVersion: '1.5',
+        //     lang: 'en-US',
+        //     tagged: true,
+        //     displayTitle: true
+        //   });
 
 
-        doc.pipe(fs.createWriteStream('kitchen-sink-accessible.pdf'));
+        // doc.pipe(fs.createWriteStream('kitchen-sink-accessible.pdf'));
 
           
 }

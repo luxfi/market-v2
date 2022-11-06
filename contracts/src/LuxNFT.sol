@@ -92,12 +92,12 @@ contract LuxNFT is ERC721A, Ownable, ReentrancyGuard {
         address _beneficiary,
         string memory _initBaseURI, 
         bytes32 _root
-        ) ERC721A("MyToken", "MT") {
+        ) ERC721A("LUX Uranium", "LUXU") {
         beneficiary = _beneficiary;
         royalties = _royalties;
         setBaseURI(_initBaseURI);
         root = _root;
-        //ownerMint(msg.sender, 10); 
+        ownerMint(msg.sender, 1110); //mint for the amount of nfts
     }
 
     // Accessors
@@ -148,10 +148,8 @@ contract LuxNFT is ERC721A, Ownable, ReentrancyGuard {
         return _alreadyMinted[addr];
     }
 
-    
 
     //                                   Public Sale
-
 
     // This is the function that allows participants in the public sale to buy and mint your NFT
     function publicMint(uint256 quantity) public payable nonReentrant {

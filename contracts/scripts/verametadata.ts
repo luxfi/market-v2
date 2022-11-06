@@ -5,12 +5,13 @@ import { NFTStorage, File } from 'nft.storage';
 import mime from 'mime';
 import path from 'path';
 
+import { generate } from "@pdfme/generator/";
+
+
+
 require("dotenv").config({ path: ".env" });
 
 const NFT_STORAGE_KEY = process.env.NFT_STORAGE_KEY;
-
-//
-
 
 function meta_data( tokenId: number, 
                     desc: string, 
@@ -19,7 +20,7 @@ function meta_data( tokenId: number,
     let data = {
         "name": "LUX Uranium",
         "tokenid" : tokenId,
-        "symbol": "U",
+        "symbol": "LUXU",
         "description": desc,
         "seller_fee_basis_points": 500,
         "image": "https://bafkreie257sonrjtpxkyo6jymz7dfn3dytzu24bxo3nmlfwnzupkup7az4.ipfs.nftstorage.link",
@@ -28,7 +29,7 @@ function meta_data( tokenId: number,
         "attributes": [
         {
             "trait_type": "Pounds",
-            "value": amt_lbs
+            "value": amt_lbs.toString()
         },
         {
             "trait_type": "Type",
@@ -36,7 +37,7 @@ function meta_data( tokenId: number,
         },
         {
             "trait_type": "Location",
-            "value": "Madison North, RÃ¶ssing Formation, Namibia"
+            "value": "Madison North, Rössing Formation, Namibia"
         },
         {
             "trait_type": "Issuer",
@@ -45,6 +46,10 @@ function meta_data( tokenId: number,
         {
             "trait_type": "Auditor",
             "value": "SRK Consulting (UK) Limited"
+        },
+        {
+            "trait_type": "Compound",
+            "value": "U₃O₈"
         }
         ],
         "properties": {
@@ -99,22 +104,39 @@ async function mint_nfts(start_id: number, end_id: number, poundage: number, des
                 mode: 0o666
             }
         );
+
+        
     }
+}
+
+async function render_pdf(tokenId: number, poundage: number) {
+
+        let doc = new PDFDocument({
+            pdfVersion: '1.5',
+            lang: 'en-US',
+            tagged: true,
+            displayTitle: true
+          });
+
+
+        doc.pipe(fs.createWriteStream('kitchen-sink-accessible.pdf'));
+
+          
 }
 
 async function main() {  
 
-    // ONE POUND x 0 - 999
-    await mint_nfts(0, 1000, 1, "Backed by one pound of Uranium (U3O8) from the Madison North mine.")
+    // // ONE POUND x 0 - 999
+    // await mint_nfts(0, 1000, 1, "Backed by one pound of Uranium (U₃O₈) from the Madison North mine.")
 
-    // TEN Pounds x 100
-    await mint_nfts(1000, 1100, 10, "Backed by ten pounds of Uranium (U3O8) from the Madison North mine.")
+    // // TEN Pounds x 100
+    // await mint_nfts(1000, 1100, 10, "Backed by ten pounds of Uranium (U₃O₈) from the Madison North mine.")
 
-    // HUNDRED Pounds x 10
-    await mint_nfts(1100, 1110, 100, "Backed by one hundred pounds of Uranium (U3O8) from the Madison North mine.")
+    // // HUNDRED Pounds x 10
+    // await mint_nfts(1100, 1110, 100, "Backed by one hundred pounds of Uranium (U₃O₈) from the Madison North mine.")
 
-    // TWO THOUSAND Pounds x 1???
-    await mint_nfts(1110, 1111, 2000, "Backed by 2 thousand pounds of Uranium (U3O8) from the Madison North mine.") 
+    // // TWO THOUSAND Pounds x 1???
+    // await mint_nfts(1110, 1111, 2000, "Backed by one ton of Uranium (U₃O₈) from the Madison North mine.") 
 
 }
 

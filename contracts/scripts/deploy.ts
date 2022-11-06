@@ -1,18 +1,27 @@
-import { ethers } from "hardhat";
+import '@nomiclabs/hardhat-ethers';
+// import { ethers, network } from 'hardhat';
 
+const { ethers } = require("hardhat");
+
+import { LuxNFT__factory } from "../typechain-types/factories/src/LuxNFT__factory";
+import { LuxNFT } from "../typechain-types/src/LuxNFT";
+
+ 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const ONE_YEAR_IN_SECS = 365 * 24 * 60 * 60;
-  const unlockTime = currentTimestampInSeconds + ONE_YEAR_IN_SECS;
 
-  const lockedAmount = ethers.utils.parseEther("1");
+  const [owner] = await ethers.getSigners();
+  let luxNFT : LuxNFT;
 
-  const Lock = await ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
+  let LuxNFTFactory =  new LuxNFT__factory(owner);
+  let luxnft = LuxNFTFactory.deploy(
+    owner.address, 
+    owner.address, 
+    "https://nftstorage.link/ipfs/bafybeiaegh7tescclcfr6lqxuvwj6ts7kaq354s2xrikllez4ih7idt6x4/",
+    ethers.utils.formatBytes32String("genesis")
+    );
 
-  await lock.deployed();
+    console.log((await luxnft).address)
 
-  // console.log(`Lock with 1 ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
@@ -21,3 +30,17 @@ main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
+
+
+
+// CID 
+
+// bafybeiaegh7tescclcfr6lqxuvwj6ts7kaq354s2xrikllez4ih7idt6x4
+
+// IPFS URL 
+
+// ipfs://bafybeiaegh7tescclcfr6lqxuvwj6ts7kaq354s2xrikllez4ih7idt6x4
+
+// Gateway URL 
+
+// https://nftstorage.link/ipfs/bafybeiaegh7tescclcfr6lqxuvwj6ts7kaq354s2xrikllez4ih7idt6x4

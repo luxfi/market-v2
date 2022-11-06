@@ -25,6 +25,19 @@ describe ("LuxNFT", function () {
             "ipfs://somewhere/",
             ethers.utils.formatBytes32String("merkleroot")
         );
+
+const createTestSuite = ({ contract, constructorArgs }: {contract: any; constructorArgs: any}) =>
+  async function () {
+    let offsetted: (...arr: any[]) => any;
+
+    context(`${contract}`, function () {
+      beforeEach(async function () {
+        this.LuxNFT = await deployContract(contract, constructorArgs);
+        this.receiver = await deployContract('ERC721ReceiverMock', [RECEIVER_MAGIC_VALUE, this.LuxNFT.address]);
+        this.startTokenId = this.LuxNFT.startTokenId ? (await this.LuxNFT.startTokenId()).toNumber() : 0;
+
+        offsetted = (...arr) => offsettedIndex(this.startTokenId, arr);
+      });
     });
 
     it('LUX', async function () {

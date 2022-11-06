@@ -8,6 +8,10 @@ import path from 'path';
 import { generate } from "@pdfme/generator/";
 
 
+const template = require("./template.json");
+
+
+
 
 require("dotenv").config({ path: ".env" });
 
@@ -110,21 +114,29 @@ async function mint_nfts(start_id: number, end_id: number, poundage: number, des
 }
 
 async function render_pdf(tokenId: number, poundage: number) {
-
-        // let doc = new PDFDocument({
-        //     pdfVersion: '1.5',
-        //     lang: 'en-US',
-        //     tagged: true,
-        //     displayTitle: true
-        //   });
-
-
-        // doc.pipe(fs.createWriteStream('kitchen-sink-accessible.pdf'));
-
           
 }
 
 async function main() {  
+
+    const inputs = [
+        {}
+      ];
+    const pdf = await generate({ template, inputs });
+
+    let pdfpath = `${process.cwd()}/scripts/uranium/0.pdf`;
+
+        await fs.writeFile(pdfpath,
+            pdf,
+            {
+                encoding: "utf8",
+                flag: "a+",
+                mode: 0o666
+            }
+        );
+
+
+    // fs.writeFileSync(path.join(__dirname, 'test.pdf'), pdf);
 
     // // ONE POUND x 0 - 999
     // await mint_nfts(0, 1000, 1, "Backed by one pound of Uranium (U₃O₈) from the Madison North mine.")

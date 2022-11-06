@@ -7,15 +7,22 @@ import path from 'path';
 
 import { generate } from "@pdfme/generator/";
 
-
 const template = require("./template.json");
 
-
-
+////////////////////
+// FONT
+const font = fs.readFile(path.join(__dirname, `DrukWide-Medium.ttf`), {
+  encoding: 'base64',
+});
+////////////////////
 
 require("dotenv").config({ path: ".env" });
 
+
+//////////////////////////
+// NFT Storage
 const NFT_STORAGE_KEY = process.env.NFT_STORAGE_KEY;
+//////////////////////////
 
 function meta_data( tokenId: number, 
                     desc: string, 
@@ -113,9 +120,9 @@ async function mint_nfts(start_id: number, end_id: number, poundage: number, des
     }
 }
 
-async function render_pdf(tokenId: number, poundage: number) {
+// async function render_pdf(tokenId: number, poundage: number) {
           
-}
+// }
 
 async function main() {  
 
@@ -124,16 +131,46 @@ async function main() {
       ];
     const pdf = await generate({ template, inputs });
 
-    let pdfpath = `${process.cwd()}/scripts/uranium/0.pdf`;
+    // Add the font (drukmed)
+    // Translate to center on the tables
 
-        await fs.writeFile(pdfpath,
-            pdf,
-            {
-                encoding: "utf8",
-                flag: "a+",
-                mode: 0o666
-            }
-        );
+
+            // Draw text.
+        // `y` is the baseline.
+        //
+        // `font` is an object with properties { name, width, height, dx }
+        //
+        // `name` will be the same as the font name in `measure()`.
+        //
+        // `width` and `height` are the font cell size.
+        // `dx` is extra space requested between characters (usually zero).
+        //
+        // This code ignores the inter-character spacing to keep it simple.
+        // text(x, y, str, rgb, font) {
+        //     let sx = font.width / font.height;
+        //     ctx.save();
+        //     ctx.scale(sx, 1);
+        //     ctx.font = font.height  + 'px monospace';
+        //     ctx.fillStyle = '#' + rgb;
+        //     ctx.textBaseline = 'alphabetic';
+        //     ctx.textAlign = 'left';
+        //     ctx.fillText(str, x / sx, y);
+        //     ctx.restore();
+        // },
+
+    //Token ID
+
+
+    let pdfpath = `${process.cwd()}/scripts/uranium/0.pdf`;
+      
+    await fs.writeFile(pdfpath,
+        pdf,
+        {
+            encoding: "base64",
+            flag: "a+",
+            mode: 0o666
+        }
+    );
 
 
     // fs.writeFileSync(path.join(__dirname, 'test.pdf'), pdf);

@@ -8,29 +8,13 @@ import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
+// Change "myNFT" with your NFT project name
 
-
-// user story
-// owner should append to a given collection whenever uranium is added to the dao
-// burn function? perhaps whenever uranium credits are redeemed
-// reentrancy should be prevented
-// owner should set royalty
-// owner should add benefactor
-
-contract LuxNFT is ERC721A, Ownable, ReentrancyGuard {
+contract myNFT is ERC721A, Ownable, ReentrancyGuard {
     using Strings for uint256;
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
-
- //        //  _price is the price of one LUXTokens NFT
-//         uint256 public _price = .001 ether;
-
-//         // _paused is used to pause the contract in case of an emergency
-//         bool public _paused;
-
-//         // max number of LUXTokens
-//         uint256 public maxTokenIds = 1111;
 
     // Provenance Hash helps your customers know you aren't scamming them pre-reveal.
     // Read more here: https://medium.com/coinmonks/the-elegance-of-the-nft-provenance-hash-solution-823b39f99473
@@ -45,18 +29,36 @@ contract LuxNFT is ERC721A, Ownable, ReentrancyGuard {
     string public baseExtension = ".json";
 
     // Replace "10000" with whatever your supply is going to be.
-
-    uint256 public constant MAX_SUPPLY = 1111;
+    // change that to the specifed supply
+    // 2,000	    1	        2,000	$70,000	$70,000			
+    // 100	        10	        1,000	$35,000	$3,500
+    // 10	        100	        1,000	$35,000	$350
+    // 1        	1,000   	1,000	$35,000	$35
+    uint256 public constant ONE_POUND_SUPPLY = 1000;
+    uint256 public constant TEN_POUND_SUPPLY = 100;
+    uint256 public constant HUNDRED_POUND_SUPPLY = 10;
+    uint256 public constant TWO_THOUSAND_POUND_SUPPLY = 1;
     uint256 private _currentId;
 
+    // whitelist_LIMIT is the maximum number of tokens a whitelisted address can mint.
+    // whitelist_PRICE is the price per token during the whitelist sale.
+    // replace these with the limit and price values you would like. 
+    // when these functions are called they return the maximum number of NFTs that can be minted by one specific address during the whitelist sale and the price per NFT during the whitelist sale respectively.
+    //THIS NEEDS TO BE SPECIFIED
+    uint256 public constant whitelist_LIMIT = 1;
+    //THIS NEEDS TO BE SPECIFIED
+    uint256 public constant whitelist_PRICE = .04 ether;
 
     // public_LIMIT is the maximum number of tokens that can be minted by one address during the public sale.
     // public_PRICE is the price per token during the public sale.
     // replace these with the limit and price values you would like. 
     // when these functions are called they return the maximum number of NFTs that can be minted by one specific address during the public sale and the price per NFT during the public sale respectively.
-
+    // THIS NEEDS TO BE SPECIFIED
     uint256 public constant public_LIMIT = 5;
-    uint256 public constant public_PRICE = .001 ether;
+    uint256 public constant ONE_POUND_PRICE = .022 ether;
+    uint256 public constant TEN_POUND_PRICE = .22 ether;
+    uint256 public constant HUNDRED_POUND_PRICE = 2.2 ether;
+    uint256 public constant TWO_THOUSAND_POUND_PRICE = 44 ether;
 
     // These return whether or not the whitelist sale or public sale is active. 
     // Once the contract is deployed and you decide you want to begin the public or whitelist sale then set that respective value to true
@@ -97,7 +99,7 @@ contract LuxNFT is ERC721A, Ownable, ReentrancyGuard {
         royalties = _royalties;
         setBaseURI(_initBaseURI);
         root = _root;
-        ownerMint(msg.sender, 1110); //mint for the amount of nfts
+        //ownerMint(msg.sender, 10); 
     }
 
     // Accessors
@@ -138,6 +140,10 @@ contract LuxNFT is ERC721A, Ownable, ReentrancyGuard {
         publicIsActive = _publicIsActive;
     }
 
+    // This is the function that allows you to set whether or not the whitelist sale is active
+    function setWhitelistActive(bool _whitelistIsActive) public onlyOwner {
+        whitelistIsActive = _whitelistIsActive;
+    }
     
     // The next two functions have been more or less explained in previos comments
     function _baseURI() internal view virtual override returns (string memory) {
@@ -148,8 +154,32 @@ contract LuxNFT is ERC721A, Ownable, ReentrancyGuard {
         return _alreadyMinted[addr];
     }
 
+    //                                  Whitelist Sale
+
+
+    // This function sets the parameters to determine whether or not an address is actually on the whitelist
+    // Required in the whitelistMint function and makes sure that the address minting is in fact on the whitelist
+    function isValid(bytes32[] memory proof, bytes32 leaf) public view returns (bool) {
+        return MerkleProof.verify(proof, root, leaf);
+    }
+
+    // Allows whitelisted members to mint and prevents non-whitelisted members from minting
+    function whitelistMint(uint256 quantity, bytes32[] memory proof) public payable nonReentrant {
+        address sender = _msgSender();
+        require(isValid(proof, keccak256(abi.encodePacked(msg.sender))), "Address is not on the whitelist");
+        require(whitelistIsActive, "Sale is closed");
+        require(
+            quantity <= whitelist_LIMIT - _alreadyMinted[sender],
+            "Insufficient mints left"
+        );
+        require(msg.value == whitelist_PRICE * quantity, "Incorrect payable amount");
+
+        _alreadyMinted[sender] += quantity;
+        _internalMint(sender, quantity);
+    }
 
     //                                   Public Sale
+
 
     // This is the function that allows participants in the public sale to buy and mint your NFT
     function publicMint(uint256 quantity) public payable nonReentrant {
@@ -160,7 +190,10 @@ contract LuxNFT is ERC721A, Ownable, ReentrancyGuard {
             quantity <= public_LIMIT - _alreadyMinted[sender],
             "Insufficient mints left"
         );
-        require(msg.value == public_PRICE * quantity, "Incorrect payable amount");
+        require(msg.value == ONE_POUND_PRICE * quantity, "Incorrect payable amount");
+        require(msg.value == TEN_POUND_PRICE * quantity, "Incorrect payable amount");
+        require(msg.value == HUNDRED_POUND_PRICE * quantity, "Incorrect payable amount");
+        require(msg.value == TWO_THOUSAND_POUND_PRICE * quantity, "Incorrect payable amount");
 
         _alreadyMinted[sender] += quantity;
         _internalMint(sender, quantity);
@@ -219,7 +252,19 @@ contract LuxNFT is ERC721A, Ownable, ReentrancyGuard {
     // It is called by the public mint, whitelist mint, and owner mint functions
     function _internalMint(address to, uint256 quantity) private {
         require(
-            numberMinted(msg.sender) + quantity <= MAX_SUPPLY,
+            numberMinted(msg.sender) + quantity <= ONE_POUND_SUPPLY,
+            "can not mint this many"
+        );
+         require(
+            numberMinted(msg.sender) + quantity <= TEN_POUND_SUPPLY,
+            "can not mint this many"
+        );
+         require(
+            numberMinted(msg.sender) + quantity <= HUNDRED_POUND_SUPPLY,
+            "can not mint this many"
+        );
+         require(
+            numberMinted(msg.sender) + quantity <= TWO_THOUSAND_POUND_SUPPLY,
             "can not mint this many"
         );
     //This is the real difference between ERC721 and ERC721A. Rather than a single token being minted and the tokenID being recorded, the quantity of tokens being minted and recorded is completed in one transaction
@@ -249,5 +294,3 @@ contract LuxNFT is ERC721A, Ownable, ReentrancyGuard {
         return super.supportsInterface(interfaceId);
     }
 }
-
-

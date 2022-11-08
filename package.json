@@ -55,6 +55,7 @@
     "tailwindcss-radix": "^1.6.0",
     "wagmi": "^0.7.13",
     "web3": "^1.8.0"
+    
   },
   "prettier": {
     "semi": false,

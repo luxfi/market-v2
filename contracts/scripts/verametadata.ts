@@ -5,19 +5,34 @@ import { NFTStorage, File } from 'nft.storage';
 import mime from 'mime';
 import path from 'path';
 
-import { generate } from "@pdfme/generator/";
+import { generate, Template} from "@pdfme/generator/";
+const template = require("./pdfs/template.json");
 
-const template = require("./template.json");
+//     LUX-MM-U3O8-0000-<tokenID>
+
+// {
+//     "issuanceDate": "November 7, 2022",
+//     "tokenID": 1334,
+//     "totalSupply": "7.65 million pounds",
+//     "compound": "Uranium (U3O8)",
+//     "location": "Madison North, Namibia",
+//     "amount": "2,000 pounds",
+//     "auditor": "SRK Limited",
+//     "supplier": "Madison Metals",
+//     "spotPrice": "$50.80 USD",
+//     "valueAtSpot": "$101,600.00 USD"
+//   }
+
+
 
 ////////////////////
 // FONT
-const font = fs.readFile(path.join(__dirname, `DrukWide-Medium.ttf`), {
-  encoding: 'base64',
-});
+// const font = fs.readFile(path.join(__dirname, `DrukWide-Medium.ttf`), {
+//   encoding: 'base64',
+// });
 ////////////////////
 
 require("dotenv").config({ path: ".env" });
-
 
 //////////////////////////
 // NFT Storage
@@ -120,49 +135,35 @@ async function mint_nfts(start_id: number, end_id: number, poundage: number, des
     }
 }
 
-// async function render_pdf(tokenId: number, poundage: number) {
-          
+// async function render_pdf(tokenId: number, poundage: number) {  
 // }
+
+
 
 async function main() {  
 
     const inputs = [
-        {}
-      ];
-    const pdf = await generate({ template, inputs });
-
-    // Add the font (drukmed)
-    // Translate to center on the tables
-
-
-            // Draw text.
-        // `y` is the baseline.
-        //
-        // `font` is an object with properties { name, width, height, dx }
-        //
-        // `name` will be the same as the font name in `measure()`.
-        //
-        // `width` and `height` are the font cell size.
-        // `dx` is extra space requested between characters (usually zero).
-        //
-        // This code ignores the inter-character spacing to keep it simple.
-        // text(x, y, str, rgb, font) {
-        //     let sx = font.width / font.height;
-        //     ctx.save();
-        //     ctx.scale(sx, 1);
-        //     ctx.font = font.height  + 'px monospace';
-        //     ctx.fillStyle = '#' + rgb;
-        //     ctx.textBaseline = 'alphabetic';
-        //     ctx.textAlign = 'left';
-        //     ctx.fillText(str, x / sx, y);
-        //     ctx.restore();
-        // },
-
-    //Token ID
+        {
+            "issuanceDate": "November 7, 2022",
+            "serial_num": "LUX-MM-U3O8-0000-<tokenID>",
+            "tokenID": "1334",
+        }  
+    ];
 
 
-    let pdfpath = `${process.cwd()}/scripts/uranium/0.pdf`;
-      
+    // "totalSupply": "7.65 million pounds",
+    // "compound": "Uranium (U3O8)",
+    // "location": "Madison North, Namibia",
+    // "amount": "2,000 pounds",
+    // "auditor": "SRK Limited",
+    // "supplier": "Madison Metals",
+    // "spotPrice": "$50.80 USD",
+    // "valueAtSpot": "$101,600.00 USD"
+
+    
+    const pdf = await generate({ template, inputs });   
+    let pdfpath = `${process.cwd()}/scripts/pdfs/0.pdf`;
+  
     await fs.writeFile(pdfpath,
         pdf,
         {
@@ -171,9 +172,6 @@ async function main() {
             mode: 0o666
         }
     );
-
-
-    // fs.writeFileSync(path.join(__dirname, 'test.pdf'), pdf);
 
     // // ONE POUND x 0 - 999
     // await mint_nfts(0, 1000, 1, "Backed by one pound of Uranium (U₃O₈) from the Madison North mine.")

@@ -6,9 +6,6 @@ const { ethers } = require("hardhat");
 import { LuxNFT__factory } from "../typechain-types/factories/src/LuxNFT__factory";
 import { LuxNFT } from "../typechain-types/src/LuxNFT";
 
-const template = require("./template.json");
-
-
  
 async function main() {
 

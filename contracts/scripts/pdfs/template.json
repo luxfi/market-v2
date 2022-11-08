@@ -8,125 +8,105 @@
                     "x": 55,
                     "y": 20
                 },
-                "width": 100,
-                "height": 100,
+                "width": 98,
+                "height": 98,
                 "fontColor": "FFFFFF"
-            }
-        },
-        {
+            },
             "serial_num": {
                 "type": "text",
                 "position": {
-                    "x": 115,
+                    "x": 110,
                     "y": 59
                 },
                 "width": 100,
                 "height": 100,
                 "fontColor": "FFFFFF"
-            }
-        },
-        {
+            },
             "tokenID": {
                 "type": "text",
                 "position": {
-                    "x": 112,
-                    "y": 59
-                },
-                "width": 100,
-                "height": 100,
-                "fontColor": "FFFFFF"
-            }
-        },
-        {
-            "totalSupply": {
-                "type": "text",
-                "position": {
                     "x": 110,
-                    "y": 158
+                    "y": 73
                 },
                 "width": 100,
                 "height": 100,
                 "fontColor": "FFFFFF"
-            }
-        },
-        {
-            "compound": {
-                "type": "text",
-                "position": {
-                    "x": 110,
-                    "y": 208
-                },
-                "width": 100,
-                "height": 100,
-                "fontColor": "FFFFFF"
-            }
-        },
-        {
-            "location": {
-                "type": "text",
-                "position": {
-                    "x": 110,
-                    "y": 58
-                },
-                "width": 100,
-                "height": 100,
-                "fontColor": "FFFFFF"
-            }
-        },
-        {
-            "amount": {
-                "type": "text",
-                "position": {
-                    "x": 110,
-                    "y": 108
-                },
-                "width": 100,
-                "height": 100,
-                "fontColor": "FFFFFF"
-            }
-        },
-        {
+            },
             "auditor": {
                 "type": "text",
                 "position": {
                     "x": 110,
-                    "y": 108
+                    "y": 89
                 },
                 "width": 100,
                 "height": 100,
                 "fontColor": "FFFFFF"
-            }
-        },
-        {
+            },
             "supplier": {
                 "type": "text",
                 "position": {
                     "x": 110,
-                    "y": 108
+                    "y": 105
                 },
                 "width": 100,
                 "height": 100,
                 "fontColor": "FFFFFF"
-            }
-        },
-        {
+            },
+            "totalSupply": {
+                "type": "text",
+                "position": {
+                    "x": 110,
+                    "y": 120
+                },
+                "width": 100,
+                "height": 100,
+                "fontColor": "FFFFFF"
+            },
+            "compound": {
+                "type": "text",
+                "position": {
+                    "x": 110,
+                    "y": 137
+                },
+                "width": 100,
+                "height": 100,
+                "fontColor": "FFFFFF"
+            },
+            "location": {
+                "type": "text",
+                "position": {
+                    "x": 110,
+                    "y": 151
+                },
+                "width": 100,
+                "height": 100,
+                "fontColor": "FFFFFF"
+            },
+            "amount": {
+                "type": "text",
+                "position": {
+                    "x": 110,
+                    "y": 166
+                },
+                "width": 100,
+                "height": 100,
+                "fontColor": "FFFFFF"
+            },
             "spotPrice": {
                 "type": "text",
                 "position": {
                     "x": 110,
-                    "y": 108
+                    "y": 181
                 },
                 "width": 100,
                 "height": 100,
                 "fontColor": "FFFFFF"
-            }
-        },
-        {
+            },
             "valueAtSpot": {
                 "type": "text",
                 "position": {
                     "x": 110,
-                    "y": 58
+                    "y": 196
                 },
                 "width": 100,
                 "height": 100,

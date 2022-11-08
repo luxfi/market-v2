@@ -144,21 +144,22 @@ async function main() {
 
     const inputs = [
         {
-            "issuanceDate": "November 7, 2022",
-            "serial_num": "LUX-MM-U3O8-0000-<tokenID>",
-            "tokenID": "1334",
-        }  
+            issuanceDate: "November 7, 2022",
+            serial_num: "LUX-MM-U3O8-0000-<tokenID>",
+            tokenID: "1334",
+            auditor: "SRK Limited",
+            totalSupply: "7.65 million pounds",
+            compound: "Uranium (U3O8)",
+            location: "Madison North, Namibia",
+            amount: "2,000 pounds",
+            supplier: "Madison Metals",
+            spotPrice: "$50.80 USD",
+            valueAtSpot: "$101,600.00 USD"
+        },
     ];
 
 
-    // "totalSupply": "7.65 million pounds",
-    // "compound": "Uranium (U3O8)",
-    // "location": "Madison North, Namibia",
-    // "amount": "2,000 pounds",
-    // "auditor": "SRK Limited",
-    // "supplier": "Madison Metals",
-    // "spotPrice": "$50.80 USD",
-    // "valueAtSpot": "$101,600.00 USD"
+
 
     
     const pdf = await generate({ template, inputs });   

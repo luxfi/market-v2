@@ -10,6 +10,20 @@ const template = require("./pdfs/template.json");
 
 //     LUX-MM-U3O8-0000-<tokenID>
 
+type pdfSchema = {
+    issuanceDate: String,
+    serial_num: String,
+    tokenID: String,
+    auditor: String,
+    totalSupply: String,
+    compound: String,
+    location: String,
+    amount: String,
+    supplier: String,
+    spotPrice: String,
+    valueAtSpot: String
+}
+
 // {
 //     "issuanceDate": "November 7, 2022",
 //     "tokenID": 1334,
@@ -23,21 +37,10 @@ const template = require("./pdfs/template.json");
 //     "valueAtSpot": "$101,600.00 USD"
 //   }
 
-
-
-////////////////////
-// FONT
-// const font = fs.readFile(path.join(__dirname, `DrukWide-Medium.ttf`), {
-//   encoding: 'base64',
-// });
-////////////////////
-
 require("dotenv").config({ path: ".env" });
 
-//////////////////////////
-// NFT Storage
 const NFT_STORAGE_KEY = process.env.NFT_STORAGE_KEY;
-//////////////////////////
+
 
 function meta_data( tokenId: number, 
                     desc: string, 
@@ -138,8 +141,6 @@ async function mint_nfts(start_id: number, end_id: number, poundage: number, des
 // async function render_pdf(tokenId: number, poundage: number) {  
 // }
 
-
-
 async function main() {  
 
     const inputs = [
@@ -154,13 +155,10 @@ async function main() {
             amount: "2,000 pounds",
             supplier: "Madison Metals",
             spotPrice: "$50.80 USD",
-            valueAtSpot: "$101,600.00 USD"
+            valueAtSpot: "$101,600.00 USD",
+            qr: "www.wow.com"
         },
     ];
-
-
-
-
     
     const pdf = await generate({ template, inputs });   
     let pdfpath = `${process.cwd()}/scripts/pdfs/0.pdf`;

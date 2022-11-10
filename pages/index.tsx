@@ -10,6 +10,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
+import image from 'next/image'
 
 const ModelViewComp = dynamic(() => import('../components/ModelViewComp'), {
   ssr: false,
@@ -102,7 +103,8 @@ const Home: NextPage<Props> = ({ fallback }) => {
       <div className="col-span-full px-6 md:px-16">
         <div className="min-w-screen flex min-h-screen flex-col items-center justify-center ">
           <div className="mt-2 h-[300px] w-[250px] md:h-[400px] md:w-[400px]">
-            <ModelViewComp></ModelViewComp>
+          <img src="video.gif" />
+            {/* <ModelViewComp></ModelViewComp> */}
           </div>
           <h1 className="p-2 text-xl text-white">Uranium DROP</h1>
           <div className="grid h-[100px] w-[400px] grid-cols-2 gap-4">

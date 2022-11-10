@@ -2,7 +2,11 @@ const sdk = require('api')('@reservoirprotocol/v1.0#cpy2fla8spifn');
 
 const sdk = require('api')('@reservoirprotocol/v1.0#cpy2fla8spifn');
 
-sdk.auth(process.env.RESERVOIR_API_KEY);
+
+/// TODO LIST IT WITH VERA - IF THERE IS NOT VERA THEN 
+//  TODO DEPLOY A TESTNET TOKEN THAT CAN REPRESENT IT
+//  yarn ___ launch script 
+sdk.auth('demo-api-key');
 sdk.server('https://api-goerli.reservoir.tools');
 sdk.postExecuteListV4({
   params: [

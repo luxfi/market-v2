@@ -95,18 +95,18 @@ function meta_data( tokenId: number,
 async function mint_nfts(start_id: number, end_id: number, poundage: number, desc: string) {
     for (let i = start_id; i < end_id; i++) {
 
-        //render_pdf(i, poundage);
-        let filepath = `${process.cwd()}/scripts/metadata/${i}.json`;
+        await render_pdf(i, poundage);
+        let filepath = `${process.cwd()}/scripts/pdf/${i}.pdf`;
 
-        console.log(filepath);
-        await fs.writeFile(filepath,
-            meta_data(i, desc, poundage),
-            {
-                encoding: "utf8",
-                flag: "a+",
-                mode: 0o666
-            }
-        );    
+        //`console.log(filepath);
+        // await fs.writeFile(filepath,
+        //     meta_data(i, desc, poundage),
+        //     {
+        //         encoding: "utf8",
+        //         flag: "a+",
+        //         mode: 0o666
+        //     }
+        // );    
     }
 }
 
@@ -132,6 +132,7 @@ async function render_pdf(tokenId: number, poundage: number) {
 
     const pdf = await generate({ template, inputs });   
     let pdfpath = `${process.cwd()}/scripts/pdf/${tokenId}.pdf`;
+    console.log(pdfpath)
   
     await fs.writeFile(pdfpath,
         pdf,

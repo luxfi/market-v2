@@ -1,7 +1,5 @@
 const sdk = require('api')('@reservoirprotocol/v1.0#cpy2fla8spifn');
 
-const sdk = require('api')('@reservoirprotocol/v1.0#cpy2fla8spifn');
-
 sdk.auth(process.env.RESERVOIR_API_KEY);
 sdk.server('https://api-goerli.reservoir.tools');
 sdk.postExecuteListV4({
@@ -10,19 +8,15 @@ sdk.postExecuteListV4({
       orderKind: 'seaport',
       orderbook: 'reservoir',
       automatedRoyalties: true,
-      fees: ['"Test"'],
-      currency: '0x0000000000000000000000000000000000000000',
-      token: '0x46e663972AfE9D500B0A366CdEb8788e39DF1478',
+      fees: [
+        '0xaF609ef0f3b682B5992c7A2Ecc0485afD4816d54:50'
+      ],
+      currency: '0x883B256EeD86a9A603C0F98eD7CDE252ce497930',
+      token: '0x46e663972AfE9D500B0A366CdEb8788e39DF1478:220',
       quantity: 3,
       weiPrice: '2200000000000000000',
-      listingTime: '	1668559911',
-      expirationTime: '1669164711'
-    },
-    {
-      orderKind: 'seaport',
-      orderbook: 'reservoir',
-      automatedRoyalties: true,
-      currency: '0x0000000000000000000000000000000000000000'
+      listingTime: '1669164711',
+      expirationTime: '1669174850'
     }
   ],
   maker: '0xaF609ef0f3b682B5992c7A2Ecc0485afD4816d54',

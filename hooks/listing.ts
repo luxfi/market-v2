@@ -1,5 +1,21 @@
+import { getPathName } from '@datadog/browser-core'
+import { paths } from '@reservoir0x/reservoir-kit-client'
+import fetcher from 'lib/fetcher'
+import setParams from 'lib/params'
+import { NextRouter } from 'next/router'
+import { useEffect } from 'react'
+import { useInView } from 'react-intersection-observer'
+import useSWRInfinite, { SWRInfiniteKeyLoader } from 'swr/infinite'
+
 const sdk = require('api')('@reservoirprotocol/v1.0#cpy2fla8spifn');
 
+type Attributes =
+  paths['/collections/{collection}/attributes/explore/v2']['get']['responses']['200']['schema']
+
+export default function listToken(
+  router: NextRouter,
+  collectionId: string | undefined
+) { 
 sdk.auth(process.env.RESERVOIR_API_KEY);
 sdk.server('https://api-goerli.reservoir.tools');
 sdk.postExecuteListV4({
@@ -24,3 +40,7 @@ sdk.postExecuteListV4({
 }, {accept: '*/*'})
   .then(({ data }) => console.log(data))
   .catch(err => console.error(err));
+
+
+
+}

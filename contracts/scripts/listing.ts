@@ -9,13 +9,7 @@ import useSWRInfinite, { SWRInfiniteKeyLoader } from 'swr/infinite'
 
 const sdk = require('api')('@reservoirprotocol/v1.0#cpy2fla8spifn');
 
-type Attributes =
-  paths['/collections/{collection}/attributes/explore/v2']['get']['responses']['200']['schema']
 
-export default function listToken(
-  router: NextRouter,
-  collectionId: string | undefined
-) { 
 sdk.auth(process.env.RESERVOIR_API_KEY);
 sdk.server('https://api-goerli.reservoir.tools');
 sdk.postExecuteListV4({
@@ -42,5 +36,3 @@ sdk.postExecuteListV4({
   .catch(err => console.error(err));
 
 
-
-}

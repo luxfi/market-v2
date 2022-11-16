@@ -1,12 +1,4 @@
-import { getPathName } from '@datadog/browser-core'
-import { paths } from '@reservoir0x/reservoir-kit-client'
-import fetcher from 'lib/fetcher'
-import setParams from 'lib/params'
-import { NextRouter } from 'next/router'
-import { useEffect } from 'react'
-import { useInView } from 'react-intersection-observer'
-import useSWRInfinite, { SWRInfiniteKeyLoader } from 'swr/infinite'
-import { getClient, Execute, listToken } from "@reservoir0x/reservoir-kit-client";
+import { getClient, Execute } from "@reservoir0x/reservoir-kit-client";
 import { ethers } from "ethers";
 
 const sdk = require('api')('@reservoirprotocol/v1.0#cpy2fla8spifn');

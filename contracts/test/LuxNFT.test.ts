@@ -4,7 +4,6 @@ import { ethers } from "hardhat";
 import { BigNumber, Signer } from "ethers";
 import { LuxDrop } from "../typechain-types/contracts/LuxDrop";
 import { LuxDrop__factory } from "../typechain-types/factories/contracts/LuxDrop__factory";
-import { deployContract } from "@nomiclabs/hardhat-ethers/types";
 
 describe ("LuxNFT", function () {
 
@@ -62,8 +61,6 @@ const createTestSuite = ({ contract, constructorArgs }: {contract: any; construc
     });
     
 });
-}
-
 
 // import { ethers } from 'hardhat';
 
@@ -806,3 +803,4 @@ const createTestSuite = ({ contract, constructorArgs }: {contract: any; construc
 //     await expect(deployContract('ERC721AWithERC2309Mock', args)).to.be.revertedWith('MintZeroQuantity');
 //   });
 // });
+

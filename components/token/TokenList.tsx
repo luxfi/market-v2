@@ -1,7 +1,5 @@
-import Moralis  from 'moralis';
-import { EvmChain } from '@moralisweb3/evm-utils';
-
-
+import Moralis from "moralis";
+import { EvmChain } from "@moralisweb3/evm-utils";
 
 export default async function nftRequest(req: any, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { apiResponse: any; }): void; new(): any; }; }; }) {
     await Moralis.start({
@@ -9,7 +7,7 @@ export default async function nftRequest(req: any, res: { status: (arg0: number)
     });
     // get the url
     const apiResponse = await Moralis.EvmApi.nft.getContractNFTs({
-        address: "0x46e663972AfE9D500B0A366CdEb8788e39DF1478",
+        address: "0xaF609ef0f3b682B5992c7A2Ecc0485afD4816d54",
         chain: EvmChain.GOERLI,
     });
 

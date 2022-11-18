@@ -30,6 +30,7 @@ async function main() {
     }],
     signer,
     onProgress: (steps: Execute['steps']) => {
+      console.log('current step:')
       console.log(steps)
     }
     // submit the returned object as a transaction/signature payload to your wallet using a library such as ethersjs
@@ -38,7 +39,9 @@ async function main() {
 
 }
 
-
+main()
+  .then(()=>console.log('bamb, should have worked'))
+  .catch((err)=>console.log('err:', err))
 
 // import { getPathName } from '@datadog/browser-core'
 // import { paths } from '@reservoir0x/reservoir-kit-client'

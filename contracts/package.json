@@ -5,7 +5,7 @@
     "FileSync": "^1.0.1",
     "dotenv-webpack": "^8.0.1",
     "erc721a": "^4.2.3",
-    "ethers": "^5.0.0",
+    "ethers": "^5.7.2",
     "hardhat": "^2.12.1",
     "ts-loader": "^9.4.1",
     "typescript": "^4.8.4",
@@ -24,6 +24,7 @@
     "@openzeppelin/test-helpers": "^0.5.16",
     "@pdfme/generator": "^1.0.17",
     "@pdfme/ui": "^1.0.17",
+    "@reservoir0x/reservoir-kit-ui": "^0.5.8",
     "@typechain/ethers-v5": "^10.1.1",
     "@typechain/hardhat": "^6.1.4",
     "api": "^5.0.1",
@@ -37,9 +38,12 @@
     "opensea-js": "^4.0.12",
     "params": "^0.1.1",
     "pdfkit": "^0.13.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "solidity-coverage": "^0.8.2",
     "ts-node": "^10.9.1",
     "typechain": "^8.1.1",
+    "wagmi": "^0.8.1",
     "web3": "^1.8.0"
   }
 }

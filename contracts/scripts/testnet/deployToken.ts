@@ -1,6 +1,6 @@
-import { ethers } from "ethers";
+//import { ethers } from "ethers";
 
-const { ethers } = require("hardhat");
+import  { ethers }  from "hardhat";
 
 async function main() {
     const [deployer] = await ethers.getSigners();
@@ -20,7 +20,7 @@ async function main() {
     console.log("Token address:", token.address);
   }
   
-  
+  //0x5FbDB2315678afecb367f032d93F642f64180aa3
   // run main, catch error, if any, and log in console
   main()
     .then(() => process.exit(0))

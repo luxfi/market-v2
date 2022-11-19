@@ -4963,14 +4963,11 @@ bs58check@^2.1.2:
     create-hash "^1.1.0"
     safe-buffer "^5.1.2"
 
-<<<<<<< HEAD
-=======
 btoa@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/btoa/-/btoa-1.2.1.tgz#01a9909f8b2c93f6bf680ba26131eb30f7fa3d73"
   integrity sha512-SB4/MIGlsiVkMcHmT+pSmIPoNDoHg+7cMzmt3Uxt628MTz2487DKSqK/fuhFBrkuqrYv5UCEnACpF4dTFNKc/g==
 
->>>>>>> 2e38ae9fefd2c55eaf5f26ce46ef40b1c0f096d2
 buffer-alloc-unsafe@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/buffer-alloc-unsafe/-/buffer-alloc-unsafe-1.1.0.tgz#bd7dc26ae2972d0eda253be061dba992349c19f0"
@@ -4994,11 +4991,7 @@ buffer-fill@^1.0.0:
   resolved "https://registry.yarnpkg.com/buffer-fill/-/buffer-fill-1.0.0.tgz#f8f78b76789888ef39f205cd637f68e702122b2c"
   integrity sha512-T7zexNBwiiaCOGDg9xNX9PBmjrubblRkENuptryuI64URkXDFum9il/JGL8Lm8wYfAXpredVXXZz7eMHilimiQ==
 
-<<<<<<< HEAD
-buffer-from@^1.0.0:
-=======
 buffer-from@^1.0.0, buffer-from@^1.1.1:
->>>>>>> 2e38ae9fefd2c55eaf5f26ce46ef40b1c0f096d2
   version "1.1.2"
   resolved "https://registry.npmjs.org/buffer-from/-/buffer-from-1.1.2.tgz"
   integrity sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==
@@ -5711,11 +5704,7 @@ commander@3.0.2:
   resolved "https://registry.npmjs.org/commander/-/commander-3.0.2.tgz"
   integrity sha512-Gar0ASD4BDyKC4hl4DwHqDrmvjoxWKZigVnAbn5H1owvm4CxCPdb0HQDehwNYMJpla5+M2tPmPARzhtYuwpHow==
 
-<<<<<<< HEAD
-commander@^2.20.0, commander@^2.8.1:
-=======
 commander@^2.20.0, commander@^2.20.3, commander@^2.8.1:
->>>>>>> 2e38ae9fefd2c55eaf5f26ce46ef40b1c0f096d2
   version "2.20.3"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
@@ -6136,7 +6125,7 @@ dateformat@^2.0.0:
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-2.2.0.tgz#4065e2013cf9fb916ddfd82efb506ad4c6769062"
   integrity sha512-GODcnWq3YGoTnygPfi02ygEiRxqUxpJwuRHjdhJYuxpcZmDq4rjBiXYmbCCzStxo176ixfLT6i4NPwQooRySnw==
 
-dayjs@^1.11.4:
+dayjs@^1.11.4, dayjs@^1.11.6:
   version "1.11.6"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.6.tgz#2e79a226314ec3ec904e3ee1dd5a4f5e5b1c7afb"
   integrity sha512-zZbY5giJAinCG+7AGaw0wIhNZ6J8AhWuSXKvuc1KAyMiRsvGQWqh4L+MomvhdAYjN+lqvVCMq1I41e3YHvXkyQ==
@@ -15069,11 +15058,7 @@ through2@^2.0.3:
     readable-stream "~2.3.6"
     xtend "~4.0.1"
 
-<<<<<<< HEAD
-through@^2.3.8, through@~2.3, through@~2.3.4, through@~2.3.8:
-=======
 "through@>=2.2.7 <3", through@^2.3.8, through@~2.3, through@~2.3.4, through@~2.3.8:
->>>>>>> 2e38ae9fefd2c55eaf5f26ce46ef40b1c0f096d2
   version "2.3.8"
   resolved "https://registry.yarnpkg.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
   integrity sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==
@@ -15420,11 +15405,7 @@ typechecker@^6.2.0:
   resolved "https://registry.yarnpkg.com/typechecker/-/typechecker-6.4.0.tgz#c087dc744c5a0f17524d58a17eb31a9660ab7324"
   integrity sha512-EbOu+9szY13mhl0EsvLXnR+pTCa3gTHQQPLdce72ujcC9fRHXlVFBNXtHeRhgzLxLlKUh4zA9C0tezLDgshf+A==
 
-<<<<<<< HEAD
-typedarray-to-buffer@^3.1.5:
-=======
 typedarray-to-buffer@3.1.5, typedarray-to-buffer@^3.1.5:
->>>>>>> 2e38ae9fefd2c55eaf5f26ce46ef40b1c0f096d2
   version "3.1.5"
   resolved "https://registry.yarnpkg.com/typedarray-to-buffer/-/typedarray-to-buffer-3.1.5.tgz#a97ee7a9ff42691b9f783ff1bc5112fe3fca9080"
   integrity sha512-zdu8XMNEDepKKR+XYOXAVPtWui0ly0NtohUscw+UmaHiAWT8hrV1rr//H6V+0DvJ3OQ19S979M0laLfX8rm82Q==

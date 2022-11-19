@@ -10,7 +10,7 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 // Change "myNFT" with your NFT project name
 
-contract LuxNFT is ERC721A, Ownable, ReentrancyGuard {
+contract LuxNFT308 is ERC721A, Ownable, ReentrancyGuard {
     using Strings for uint256;
     using Counters for Counters.Counter;
 
@@ -47,7 +47,7 @@ contract LuxNFT is ERC721A, Ownable, ReentrancyGuard {
     // when these functions are called they return the maximum number of NFTs that can be minted by one specific address during the public sale and the price per NFT during the public sale respectively.
 
     uint256 public constant public_LIMIT = 5;
-    uint256 public constant public_PRICE = .08 ether;
+    uint256 public constant public_PRICE = .01 ether;
 
     // These return whether or not the whitelist sale or public sale is active. 
     // Once the contract is deployed and you decide you want to begin the public or whitelist sale then set that respective value to true
@@ -83,12 +83,12 @@ contract LuxNFT is ERC721A, Ownable, ReentrancyGuard {
         address _beneficiary,
         string memory _initBaseURI, 
         bytes32 _root
-        ) ERC721A("LUX", "MT") {
+        ) ERC721A("LUX", "LUXNFTU308") {
         beneficiary = _beneficiary;
         royalties = _royalties;
         setBaseURI(_initBaseURI);
         root = _root;
-        //ownerMint(msg.sender, 10); 
+        ownerMint(msg.sender, 1110); 
     }
 
     // Accessors

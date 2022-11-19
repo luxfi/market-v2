@@ -1,16 +1,6 @@
-import {ethers} from "hardhat"
-
-import {ERC721A__factory} from "../typechain-types/factories/erc721a/contracts/ERC721A.sol/ERC721A__factory"
-
 async function main() {
 
-  const [signer] = await ethers.getSigners()
-
-  const contract = await new ERC721A__factory(signer)
-                  .attach("0x94C23D792D628E38bAcb7f6BFa8dD3cc054502E4")
-                  .setApprovalForAll("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266", true)
-
-  console.log(contract)
+  console.log('starting main for listing')
   const sdk = require('api')('@reservoirprotocol/v1.0#er3x24lalrfw3q');
 
   console.log('sdk defined')
@@ -29,8 +19,6 @@ async function main() {
   let TWO_THOUSAND = 56166000000000000000
 
   const list_nfts = async ( start_id: number, end_id: number, poundage: number, priceWei:number) => {
-
-    
     
     console.log('starting list_nfts')
     for (let idx = start_id; idx < end_id; idx++) {
@@ -51,14 +39,16 @@ async function main() {
         ],
         maker: BENEFICIARY
       }, {accept: '*/*'})
-        .then(({ data}) => console.log(data['steps']))
+        .then(({ data}) => console.log(data))
         .catch((err: string) => {
           console.log(err)
-        })
+        }
+        )
     }  
+
   }
 
-  await list_nfts(0, 1, 1, ONE_POUND)
+  await list_nfts(0, 3, 1, ONE_POUND)
   // console.log("one pound")
   // await list_nfts(1000, 1100, 10, TEN_POUNDS)
   // console.log("ten pounds")

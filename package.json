@@ -27,6 +27,7 @@
     "@reservoir0x/reservoir-kit-ui": "0.5.2",
     "@reservoir0x/sdk": "^0.0.123",
     "@stitches/react": "^1.2.8",
+    "api": "^5.0.1",
     "downshift": "^6.1.7",
     "ethers": "^5.7.1",
     "lodash.debounce": "^4.0.8",

@@ -1,41 +1,32 @@
-import { getClient, Execute } from "@reservoir0x/reservoir-kit-client";
-import { ethers } from "ethers";
-
-const sdk = require('api')('@reservoirprotocol/v1.0#cpy2fla8spifn');
-let provider: any;
-
-sdk.auth(process.env.RESERVOIR_API_KEY);
-sdk.server('https://api-goerli.reservoir.tools');
-
-const address = "0xaF609ef0f3b682B5992c7A2Ecc0485afD4816d54"
-const signer = new ethers.VoidSigner(address, provider)
-
 async function main() {
- getClient()?.actions.listToken({
-    listings: [{  
-            token: '0:0x46e663972AfE9D500B0A366CdEb8788e39DF1478',  
-            weiPrice: '2200000000000000000',  
-            orderbook: 'reservoir',  
-            orderKind: 'seaport',  
-            listingTime: '1669164711',
-            expirationTime: '1669174850',
-            currency: '0x883B256EeD86a9A603C0F98eD7CDE252ce497930',
-            automatedRoyalties: true,
-            fees: [
-                    '0xaF609ef0f3b682B5992c7A2Ecc0485afD4816d54:50',
-                    '0x2432172E4DA740fd4FD1dF0c3dF2A1E0dfC4932f:50',
-                    '0x94B80cCE5F7D6F93119B87d18E3fa8fd3e19350B:50'
-                  ]
-            
-    }],
-    signer,
-    onProgress: (steps: Execute['steps']) => {
-      console.log('current step:')
-      console.log(steps)
-    }
-    // submit the returned object as a transaction/signature payload to your wallet using a library such as ethersjs
 
-   })
+  console.log('starting main for listing')
+  const sdk = require('api')('@reservoirprotocol/v1.0#er3x24lalrfw3q');
+  console.log('sdk defined')
+  sdk.auth(process.env.RESERVOIR_API_KEY);
+  console.log('auth defined')
+  sdk.postExecuteListV4({
+    params: [
+      {
+        token: '0:0x46e663972AfE9D500B0A366CdEb8788e39DF1478',  
+        weiPrice: '2200000000000000000',  
+        orderbook: 'reservoir',  
+        orderKind: 'seaport',  
+        listingTime: '1669164711',
+        expirationTime: '1669174850',
+        currency: '0x883B256EeD86a9A603C0F98eD7CDE252ce497930',
+        automatedRoyalties: true,
+        fees: [
+                '0xaF609ef0f3b682B5992c7A2Ecc0485afD4816d54:50',
+                '0x2432172E4DA740fd4FD1dF0c3dF2A1E0dfC4932f:50',
+                '0x94B80cCE5F7D6F93119B87d18E3fa8fd3e19350B:50'
+              ]
+      }
+    ],
+    maker: '0xF296178d553C8Ec21A2fBD2c5dDa8CA9ac905A00'
+  }, {accept: '*/*'})
+    .then(console.log("POSTING SUBMITTED"))
+    .catch(console.log("err"));
 
 }
 

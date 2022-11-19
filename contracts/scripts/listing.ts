@@ -21,12 +21,12 @@ async function main() {
     console.log('starting list_nfts')
     for (let idx = start_id; idx < end_id; idx++) {
       console.log(idx)
-  
+
       sdk.postExecuteListV4({
         params: [
           {
 
-            token: `${idx}:${TOKEN_CONTRACT}`,
+            token: `${TOKEN_CONTRACT}:${idx}`,
             weiPrice: priceWei.toString(),  
             orderbook: 'reservoir',   
             orderKind: 'seaport',  
@@ -38,33 +38,33 @@ async function main() {
                   ]
           }
         ],
-        maker: '0xF296178d553C8Ec21A2fBD2c5dDa8CA9ac905A00'
+        maker: BENEFICIARY
       }, {accept: '*/*'})
         .then(console.log("POSTING SUBMITTED"))
         .catch(console.log("err"));
-   
     }  
 
-    await list_nfts(0, 1000, 1, ONE_POUND)
-    console.log("one pound")
-    await list_nfts(1000, 1100, 10, TEN_POUNDS)
-    console.log("ten pounds")
-    await list_nfts(1100, 1110, 100, HUNDRED_POUNDS)
-    console.log("hundred pounds")
-    await list_nfts(1110, 1111, 2000, TWO_THOUSAND) 
-    console.log("two thousand pounds")
-  
-    console.log('listing completed')
   }
+
+  await list_nfts(0, 1, 1, ONE_POUND)
+  // console.log("one pound")
+  // await list_nfts(1000, 1100, 10, TEN_POUNDS)
+  // console.log("ten pounds")
+  // await list_nfts(1100, 1110, 100, HUNDRED_POUNDS)
+  // console.log("hundred pounds")
+  // await list_nfts(1110, 1111, 2000, TWO_THOUSAND) 
+  // console.log("two thousand pounds")
+
+  console.log('listing completed')
 }
 
 
 
 
 
-  // main()
-  // .then(()=>console.log('bamb, should have worked'))
-  // .catch((err)=>console.log('err:', err))
+main()
+.then(()=>console.log('bamb, should have worked'))
+.catch((err)=>console.log('err:', err))
 
 // import { getPathName } from '@datadog/browser-core'
 // import { paths } from '@reservoir0x/reservoir-kit-client'

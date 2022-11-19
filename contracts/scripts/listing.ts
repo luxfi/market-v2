@@ -25,12 +25,11 @@ async function main() {
       sdk.postExecuteListV4({
         params: [
           {
-
             token: `${TOKEN_CONTRACT}:${idx}`,
             weiPrice: priceWei.toString(),  
             orderbook: 'reservoir',   
             orderKind: 'seaport',  
-            listingTime: Math.floor(Date.now() / 1000).toString(),
+            listingTime: Math.floor((Date.now() / 1000 ) + 5).toString(),
             currency: VERA_COIN ,
             automatedRoyalties: true,
             fees: [

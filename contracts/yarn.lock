@@ -6125,7 +6125,7 @@ dateformat@^2.0.0:
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-2.2.0.tgz#4065e2013cf9fb916ddfd82efb506ad4c6769062"
   integrity sha512-GODcnWq3YGoTnygPfi02ygEiRxqUxpJwuRHjdhJYuxpcZmDq4rjBiXYmbCCzStxo176ixfLT6i4NPwQooRySnw==
 
-dayjs@^1.11.4:
+dayjs@^1.11.4, dayjs@^1.11.6:
   version "1.11.6"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.6.tgz#2e79a226314ec3ec904e3ee1dd5a4f5e5b1c7afb"
   integrity sha512-zZbY5giJAinCG+7AGaw0wIhNZ6J8AhWuSXKvuc1KAyMiRsvGQWqh4L+MomvhdAYjN+lqvVCMq1I41e3YHvXkyQ==
@@ -12418,6 +12418,13 @@ param-case@^2.1.0:
   dependencies:
     no-case "^2.2.0"
 
+params@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/params/-/params-0.1.1.tgz#8b4864aa7e505575209ba32f94b04da493a10234"
+  integrity sha512-SpAsp2lVEKAX0y+j0w0w1VjPCI4a6M7WegcCo13jv157z/u88MC86aWTR9ggC+k9Cw0EnaEbEpcIOCtmP3pwVA==
+  dependencies:
+    type-detect "~0.1.2"
+
 parse-asn1@^5.0.0, parse-asn1@^5.1.5:
   version "5.1.6"
   resolved "https://registry.yarnpkg.com/parse-asn1/-/parse-asn1-5.1.6.tgz#385080a3ec13cb62a62d39409cb3e88844cdaed4"
@@ -15328,6 +15335,11 @@ type-detect@^4.0.0, type-detect@^4.0.5:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/type-detect/-/type-detect-4.0.8.tgz#7646fb5f18871cfbb7749e69bd39a6388eb7450c"
   integrity sha512-0fr/mIH1dlO+x7TlcMy+bIDqKPsw/70tVyeHW787goQjhmqaZe10uwLujubK9q9Lg6Fiho1KUKDYz0Z7k7g5/g==
+
+type-detect@~0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/type-detect/-/type-detect-0.1.2.tgz#c88e853e54e5abd88f1bf3194b477c853c94f854"
+  integrity sha512-lR9v7XFtwvnGHYwutLHzWTItsWN4r8OvAPSYrGf8F8Wn3eQXxMIjfQrLe8vq5s4MGDOTUot/d4NSnuyIfhCEIg==
 
 type-fest@^0.18.0:
   version "0.18.1"

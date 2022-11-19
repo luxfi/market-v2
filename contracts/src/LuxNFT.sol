@@ -83,7 +83,7 @@ contract LuxNFT is ERC721A, Ownable, ReentrancyGuard {
         address _beneficiary,
         string memory _initBaseURI, 
         bytes32 _root
-        ) ERC721A("MyToken", "MT") {
+        ) ERC721A("LUX", "MT") {
         beneficiary = _beneficiary;
         royalties = _royalties;
         setBaseURI(_initBaseURI);

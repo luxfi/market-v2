@@ -1,4 +1,4 @@
-import {ethers} from "hardhat"
+import { ethers } from "hardhat"
 import { createClient, getClient, Execute } from "@reservoir0x/reservoir-kit-client";
 
 async function main() {
@@ -11,7 +11,7 @@ async function main() {
 
   const TOKEN_CONTRACT = '0x94C23D792D628E38bAcb7f6BFa8dD3cc054502E4'
   const BENEFICIARY = "0xaF609ef0f3b682B5992c7A2Ecc0485afD4816d54"
-  // const CONTROLLED_VERA_COIN = '0x883B256EeD86a9A603C0F98eD7CDE252ce497930'
+  const CONTROLLED_VERA_COIN = '0x883B256EeD86a9A603C0F98eD7CDE252ce497930'
   const VERA_COIN = '0x0df62d2cd80591798721ddc93001afe868c367ff'
 
   const ONE_POUND = "28083000000000000"
@@ -31,11 +31,10 @@ async function main() {
       await getClient()?.actions.listToken({
         listings: [{  
                 token: `${TOKEN_CONTRACT}:${idx}`,  
-                // weiPrice: priceWei,  
-                weiPrice: "10000000000000000",  
+                weiPrice: priceWei,
                 orderbook: "reservoir",  
                 orderKind: "seaport",  
-                // currency: VERA_COIN,
+                currency: CONTROLLED_VERA_COIN,
                 fees: [`${BENEFICIARY}:100`]
         }],
         signer,
@@ -47,6 +46,7 @@ async function main() {
       })
         .then(()=>(console.log('LISTED')))
         .catch(()=>{console.log('listToken failed')})
+      console.log("priceWei: ", priceWei)
       console.log('WAITING')
       await wait(1000);
       console.log('READY')

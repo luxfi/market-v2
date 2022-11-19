@@ -1,41 +1,74 @@
 import { getClient, Execute } from "@reservoir0x/reservoir-kit-client";
 import { ethers } from "ethers";
 
+const PRICE_PER_POUND = 35;
+const TOKEN_CONTRACT = '0x46e663972AfE9D500B0A366CdEb8788e39DF1478'
+const VERA_COIN = '0x883B256EeD86a9A603C0F98eD7CDE252ce497930'
+
 const sdk = require('api')('@reservoirprotocol/v1.0#cpy2fla8spifn');
 let provider: any;
 
 sdk.auth(process.env.RESERVOIR_API_KEY);
 sdk.server('https://api-goerli.reservoir.tools');
 
-const address = "0xaF609ef0f3b682B5992c7A2Ecc0485afD4816d54"
-const signer = new ethers.VoidSigner(address, provider)
+const BENEFICIARY = "0xaF609ef0f3b682B5992c7A2Ecc0485afD4816d54"
+
+const signer = new ethers.VoidSigner(BENEFICIARY, provider)
+
+// expirationTime: '1669174850',
+
+async function list_nfts( start_id: number, end_id: number, poundage: number, priceWei:number) {
+
+  for (let idx = start_id; idx < end_id; idx++) {
+    console.log(idx)
+    getClient()?.actions.listToken({
+      listings: [{  
+                
+              token: `${idx}:${TOKEN_CONTRACT}`,
+              weiPrice: priceWei.toString(),  
+              orderbook: 'reservoir',   
+              orderKind: 'seaport',  
+              listingTime: Math.floor(Date.now() / 1000).toString(),
+              currency: VERA_COIN ,
+              automatedRoyalties: true,
+              fees: [
+                      `${BENEFICIARY}:100`,
+                    ]
+      }],
+      signer,
+      onProgress: (steps: Execute['steps']) => {
+        console.log('current step:')
+        console.log(steps)
+      }
+      // submit the returned object as a transaction/signature payload to your wallet using a library such as ethersjs
+    })
+}
+}
 
 async function main() {
- getClient()?.actions.listToken({
-    listings: [{  
-            token: '0:0x46e663972AfE9D500B0A366CdEb8788e39DF1478',  
-            weiPrice: '2200000000000000000',  
-            orderbook: 'reservoir',  
-            orderKind: 'seaport',  
-            listingTime: '1669164711',
-            expirationTime: '1669174850',
-            currency: '0x883B256EeD86a9A603C0F98eD7CDE252ce497930',
-            automatedRoyalties: true,
-            fees: [
-                    '0xaF609ef0f3b682B5992c7A2Ecc0485afD4816d54:50',
-                    '0x2432172E4DA740fd4FD1dF0c3dF2A1E0dfC4932f:50',
-                    '0x94B80cCE5F7D6F93119B87d18E3fa8fd3e19350B:50'
-                  ]
-            
-    }],
-    signer,
-    onProgress: (steps: Execute['steps']) => {
-      console.log('current step:')
-      console.log(steps)
-    }
-    // submit the returned object as a transaction/signature payload to your wallet using a library such as ethersjs
 
-   })
+  let ONE_POUND = 28083000000000000
+  console.log("one pound")
+
+  await list_nfts(0, 1000, 1, ONE_POUND)
+
+  let TEN_POUNDS = 280830000000000000
+
+  // // TEN Pounds x 100
+  await list_nfts(1000, 1100, 10, TEN_POUNDS)
+  console.log("ten pounds")
+
+  let HUNDRED_POUNDS = 2808300000000000000
+
+  // HUNDRED Pounds x 10
+  await list_nfts(1100, 1110, 100, HUNDRED_POUNDS)
+  console.log("hundred pounds")
+
+  let TWO_THOUSAND = 56166000000000000000
+
+  // TWO THOUSAND Pounds x 1???
+  await list_nfts(1110, 1111, 2000, TWO_THOUSAND) 
+  console.log("two thousand pounds")
 
 }
 
@@ -105,4 +138,3 @@ main()
 
 
 // }
-

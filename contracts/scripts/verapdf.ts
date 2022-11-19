@@ -111,11 +111,11 @@ async function mint_nfts(start_id: number, end_id: number, poundage: number, des
 }
 
 async function render_pdf(tokenId: number, poundage: number) {  
-    const SPOT_PRICE:number  = 50.81;
+    const SPOT_PRICE:number  = 50.81; // ENSURE CORRECT
 
         const inputs = [
         {
-            issuanceDate: "November 8, 2022",
+            issuanceDate: "November 19, 2022",
             serial_num: `LUX-MM-U3O8-0000-${tokenId}`,
             tokenID: `${tokenId}`,
             auditor: "SRK Limited",
@@ -167,6 +167,7 @@ main()
     process.exit(1);
 });
 	
+                                            // Targeted USDC/VERA Pricing
 // 2,000	    1	        2,000	$70,000	$70,000			
 // 100	        10	        1,000	$35,000	$3,500
 // 10	        100	        1,000	$35,000	$350

@@ -115,7 +115,7 @@ async function render_pdf(tokenId: number, poundage: number) {
 
         const inputs = [
         {
-            issuanceDate: "November 8, 2022",
+            issuanceDate: "November 19, 2022",
             serial_num: `LUX-MM-U3O8-0000-${tokenId}`,
             tokenID: `${tokenId}`,
             auditor: "SRK Limited",

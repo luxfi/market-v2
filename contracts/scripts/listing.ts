@@ -1,5 +1,7 @@
 import { getClient, Execute } from "@reservoir0x/reservoir-kit-client";
-import { ethers } from "ethers";
+//import { ethers } from "ethers";
+
+import {ethers} from "hardhat"
 
 const PRICE_PER_POUND = 35;
 const TOKEN_CONTRACT = '0x46e663972AfE9D500B0A366CdEb8788e39DF1478'
@@ -13,11 +15,8 @@ sdk.server('https://api-goerli.reservoir.tools');
 
 const BENEFICIARY = "0xaF609ef0f3b682B5992c7A2Ecc0485afD4816d54"
 
-const signer = new ethers.VoidSigner(BENEFICIARY, provider)
-
-// expirationTime: '1669174850',
-
 async function list_nfts( start_id: number, end_id: number, poundage: number, priceWei:number) {
+  let [signer] = await ethers.getSigners()
 
   for (let idx = start_id; idx < end_id; idx++) {
     console.log(idx)
@@ -42,10 +41,11 @@ async function list_nfts( start_id: number, end_id: number, poundage: number, pr
       }
       // submit the returned object as a transaction/signature payload to your wallet using a library such as ethersjs
     })
-}
+  }
 }
 
 async function main() {
+
 
   let ONE_POUND = 28083000000000000
   console.log("one pound")

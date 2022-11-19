@@ -95,7 +95,6 @@ function meta_data( tokenId: number,
 async function mint_nfts(start_id: number, end_id: number, poundage: number, desc: string) {
     for (let i = start_id; i < end_id; i++) {
 
-        //render_pdf(i, poundage);
         let filepath = `${process.cwd()}/scripts/metadata/${i}.json`;
 
         console.log(filepath);
@@ -131,7 +130,7 @@ async function render_pdf(tokenId: number, poundage: number) {
     ];
 
     const pdf = await generate({ template, inputs });   
-    let pdfpath = `${process.cwd()}/scripts/pdf/${tokenId}.pdf`;
+    let pdfpath = `${process.cwd()}/scripts/render/${tokenId}.pdf`;
   
     await fs.writeFile(pdfpath,
         pdf,

@@ -23,7 +23,7 @@ function meta_data( tokenId: number,
         "symbol": "LUXU",
         "description": desc,
         "seller_fee_basis_points": 500,
-        "image": "https://bafkreie257sonrjtpxkyo6jymz7dfn3dytzu24bxo3nmlfwnzupkup7az4.ipfs.nftstorage.link",
+        "image": "https://bafybeiaaggslp6lwoo44colsl6f2y7zjihyj7mkxexmrdc3qbbeuqax5xe.ipfs.nftstorage.link",
         "external_url": "https://lux.market",
         "edition": "Vera",
         "attributes": [
@@ -137,7 +137,7 @@ async function render_pdf(tokenId: number, poundage: number) {
         {
             encoding: "base64",
             flag: "a+",
-            mode: 0o666
+            mode: 0o666000
         }
     );
 }

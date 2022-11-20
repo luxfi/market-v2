@@ -16,7 +16,7 @@ async function main() {
   let luxnft = LuxNFTFactory.deploy(
     owner.address, 
     owner.address, 
-    "https://nftstorage.link/ipfs/bafybeiaegh7tescclcfr6lqxuvwj6ts7kaq354s2xrikllez4ih7idt6x4/",
+    "https://nftstorage.link/ipfs/bafybeieewkclpdoutugvkjnv7rwg6jokpwlfxgsffohioqddi4sibxgxru",
     ethers.utils.formatBytes32String("genesis")
     );
 

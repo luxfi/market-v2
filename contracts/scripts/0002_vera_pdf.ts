@@ -96,7 +96,7 @@ async function mint_nfts(start_id: number, end_id: number, poundage: number, des
     for (let i = start_id; i < end_id; i++) {
 
         await render_pdf(i, poundage);
-        let filepath = `${process.cwd()}/scripts/pdf/${i}.pdf`;
+        let filepath = `${process.cwd()}/scripts/uranium/${i}.pdf`;
 
         //`console.log(filepath);
         // await fs.writeFile(filepath,
@@ -131,7 +131,7 @@ async function render_pdf(tokenId: number, poundage: number) {
     ];
 
     const pdf = await generate({ template, inputs });   
-    let pdfpath = `${process.cwd()}/scripts/pdf/${tokenId}.pdf`;
+    let pdfpath = `${process.cwd()}/scripts/render/${tokenId}.pdf`;
     console.log(pdfpath)
   
     await fs.writeFile(pdfpath,

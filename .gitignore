@@ -7,7 +7,7 @@
 *.pdf
 .unotes/
 
-scripts/uranium/
+scripts/metadata/
 
 # testing
 /coverage

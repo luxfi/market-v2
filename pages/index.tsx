@@ -99,7 +99,7 @@ const Home: NextPage<Props> = ({ fallback }) => {
        
         <div className="min-w-screen flex min-h-screen flex-col items-center justify-center bg-black rounded-3xl pt-10 mt-10 mb-10">
           {/* <header className="col-span-full mb-12 mt-[66px] px-4 md:mt-40 lg:px-0 "> */}
-            <p className="reservoir-h4 text-center text-green-910">ALL-NEW ASSET-BACKEND NFTS</p>
+          <p className="reservoir-h4 text-center text-[#21f23a]">ALL-NEW ASSET-BACKEND NFTS</p>
             <h1 className="reservoir-h1 text-center text-white">
               LUX URANIUM NFT
             </h1>
@@ -116,7 +116,7 @@ const Home: NextPage<Props> = ({ fallback }) => {
               Learn More
             </button>
             <Link href={tokenHref}>
-              <button className="mt-2 h-[50px] w-full rounded-md bg-white  p-2 text-xl text-black bg-['#23f239']   ">
+              <button className="mt-2 h-[50px] w-full rounded-md  p-2 text-xl text-black bg-[#23f239]   ">
                 Buy Now
               </button>
             </Link>

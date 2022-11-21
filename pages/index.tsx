@@ -5,6 +5,7 @@ import setParams from 'lib/params'
 import Head from 'next/head'
 import TrendingCollectionTable from 'components/TrendingCollectionTable'
 import SortTrendingCollections from 'components/SortTrendingCollections'
+
 import { useMediaQuery } from '@react-hookz/web'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
@@ -59,6 +60,7 @@ const metadata = {
 
 const Home: NextPage<Props> = ({ fallback }) => {
   const isSmallDevice = useMediaQuery('only screen and (max-width : 600px)')
+
   const router = useRouter()
   const tokenHref = `/collections/0x666E74369eCEC7621dA5b7336E0C5D3e5b720544/`
 
@@ -90,34 +92,40 @@ const Home: NextPage<Props> = ({ fallback }) => {
         {image}
       </Head>
 
-      <header className="col-span-full mb-12 mt-[66px] px-4 md:mt-40 lg:px-0">
-        <h1 className="reservoir-h1 text-center dark:text-white">
-          LUX URANIUM NFT
-        </h1>
-        <p className="reservoir-h4 text-center dark:text-white">
-          Buy Uranium at over 30% off for a limited time.
-        </p>
-      </header>
+    
+      
 
       <div className="col-span-full px-6 md:px-16">
-        <div className="min-w-screen flex min-h-screen flex-col items-center justify-center ">
+       
+        <div className="min-w-screen flex min-h-screen flex-col items-center justify-center bg-black rounded-3xl pt-10 mt-10 mb-10">
+          {/* <header className="col-span-full mb-12 mt-[66px] px-4 md:mt-40 lg:px-0 "> */}
+            <p className="reservoir-h4 text-center text-green-910">ALL-NEW ASSET-BACKEND NFTS</p>
+            <h1 className="reservoir-h1 text-center text-white">
+              LUX URANIUM NFT
+            </h1>
+            <p className="reservoir-h4 text-center text-white">
+              Buy Uranium at over 30% off market spot price.
+            </p>
+          {/* </header> */}
           <div className="mt-2 h-[300px] w-[250px] md:h-[400px] md:w-[400px]">
             <ModelViewComp></ModelViewComp>
           </div>
-          <h1 className="p-2 text-xl text-white">Uranium DROP</h1>
+      
           <div className="grid h-[100px] w-[400px] grid-cols-2 gap-4">
-            <button className="mt-2 h-[50px] w-full rounded-md bg-black  p-2 text-xl text-white    ">
+            <button className="mt-2 h-[50px] w-full rounded-md bg-white  p-2 text-xl text-black    ">
               Learn More
             </button>
             <Link href={tokenHref}>
-              <button className="mt-2 h-[50px] w-full rounded-md bg-black  p-2 text-xl text-white    ">
+              <button className="mt-2 h-[50px] w-full rounded-md bg-white  p-2 text-xl text-black bg-['#23f239']   ">
                 Buy Now
               </button>
             </Link>
           </div>
         </div>
+        
+        
         <div className="mb-9 flex w-full items-center justify-between">
-          <div className="reservoir-h4 dark:text-white">
+          <div className="reservoir-h4 dark:text-wh ite">
             Trending Collections
           </div>
 

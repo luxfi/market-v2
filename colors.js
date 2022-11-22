@@ -40,8 +40,7 @@ const primaryColors = {
     500: '#22c55e',
     700: '#15803d',
     900: '#14532d',
-    910: '#21f23a',
-    920: '#23f239',
+   
   },
   blue: {
     100: '#dbeafe',
@@ -49,6 +48,8 @@ const primaryColors = {
     500: '#3b82f6',
     700: '#1d4ed8',
     900: '#1e3a8a',
+    920: '#3366FF',
+    930: '#00CCFF',
   },
   purple: {
     100: '#EBDCFF',

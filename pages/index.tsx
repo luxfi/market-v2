@@ -109,10 +109,7 @@ const Home: NextPage<Props> = ({ fallback }) => {
 
               <source
                 src="./luxfinal1.mp4"
-
                 type="video/mp4"
-                autoPlay={true}
-                loop
               />
             </video>
           </div>

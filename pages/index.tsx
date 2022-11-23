@@ -108,24 +108,42 @@ const Home: NextPage<Props> = ({ fallback }) => {
             </p>
           {/* </header> */}
           <div className="mt-2 h-[300px] w-[250px] md:h-[400px] md:w-[400px]">
-            <ModelViewComp></ModelViewComp>
+            {/* <ModelViewComp></ModelViewComp> */}
+            <video loop muted autoPlay>
+             
+
+              <source
+                src="./luxfinal1.mp4"
+               
+                type="video/mp4"
+                autoPlay={true}
+                loop
+              />
+            </video>
           </div>
+          <br/>
       
           <div className="grid h-[100px] w-[400px] grid-cols-2 gap-4">
-            <button className="mt-2 h-[50px] w-full rounded-md bg-white  p-2 text-xl text-black    ">
+            <button className="mt-2 h-[50px] w-full rounded-lg bg-white  p-2 text-lg text-black overflow-hidden">
               Learn More
             </button>
             <Link href={tokenHref}>
-              <button className="mt-2 h-[50px] w-full rounded-md  p-2 text-xl text-black bg-[#23f239]   ">
+              <button className="mt-2 h-[50px] w-full rounded-lg  p-2 text-lg text-black bg-[#23f239]  overflow-hidden ">
                 Buy Now
               </button>
             </Link>
           </div>
         </div>
         
+        <div className="mb-9 flex w-full items-center justify-between">
+          <div className="reservoir-h4 dark:text-white">
+          Trending Asset-Backend NFT Collections
+          </div>
+          {/* {!isSmallDevice && <SortTrendingCollections />} */}
+        </div>
         
         <div className="mb-9 flex w-full items-center justify-between">
-          <div className="reservoir-h4 dark:text-wh ite">
+          <div className="reservoir-h4 dark:text-white">
             Trending Collections
           </div>
 

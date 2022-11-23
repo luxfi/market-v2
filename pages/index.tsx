@@ -62,7 +62,7 @@ const Home: NextPage<Props> = ({ fallback }) => {
   const isSmallDevice = useMediaQuery('only screen and (max-width : 600px)')
 
   const router = useRouter()
-  const tokenHref = `/collections/0x666E74369eCEC7621dA5b7336E0C5D3e5b720544/`
+  const tokenHref = `/collections/0x94c23d792d628e38bacb7f6bfa8dd3cc054502e4/`
 
   const title = META_TITLE && metadata.title(META_TITLE)
   const description = META_DESCRIPTION && metadata.description(META_DESCRIPTION)
@@ -96,18 +96,16 @@ const Home: NextPage<Props> = ({ fallback }) => {
 
 
       <div className="col-span-full px-6 md:px-16">
-
-        <div className="min-w-screen flex min-h-screen flex-col items-center justify-center bg-black rounded-3xl pt-10 mt-10 mb-10">
+        <div className="min-w-screen flex flex-col items-center justify-center bg-black rounded-3xl pt-10 mt-10 mb-10">
           {/* <header className="col-span-full mb-12 mt-[66px] px-4 md:mt-40 lg:px-0 "> */}
-          <p className="reservoir-h4 text-center text-[#21f23a]">ALL-NEW ASSET-BACKEND NFTS</p>
-            <h1 className="reservoir-h1 text-center text-white">
-              LUX URANIUM NFT
-            </h1>
+          <p className="reservoir-h4 text-center text-[#00ff9f]">ALL-NEW ASSET-BACKEND NFTS</p>
+          <h1 className="reservoir-h1 text-center text-white">
+            LUX URANIUM NFT
+          </h1>
           {/* </header> */}
-          <div className="mt-2 h-[300px] w-[250px] md:h-[400px] md:w-[400px] p-10">
+          <div className="mt-2 h-[300px] w-[250px] md:h-[400px] md:w-[400px]">
             {/* <ModelViewComp></ModelViewComp> */}
-            <video loop muted autoPlay>
-
+            <video loop muted autoPlay style={{ padding: 32, marginTop: -32 }}>
 
               <source
                 src="./luxfinal1.mp4"
@@ -118,14 +116,14 @@ const Home: NextPage<Props> = ({ fallback }) => {
               />
             </video>
           </div>
-          <br/>
-
-          <div className="grid h-[100px] w-[400px] grid-cols-2 gap-4">
-            <button className="mt-2 h-[50px] w-full rounded-lg bg-white  p-2 text-lg text-black overflow-hidden">
-              Learn More
-            </button>
+          <div className="grid h-[100px] w-[380px] grid-cols-2 gap-4">
+            <Link href="https://lux.market/uranium">
+              <button className="mt-2 h-[50px] w-full rounded-lg bg-white  p-2 text-md text-black overflow-hidden">
+                Learn More
+              </button>
+            </Link>
             <Link href={tokenHref}>
-              <button className="mt-2 h-[50px] w-full rounded-lg  p-2 text-lg text-black bg-[#23f239]  overflow-hidden ">
+              <button className="mt-2 h-[50px] w-full rounded-lg  p-2 text-md text-black bg-[#00ff9f]  overflow-hidden ">
                 Buy Now
               </button>
             </Link>

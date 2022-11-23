@@ -108,8 +108,20 @@ const Home: NextPage<Props> = ({ fallback }) => {
             </p>
           {/* </header> */}
           <div className="mt-2 h-[300px] w-[250px] md:h-[400px] md:w-[400px]">
-            <ModelViewComp></ModelViewComp>
+            {/* <ModelViewComp></ModelViewComp> */}
+            <video loop muted autoPlay>
+             
+
+              <source
+                src="./luxfinal1.mp4"
+               
+                type="video/mp4"
+                autoPlay={true}
+                loop
+              />
+            </video>
           </div>
+          <br/>
       
           <div className="grid h-[100px] w-[400px] grid-cols-2 gap-4">
             <button className="mt-2 h-[50px] w-full rounded-lg bg-white  p-2 text-lg text-black overflow-hidden">

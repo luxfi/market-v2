@@ -15,8 +15,8 @@ export default function Header() {
             
               
               <div className="z-10 ml-auto hidden shrink-0 md:flex md:gap-2">
-                  <Link href='/about' className= "ml-auto w-auto text-black items-center justify-center">About</Link>
-                  <Link href='/contact' className="ml-auto w-auto text-black items-center justify-center">Contact</Link>
+                  <Link href='/about' className= " ml-auto w-auto text-black items-center justify-center ">About</Link>
+                  <Link href='/contact' className=" ml-auto w-auto text-black items-center justify-center">Contact</Link>
               </div>
           </nav>
      </div>

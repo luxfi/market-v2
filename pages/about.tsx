@@ -9,8 +9,8 @@ import Header from "../components/Header"
     <>
      
 <Header/>
-      <div className="col-span-full px-6 md:px-16 justify-center flex-col mx-auto max-w-screen-lg ">
-        <header className=" reservoir-h1 shrink-0 p-15 ml-28 mt-2 text-left text-black ">About</header>
+      <div className="col-span-full px-6 md:px-16 justify-center flex-col mx-auto max-w-screen-xl ">
+        <header className="reservoir-h1 shrink-0 p-15 ml-28 mt-2  text-black mb-4 text-4xl tracking-tight font-extrabold text-left dark:text-white">About</header>
 
       <div className="min-w-screen flex min-h-screen  flex-col items-center justify-center  ">
 

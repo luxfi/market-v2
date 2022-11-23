@@ -1,5 +1,5 @@
 {
-  "name": "sample-marketplace",
+  "name": "veramarket",
   "scripts": {
     "dev": "next dev",
     "prettier": "prettier --write .",

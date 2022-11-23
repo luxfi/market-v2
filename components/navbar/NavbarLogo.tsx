@@ -14,8 +14,8 @@ type Props = {
 }
 
 const NavbarLogo: FC<Props> = ({ variant, className }) => {
-  const logo = NAVBAR_LOGO || '/vera-logo.png'
-  const desktopLogo = DESKTOP_NAVBAR_LOGO || '/vera-logo-desktop.png'
+  const logo = NAVBAR_LOGO || '/reservoir.svg'
+  const desktopLogo = DESKTOP_NAVBAR_LOGO || '/reservoir-desktop.svg'
   const chain = useEnvChain()
   let logoAlt = 'Logo'
 

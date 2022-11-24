@@ -9,7 +9,7 @@ async function main() {
     source: "Lux.Market"
   });
 
-  const TOKEN_CONTRACT = '0x94C23D792D628E38bAcb7f6BFa8dD3cc054502E4'
+  const TOKEN_CONTRACT = '0x85A760FeFAc2A9765a62A79407c6e60BCbeee3AA'
   const BENEFICIARY = "0xaF609ef0f3b682B5992c7A2Ecc0485afD4816d54"
   const CONTROLLED_VERA_COIN = '0x883B256EeD86a9A603C0F98eD7CDE252ce497930'
   const VERA_COIN = '0x0df62d2cd80591798721ddc93001afe868c367ff'
@@ -29,15 +29,16 @@ async function main() {
       console.log("LISTING: ",idx)
       const [signer] = await ethers.getSigners();
       console.log(signer)
+      console.log('token contract: ', TOKEN_CONTRACT)
       await getClient()?.actions.listToken({
         listings: [{  
                 token: `${TOKEN_CONTRACT}:${idx}`,  
                 weiPrice: priceWei,
-                orderbook: "opensea",  
-                orderKind: "seaport",  
-                automatedRoyalties: false,
+                orderbook: "reservoir",  
+                orderKind: "seaport"
                 // currency: VERA
-                fees: [`${BENEFICIARY}:800`]
+                // automatedRoyalties: false,
+                // fees: [`${BENEFICIARY}:400`]
         }],
         signer,
         onProgress: (steps: Execute['steps']) => {
@@ -46,9 +47,9 @@ async function main() {
           console.log(steps[1].items)
         }
       })
-        .then(()=>(console.log('LISTED')))
+        .then(()=>(console.log('LISTED: ', idx)))
         .catch(()=>{console.log('listToken failed')})
-      console.log("currancy: CONTROLLED_VERA_COIN")
+      // console.log("currancy: CONTROLLED_VERA_COIN")
       console.log("priceWei: ", priceWei)
       console.log('WAITING')
       await wait(1000);
@@ -56,19 +57,24 @@ async function main() {
     }
   } 
 
-  await list_nfts(0, 1, 1, ONE_POUND)
-    // .then(()=>console.log("one pound done bish"))
+  await list_nfts(0, 4, 1, ONE_POUND)
+    .then(()=>console.log("one pound done bish"))
     .catch(()=>console.log('failed'))  
-  console.log("list_nfts for 1 completed")
+  // console.log("list_nfts for 1 completed")
   // console.log("one pound done bish")
 
-  // await list_nfts(1000, 1100, 10, TEN_POUNDS)
-  // console.log("ten pounds done")
-
-  // await list_nfts(1100, 1110, 100, HUNDRED_POUNDS)
+  await list_nfts(1000, 1001, 10, TEN_POUNDS)
+  .then(()=>console.log("ten pounds done"))
+  .catch(()=>console.log('ten pound failed'))  
+  
+  await list_nfts(1100, 1101, 100, HUNDRED_POUNDS)
+  .then(()=>console.log("hundred pounds done"))
+  .catch(()=>console.log('hundred pound failed'))  
   // console.log("hundred pounds DONE")
 
-  // await list_nfts(1110, 1111, 2000, TWO_THOUSAND) 
+  await list_nfts(1110, 1111, 2000, TWO_THOUSAND) 
+  .then(()=>console.log("two thousand pounds done"))
+  .catch(()=>console.log('two thousand pound failed'))  
   // console.log("two thousand pounds DONE LFG!!!")
 }
 

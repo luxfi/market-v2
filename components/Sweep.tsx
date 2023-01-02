@@ -14,7 +14,7 @@ import { SWRInfiniteResponse } from 'swr/infinite/dist/infinite'
 import { GlobalContext } from 'context/GlobalState'
 import { HiX } from 'react-icons/hi'
 import { optimizeImage } from 'lib/optmizeImage'
-import FormatEth from './FormatEth'
+import FormatNativeCrypto from './FormatNativeCrypto'
 import AttributesFlex from './AttributesFlex'
 import ModalCard from './modal/ModalCard'
 import { styled } from '@stitches/react'
@@ -248,7 +248,7 @@ const Sweep: FC<Props> = ({ tokens, collection, mutate, setToast }) => {
           {steps ? (
             <ModalCard title="Buy Now" loading={waitingTx} steps={steps} />
           ) : (
-            <Dialog.Content className="fixed inset-0 z-10 bg-[#000000b6] px-8">
+            <Dialog.Content className="fixed inset-0 z-[10000] bg-[#000000b6] px-8">
               <div className="fixed top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 transform">
                 <div className="px-5">
                   <div
@@ -298,7 +298,13 @@ const Sweep: FC<Props> = ({ tokens, collection, mutate, setToast }) => {
                         min={1}
                         max={maxInput}
                         step={1}
-                        onChange={(e) => setSweepAmount(+e.target.value)}
+                        onChange={(e) => {
+                          let amount = +e.target.value
+                          if (amount > maxInput) {
+                            amount = maxInput
+                          }
+                          setSweepAmount(amount)
+                        }}
                         type="number"
                         name="amount"
                         id="amount"
@@ -322,12 +328,11 @@ const Sweep: FC<Props> = ({ tokens, collection, mutate, setToast }) => {
                             alt={`${token?.token?.name} image`}
                           />
                           <div className="reservoir-subtitle text-center text-xs dark:text-white md:text-sm">
-                            <FormatEth
+                            <FormatNativeCrypto
                               amount={
                                 token?.market?.floorAsk?.price?.amount?.native
                               }
                               maximumFractionDigits={4}
-                              logoWidth={7}
                             />
                           </div>
                         </div>
@@ -339,10 +344,9 @@ const Sweep: FC<Props> = ({ tokens, collection, mutate, setToast }) => {
                       </div>
                       <div>
                         <div className="reservoir-h5 text-right dark:text-white">
-                          <FormatEth
+                          <FormatNativeCrypto
                             amount={sweepTotal}
                             maximumFractionDigits={4}
-                            logoWidth={7}
                           />
                         </div>
                         {usdConversion && (

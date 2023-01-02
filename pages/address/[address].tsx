@@ -6,13 +6,7 @@ import {
   NextPage,
 } from 'next'
 import { useRouter } from 'next/router'
-import {
-  useAccount,
-  useNetwork,
-  useSigner,
-  useEnsName,
-  useEnsAvatar,
-} from 'wagmi'
+import { useAccount, useNetwork, useEnsName, useEnsAvatar } from 'wagmi'
 import * as Tabs from '@radix-ui/react-tabs'
 import { toggleOnItem } from 'lib/router'
 import UserOffersTable from 'components/tables/UserOffersTable'
@@ -28,6 +22,7 @@ import useSearchCommunity from 'hooks/useSearchCommunity'
 import { truncateAddress } from 'lib/truncateText'
 import { paths, setParams } from '@reservoir0x/reservoir-kit-client'
 import UserActivityTab from 'components/tables/UserActivityTab'
+import useMounted from 'hooks/useMounted'
 
 const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID
 const COLLECTION = process.env.NEXT_PUBLIC_COLLECTION
@@ -43,6 +38,7 @@ const metadata = {
 }
 
 const Address: NextPage<Props> = ({ address, fallback }) => {
+  const isMounted = useMounted()
   const router = useRouter()
   const accountData = useAccount()
 
@@ -83,6 +79,10 @@ const Address: NextPage<Props> = ({ address, fallback }) => {
     return <div>There was an error</div>
   }
 
+  if (!isMounted) {
+    return null
+  }
+
   const setToast: (data: ComponentProps<typeof Toast>['data']) => any = (
     data
   ) => toast.custom((t) => <Toast t={t} toast={toast} data={data} />)
@@ -91,14 +91,18 @@ const Address: NextPage<Props> = ({ address, fallback }) => {
   const isOwner = address?.toLowerCase() === accountData?.address?.toLowerCase()
   const formattedAddress = truncateAddress(address as string)
 
-  let tabs = [{ name: 'Tokens', id: 'portfolio' }]
+  let tabs = [
+    { name: 'Tokens', id: 'portfolio' },
+    { name: 'Listings', id: 'listings' },
+  ]
 
   if (isOwner) {
     tabs = [
       { name: 'Tokens', id: 'portfolio' },
       { name: 'Offers Received', id: 'received' },
       { name: 'Offers Made', id: 'buying' },
-      { name: 'Listings', id: 'selling' },
+      { name: 'Active Listings', id: 'listings' },
+      { name: 'Inactive Listings', id: 'listings_inactive' },
     ]
   }
 
@@ -168,16 +172,30 @@ const Address: NextPage<Props> = ({ address, fallback }) => {
                     }}
                   />
                 </Tabs.Content>
-                <Tabs.Content value="selling" className="col-span-full">
-                  <UserListingsTable
-                    collectionIds={collectionIds}
-                    modal={{
-                      isInTheWrongNetwork,
-                      setToast,
-                    }}
-                  />
-                </Tabs.Content>
               </>
+            )}
+            <Tabs.Content value="listings" className="col-span-full">
+              <UserListingsTable
+                isOwner={isOwner}
+                collectionIds={collectionIds}
+                modal={{
+                  isInTheWrongNetwork,
+                  setToast,
+                }}
+                showActive
+              />
+            </Tabs.Content>
+            {isOwner && (
+              <Tabs.Content value="listings_inactive" className="col-span-full">
+                <UserListingsTable
+                  isOwner={isOwner}
+                  collectionIds={collectionIds}
+                  modal={{
+                    isInTheWrongNetwork,
+                    setToast,
+                  }}
+                />
+              </Tabs.Content>
             )}
             <Tabs.Content value="activity" className="col-span-full">
               <UserActivityTab user={address} />

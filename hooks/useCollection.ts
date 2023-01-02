@@ -1,38 +1,56 @@
-import { paths } from '@reservoir0x/client-sdk/dist/types/api'
+import { paths } from '@reservoir0x/reservoir-kit-client'
 import fetcher from 'lib/fetcher'
 import setParams from 'lib/params'
+import { NextRouter } from 'next/router'
 import useSWR from 'swr'
-import { useCollections } from '@reservoir0x/reservoir-kit-ui'
 
+const PROXY_API_BASE = process.env.NEXT_PUBLIC_PROXY_API_BASE
 
-const RESERVOIR_API_KEY = process.env.RESERVOIR_API_KEY;
-
-type Collection = paths['/collection/v2']['get']['responses']['200']['schema']
-
-export default function useCollection(
-    fallbackData: Collection | undefined,
-    collectionId?: string | undefined
+export default function useCollectionStats(
+  router: NextRouter,
+  collectionId: string | undefined
 ) {
-    function getUrl() {
-        if (!collectionId) return undefined
+  function getUrl() {
+    if (!collectionId) return undefined
 
-        const pathname = `${RESERVOIR_API_KEY}/collection/v2`
+    const pathname = `${PROXY_API_BASE}/stats/v2`
 
-        let query: paths['/collection/v2']['get']['parameters']['query'] = {
-            id: collectionId,
-          }
-        
-        const href = setParams(pathname, query)
-
-        return href
+    const query: paths['/stats/v2']['get']['parameters']['query'] = {
+      collection: collectionId,
+      normalizeRoyalties: true
     }
 
-    const href = getUrl()
+    // Extract all queries of attribute type
+    const attributes = Object.keys(router.query).filter(
+      (key) =>
+        key.startsWith('attributes[') &&
+        key.endsWith(']') &&
+        router.query[key] !== ''
+    )
 
-    const { data: collection } = useCollections({
-        id: "0x46e663972AfE9D500B0A366CdEb8788e39DF1478",
+    const query2: { [key: string]: any } = {}
+
+    // Add all selected attributes to the query
+    if (attributes.length > 0) {
+      attributes.forEach((key) => {
+        const value = router.query[key]?.toString()
+        if (value) {
+          query2[key] = value
+        }
       })
+    }
 
-    return collection
+    const href = setParams(pathname, { ...query, ...query2 })
+
+    return href
+  }
+
+  const href = getUrl()
+
+  const stats = useSWR<paths['/stats/v2']['get']['responses']['200']['schema']>(
+    href,
+    fetcher
+  )
+
+  return stats
 }
-

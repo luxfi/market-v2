@@ -20,6 +20,8 @@ import useCoinConversion from 'hooks/useCoinConversion'
 import SwapCartModal from 'components/SwapCartModal'
 import { FaShoppingCart } from 'react-icons/fa'
 import ConnectWalletButton from 'components/ConnectWalletButton'
+import useMounted from 'hooks/useMounted'
+import { useRouter } from 'next/router'
 
 const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID
 const SOURCE_ID = process.env.NEXT_PUBLIC_SOURCE_ID
@@ -31,6 +33,7 @@ const CURRENCIES = process.env.NEXT_PUBLIC_LISTING_CURRENCIES
 type Props = {
   details: ReturnType<typeof useTokens>
   collection?: Collection
+  isOwner: boolean
 }
 
 type ListingCurrencies = ComponentPropsWithoutRef<
@@ -42,7 +45,9 @@ if (CURRENCIES) {
   listingCurrencies = JSON.parse(CURRENCIES)
 }
 
-const PriceData: FC<Props> = ({ details, collection }) => {
+const PriceData: FC<Props> = ({ details, collection, isOwner }) => {
+  const router = useRouter()
+  const isMounted = useMounted()
   const [cartTokens, setCartTokens] = useRecoilState(recoilCartTokens)
   const tokensMap = useRecoilValue(getTokensMap)
   const cartCurrency = useRecoilValue(getCartCurrency)
@@ -53,6 +58,10 @@ const PriceData: FC<Props> = ({ details, collection }) => {
   const [clearCartOpen, setClearCartOpen] = useState(false)
   const [cartToSwap, setCartToSwap] = useState<undefined | typeof cartTokens>()
   const account = useAccount()
+  const bidOpenState = useState(true)
+
+  const queryBidId = router.query.bidId as string
+  const deeplinkToAcceptBid = router.query.acceptBid === 'true'
 
   const token = details.data ? details.data[0] : undefined
 
@@ -68,6 +77,10 @@ const PriceData: FC<Props> = ({ details, collection }) => {
     token?.market?.floorAsk?.price?.currency?.symbol ? 'usd' : undefined,
     token?.market?.floorAsk?.price?.currency?.symbol
   )
+
+  if (!isMounted) {
+    return null
+  }
 
   const topBidUsdPrice =
     topBidUsdConversion && token?.market?.topBid?.price?.amount?.decimal
@@ -107,13 +120,14 @@ const PriceData: FC<Props> = ({ details, collection }) => {
 
   if (!CHAIN_ID) return null
 
-  const isOwner =
-    token?.token?.owner?.toLowerCase() === accountData?.address?.toLowerCase()
   const isTopBidder =
     accountData.isConnected &&
     token?.market?.topBid?.maker?.toLowerCase() ===
       accountData?.address?.toLowerCase()
-  const isListed = token?.market?.floorAsk?.price !== null
+  const isListed = token
+    ? token?.market?.floorAsk?.price !== null &&
+      token?.token?.kind !== 'erc1155'
+    : false
   const isInTheWrongNetwork = Boolean(signer && activeChain?.id !== +CHAIN_ID)
 
   const tokenId = token?.token?.tokenId
@@ -174,7 +188,9 @@ const PriceData: FC<Props> = ({ details, collection }) => {
         </div>
         <div className="mt-6 grid grid-cols-1 gap-3 md:grid-cols-2">
           {account.isDisconnected ? (
-            <ConnectWalletButton className="w-full" />
+            <ConnectWalletButton className="w-full">
+              <span>Connect Wallet</span>
+            </ConnectWalletButton>
           ) : (
             <>
               {isOwner && (
@@ -231,6 +247,12 @@ const PriceData: FC<Props> = ({ details, collection }) => {
                     </button>
                   ) : null
                 }
+                openState={
+                  isOwner && (queryBidId || deeplinkToAcceptBid)
+                    ? bidOpenState
+                    : undefined
+                }
+                bidId={queryBidId}
                 collectionId={collection?.id}
                 tokenId={token?.token?.tokenId}
                 onClose={() => details && details.mutate()}

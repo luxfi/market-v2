@@ -5,9 +5,19 @@ import { NFTStorage, File } from 'nft.storage';
 import mime from 'mime';
 import path from 'path';
 
+<<<<<<< HEAD:contracts/scripts/0001_vera_metadata.ts
 import { generate, Template} from "@pdfme/generator/";
 const template = require("./pdfs/template.json");
 //     LUX-MM-U3O8-0000-<tokenID>
+=======
+import { generate } from "@pdfme/generator/";
+
+
+const template = require("./template.json");
+
+
+
+>>>>>>> develop:contracts/scripts/verametadata.ts
 
 require("dotenv").config({ path: ".env" });
 
@@ -109,8 +119,14 @@ async function mint_nfts(start_id: number, end_id: number, poundage: number, des
     }
 }
 
+<<<<<<< HEAD:contracts/scripts/0001_vera_metadata.ts
 async function render_pdf(tokenId: number, poundage: number) {  
     const SPOT_PRICE:number  = 50.81;
+=======
+async function render_pdf(tokenId: number, poundage: number) {
+          
+}
+>>>>>>> develop:contracts/scripts/verametadata.ts
 
         const inputs = [
         {
@@ -129,6 +145,7 @@ async function render_pdf(tokenId: number, poundage: number) {
         },
     ];
 
+<<<<<<< HEAD:contracts/scripts/0001_vera_metadata.ts
     const pdf = await generate({ template, inputs });   
     let pdfpath = `${process.cwd()}/scripts/render/${tokenId}.pdf`;
   
@@ -141,6 +158,23 @@ async function render_pdf(tokenId: number, poundage: number) {
         }
     );
 }
+=======
+    const inputs = [
+        {}
+      ];
+    const pdf = await generate({ template, inputs });
+
+    let pdfpath = `${process.cwd()}/scripts/uranium/0.pdf`;
+
+        await fs.writeFile(pdfpath,
+            pdf,
+            {
+                encoding: "utf8",
+                flag: "a+",
+                mode: 0o666
+            }
+        );
+>>>>>>> develop:contracts/scripts/verametadata.ts
 
 async function main() {  
 

@@ -18,6 +18,9 @@ import recoilCartTokens from 'recoil/cart/atom'
 import { ListModal, useReservoirClient } from '@reservoir0x/reservoir-kit-ui'
 import { setToast } from './token/setToast'
 import { MutatorCallback } from 'swr'
+import { useMediaQuery } from '@react-hookz/web'
+import RarityTooltip from './RarityTooltip'
+import { Collection } from 'types/reservoir'
 
 const SOURCE_ICON = process.env.NEXT_PUBLIC_SOURCE_ICON
 const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID
@@ -37,6 +40,8 @@ if (CURRENCIES) {
 type Props = {
   token?: ReturnType<typeof useTokens>['tokens']['data'][0]
   collectionImage: string | undefined
+  collectionSize?: number | undefined
+  collectionAttributes?: Collection['attributes']
   mutate: MutatorCallback
   setClearCartOpen?: Dispatch<SetStateAction<boolean>>
   setCartToSwap?: Dispatch<SetStateAction<any | undefined>>
@@ -45,6 +50,8 @@ type Props = {
 const TokenCard: FC<Props> = ({
   token,
   collectionImage,
+  collectionSize,
+  collectionAttributes,
   mutate,
   setClearCartOpen,
   setCartToSwap,
@@ -58,6 +65,7 @@ const TokenCard: FC<Props> = ({
   const [cartTokens, setCartTokens] = useRecoilState(recoilCartTokens)
 
   const reservoirClient = useReservoirClient()
+  const singleColumnBreakpoint = useMediaQuery('(max-width: 640px)')
 
   if (!token) return null
 
@@ -69,6 +77,7 @@ const TokenCard: FC<Props> = ({
   )
   const isOwner =
     token?.token?.owner?.toLowerCase() === account?.address?.toLowerCase()
+  const imageSize = singleColumnBreakpoint ? 533 : 250
 
   return (
     <div
@@ -89,11 +98,11 @@ const TokenCard: FC<Props> = ({
           {token?.token?.image ? (
             <Image
               loader={({ src }) => src}
-              src={optimizeImage(token?.token?.image, 250)}
+              src={optimizeImage(token?.token?.image, imageSize)}
               alt={`${token?.token?.name}`}
               className="w-full"
-              width={250}
-              height={250}
+              width={imageSize}
+              height={imageSize}
               objectFit="cover"
               layout="responsive"
             />
@@ -102,7 +111,7 @@ const TokenCard: FC<Props> = ({
               <div className="absolute inset-0 grid place-items-center backdrop-blur-lg">
                 <div>
                   <img
-                    src={optimizeImage(collectionImage, 250)}
+                    src={optimizeImage(collectionImage, imageSize)}
                     alt={`${token?.token?.collection?.name}`}
                     className="mx-auto mb-4 h-16 w-16 overflow-hidden rounded-full border-2 border-white"
                     width="64"
@@ -114,7 +123,7 @@ const TokenCard: FC<Props> = ({
                 </div>
               </div>
               <img
-                src={optimizeImage(collectionImage, 250)}
+                src={optimizeImage(collectionImage, imageSize)}
                 alt={`${token?.token?.collection?.name}`}
                 className="aspect-square w-full object-cover"
                 width="250"
@@ -131,11 +140,24 @@ const TokenCard: FC<Props> = ({
             : 'group-hover:bottom-[0px]'
         }`}
       >
-        <div
-          className="reservoir-subtitle mb-3 overflow-hidden truncate px-4 pt-4 dark:text-white lg:pt-3"
-          title={token?.token?.name || token?.token?.tokenId}
-        >
-          {token?.token?.name || `#${token?.token?.tokenId}`}
+        <div className="flex items-center justify-between">
+          <div
+            className="reservoir-subtitle mb-3 overflow-hidden truncate px-4 pt-4 dark:text-white lg:pt-3"
+            title={token?.token?.name || token?.token?.tokenId}
+          >
+            {token?.token?.name || `#${token?.token?.tokenId}`}
+          </div>
+          {collectionSize &&
+            collectionAttributes &&
+            collectionAttributes?.length >= 2 &&
+            collectionSize >= 2 &&
+            token.token?.rarityRank &&
+            token.token?.kind != 'erc1155' && (
+              <RarityTooltip
+                rarityRank={token.token?.rarityRank}
+                collectionSize={collectionSize}
+              />
+            )}
         </div>
         <div className="flex items-center justify-between px-4 pb-4 lg:pb-3">
           {token?.market?.floorAsk?.price?.amount?.decimal != null &&

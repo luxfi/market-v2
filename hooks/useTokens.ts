@@ -13,6 +13,7 @@ export default function useTokens(
   collectionId: string | undefined,
   fallbackData: Tokens[],
   router: NextRouter,
+  includeTopBid: boolean = true,
   source?: boolean | undefined
 ) {
   const { ref, inView } = useInView()
@@ -21,11 +22,18 @@ export default function useTokens(
   const query: Parameters<typeof useTokensRk>['0'] = {
     limit: 20,
     collection: collectionId,
-    includeTopBid: true,
+    includeTopBid: includeTopBid,
     sortBy: 'floorAskPrice',
+    sortDirection: 'asc'
   }
 
   if (source) query.source = reservoirClient?.source
+
+  const sortDirection = router.query['sortDirection']?.toString()
+  const sortBy = router.query['sortBy']?.toString()
+
+  if(sortBy === 'tokenId' || sortBy === 'rarity') query.sortBy = sortBy
+  if(sortDirection === 'desc') query.sortDirection = 'desc'
 
   // Extract all queries of attribute type
   Object.keys(router.query)

@@ -11,12 +11,23 @@ import EthAccount from './EthAccount'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import Link from 'next/link'
 import { HiOutlineLogout } from 'react-icons/hi'
+<<<<<<< HEAD
 import FormatNativeCrypto from './FormatNativeCrypto'
 import { GlobalContext } from 'context/GlobalState'
 import ConnectWalletButton from 'components/ConnectWalletButton'
 import useMounted from 'hooks/useMounted'
 import Avatar from './Avatar'
 import { truncateAddress, truncateEns } from 'lib/truncateText'
+=======
+import FormatEth from './FormatEth'
+<<<<<<< HEAD
+import { GlobalContext } from 'context/GlobalState'
+import ConnectWalletButton from 'components/ConnectWalletButton'
+=======
+import ConnectWalletModal from './ConnectWalletModal'
+import { GlobalContext } from 'context/GlobalState'
+>>>>>>> d73def8 (initial commit)
+>>>>>>> 183137d (initial commit)
 
 const DARK_MODE = process.env.NEXT_PUBLIC_DARK_MODE
 const DISABLE_POWERED_BY_RESERVOIR =
@@ -32,6 +43,7 @@ const ConnectWallet: FC = () => {
   const { dispatch } = useContext(GlobalContext)
   const isMounted = useMounted()
 
+<<<<<<< HEAD
   if (!isMounted) {
     return null
   }
@@ -42,6 +54,15 @@ const ConnectWallet: FC = () => {
         <img src="/icons/wallet.svg" alt="Wallet Icon" />
       </ConnectWalletButton>
     )
+=======
+<<<<<<< HEAD
+  if (!account.isConnected) return <ConnectWalletButton />
+=======
+  if (account.isConnecting) return null
+
+  if (!account.isConnected) return <ConnectWalletModal />
+>>>>>>> d73def8 (initial commit)
+>>>>>>> 183137d (initial commit)
 
   return (
     <DropdownMenu.Root>

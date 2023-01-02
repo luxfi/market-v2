@@ -18,10 +18,17 @@ import { Collection } from 'types/reservoir'
 import { formatDollar } from 'lib/numbers'
 import useCoinConversion from 'hooks/useCoinConversion'
 import SwapCartModal from 'components/SwapCartModal'
+<<<<<<< HEAD
 import { FaShoppingCart } from 'react-icons/fa'
 import ConnectWalletButton from 'components/ConnectWalletButton'
+<<<<<<< HEAD
 import useMounted from 'hooks/useMounted'
 import { useRouter } from 'next/router'
+=======
+=======
+import ConnectWalletModal from 'components/ConnectWalletModal'
+>>>>>>> d73def8 (initial commit)
+>>>>>>> 183137d (initial commit)
 
 const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID
 const SOURCE_ID = process.env.NEXT_PUBLIC_SOURCE_ID
@@ -78,10 +85,14 @@ const PriceData: FC<Props> = ({ details, collection, isOwner }) => {
     token?.market?.floorAsk?.price?.currency?.symbol
   )
 
+<<<<<<< HEAD
   if (!isMounted) {
     return null
   }
 
+=======
+<<<<<<< HEAD
+>>>>>>> 183137d (initial commit)
   const topBidUsdPrice =
     topBidUsdConversion && token?.market?.topBid?.price?.amount?.decimal
       ? topBidUsdConversion * token?.market?.topBid?.price?.amount?.decimal
@@ -91,6 +102,15 @@ const PriceData: FC<Props> = ({ details, collection, isOwner }) => {
     floorAskUsdConversion && token?.market?.floorAsk?.price?.amount?.decimal
       ? floorAskUsdConversion * token?.market?.floorAsk?.price?.amount?.decimal
       : null
+=======
+  const topBidUsdPrice = token?.market?.topBid?.price?.amount?.decimal
+    ? topBidUsdConversion * token?.market?.topBid?.price?.amount?.decimal
+    : null
+
+  const floorAskUsdPrice = token?.market?.floorAsk?.price?.amount?.decimal
+    ? floorAskUsdConversion * token?.market?.floorAsk?.price?.amount?.decimal
+    : null
+>>>>>>> d73def8 (initial commit)
 
   const sourceName = token?.market?.floorAsk?.source?.name as string | undefined
   const sourceDomain = token?.market?.floorAsk?.source?.domain as
@@ -167,7 +187,10 @@ const PriceData: FC<Props> = ({ details, collection, isOwner }) => {
                 address={token?.market?.floorAsk?.price?.currency?.contract}
                 decimals={token?.market?.floorAsk?.price?.currency?.decimals}
                 logoWidth={30}
+<<<<<<< HEAD
                 maximumFractionDigits={8}
+=======
+>>>>>>> d73def8 (initial commit)
               />
             }
             usdPrice={floorAskUsdPrice}
@@ -180,7 +203,10 @@ const PriceData: FC<Props> = ({ details, collection, isOwner }) => {
                 address={token?.market?.topBid?.price?.currency?.contract}
                 decimals={token?.market?.topBid?.price?.currency?.decimals}
                 logoWidth={30}
+<<<<<<< HEAD
                 maximumFractionDigits={8}
+=======
+>>>>>>> d73def8 (initial commit)
               />
             }
             usdPrice={topBidUsdPrice}
@@ -188,19 +214,41 @@ const PriceData: FC<Props> = ({ details, collection, isOwner }) => {
         </div>
         <div className="mt-6 grid grid-cols-1 gap-3 md:grid-cols-2">
           {account.isDisconnected ? (
+<<<<<<< HEAD
             <ConnectWalletButton className="w-full">
               <span>Connect Wallet</span>
             </ConnectWalletButton>
+=======
+<<<<<<< HEAD
+            <ConnectWalletButton className="w-full" />
+=======
+            <ConnectWalletModal />
+>>>>>>> d73def8 (initial commit)
+>>>>>>> 183137d (initial commit)
           ) : (
             <>
               {isOwner && (
                 <ListModal
                   trigger={
+<<<<<<< HEAD
                     <button className="btn-primary-fill w-full dark:ring-primary-900 dark:focus:ring-4">
                       {token?.market?.floorAsk?.price?.amount?.decimal
                         ? 'Create New Listing'
                         : 'List for Sale'}
                     </button>
+=======
+                    token?.market?.floorAsk?.price?.amount?.decimal ? (
+                      <p className="btn-primary-fill w-full dark:ring-primary-900 dark:focus:ring-4">
+                        Edit Listing
+                      </p>
+                    ) : (
+                      <div className="btn-primary-fill w-full dark:ring-primary-900 dark:focus:ring-4">
+                        {token?.market?.floorAsk?.price?.amount?.decimal
+                          ? 'Edit Listing'
+                          : 'List for Sale'}
+                      </div>
+                    )
+>>>>>>> d73def8 (initial commit)
                   }
                   collectionId={contract}
                   tokenId={tokenId}
@@ -236,6 +284,64 @@ const PriceData: FC<Props> = ({ details, collection, isOwner }) => {
                   mutate={details.mutate}
                 />
               )}
+<<<<<<< HEAD
+=======
+              {isInCart && !isOwner && (
+                <button
+                  onClick={() => {
+                    const newCartTokens = [...cartTokens]
+                    const index = newCartTokens.findIndex(
+                      (cartToken) =>
+                        cartToken?.token?.contract === contract &&
+                        cartToken?.token?.tokenId === tokenId
+                    )
+                    newCartTokens.splice(index, 1)
+                    setCartTokens(newCartTokens)
+                  }}
+                  className="outline-none"
+                >
+                  <div className="btn-primary-outline w-full text-[#FF3B3B] disabled:cursor-not-allowed dark:border-neutral-600  dark:text-red-300 dark:ring-primary-900 dark:focus:ring-4">
+                    Remove
+                  </div>
+                </button>
+              )}
+              {!isInCart && !isOwner && isListed && (
+                <button
+                  disabled={!token?.market?.floorAsk?.price}
+                  onClick={() => {
+                    if (token?.token && token.market) {
+                      if (
+                        !cartCurrency ||
+                        token.market.floorAsk?.price?.currency?.contract ===
+                          cartCurrency?.contract
+                      ) {
+                        setCartTokens([
+                          ...cartTokens,
+                          {
+                            token: token.token,
+                            market: token.market,
+                          },
+                        ])
+                      } else {
+                        setCartToSwap([
+                          {
+                            token: token.token,
+                            market: token.market,
+                          },
+                        ])
+                        setClearCartOpen(true)
+                      }
+                    }
+                  }}
+                  className="outline-none"
+                >
+                  <div className="btn-primary-outline w-full px-[10px] dark:border-neutral-600 dark:text-white dark:ring-primary-900  dark:focus:ring-4">
+                    Add to Cart
+                  </div>
+                </button>
+              )}
+
+>>>>>>> d73def8 (initial commit)
               <AcceptBidModal
                 trigger={
                   showAcceptOffer ? (
@@ -321,6 +427,7 @@ const PriceData: FC<Props> = ({ details, collection, isOwner }) => {
             </>
           )}
         </div>
+<<<<<<< HEAD
         {isInCart && !isOwner && (
           <button
             onClick={() => {
@@ -384,6 +491,8 @@ const PriceData: FC<Props> = ({ details, collection, isOwner }) => {
             </div>
           </button>
         )}
+=======
+>>>>>>> d73def8 (initial commit)
       </article>
       <SwapCartModal
         open={clearCartOpen}

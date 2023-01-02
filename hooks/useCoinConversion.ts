@@ -13,12 +13,19 @@ export default function useCoinConversion(
     {
       refreshInterval: 60 * 1000 * 5, //5m Interval
       revalidateOnFocus: false,
+<<<<<<< HEAD
       refreshWhenHidden: false,
+=======
+>>>>>>> d73def8 (initial commit)
     }
   )
 
   if (data && data[0] && data[0].current_price) {
+<<<<<<< HEAD
     return data[0].current_price as number
+=======
+    return data[0].current_price
+>>>>>>> d73def8 (initial commit)
   }
   return null
 }

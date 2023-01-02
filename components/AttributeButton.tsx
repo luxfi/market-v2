@@ -8,24 +8,16 @@ type Props = {
   children: React.ReactNode
   attribute: string
   value: string
-<<<<<<< HEAD
   refreshData: () => void
   scrollToTop: () => void
-=======
-  setTokensSize: SWRInfiniteResponse['setSize']
->>>>>>> 96757b6 (Update look and feel)
 }
 
 const AttributeButton: FC<Props> = ({
   children,
   attribute,
   value,
-<<<<<<< HEAD
   refreshData,
   scrollToTop,
-=======
-  setTokensSize,
->>>>>>> 96757b6 (Update look and feel)
 }) => {
   const router = useRouter()
 
@@ -44,12 +36,8 @@ const AttributeButton: FC<Props> = ({
             updateAttribute(router, attribute, value)
           }
         }
-<<<<<<< HEAD
         refreshData()
         scrollToTop()
-=======
-        setTokensSize(0)
->>>>>>> 96757b6 (Update look and feel)
       }}
       className={`flex w-full items-center justify-between gap-3 px-3 py-1 text-left ${
         router.query[`attributes[${attribute}]`] &&

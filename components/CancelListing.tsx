@@ -1,15 +1,9 @@
-import { Execute, paths } from '@reservoir0x/reservoir-kit-client'
+import { Execute } from '@reservoir0x/reservoir-sdk'
 import React, {
-<<<<<<< HEAD
   cloneElement,
   ComponentProps,
   FC,
   ReactElement,
-=======
-  ComponentProps,
-  FC,
->>>>>>> d73def8 (initial commit)
-  useContext,
   useEffect,
   useState,
 } from 'react'
@@ -19,22 +13,19 @@ import ModalCard from './modal/ModalCard'
 import { useSigner } from 'wagmi'
 import Toast from './Toast'
 import { SWRInfiniteResponse } from 'swr/infinite/dist/infinite'
-import { getCollection, getDetails } from 'lib/fetch/fetch'
+import { getDetails } from 'lib/fetch/fetch'
 import { CgSpinner } from 'react-icons/cg'
-import { GlobalContext } from 'context/GlobalState'
-import { useReservoirClient } from '@reservoir0x/reservoir-kit-ui'
+import { useReservoirClient, useTokens } from '@reservoir0x/reservoir-kit-ui'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 
-type Details = paths['/tokens/details/v4']['get']['responses']['200']['schema']
-type Collection = paths['/collection/v3']['get']['responses']['200']['schema']
+type UseTokensReturnType = ReturnType<typeof useTokens>
 
 type Props = {
   data:
     | {
-        details: SWRResponse<Details, any>
-        collection: Collection | undefined
+        details: UseTokensReturnType
       }
     | {
-        collectionId: string | undefined
         contract?: string | undefined
         tokenId?: string | undefined
         id?: string | undefined
@@ -45,10 +36,7 @@ type Props = {
   setToast: (data: ComponentProps<typeof Toast>['data']) => any
   show: boolean
   signer: ReturnType<typeof useSigner>['data']
-<<<<<<< HEAD
   trigger?: ReactElement<typeof Dialog.Trigger>
-=======
->>>>>>> d73def8 (initial commit)
 }
 
 const CancelListing: FC<Props> = ({
@@ -58,52 +46,36 @@ const CancelListing: FC<Props> = ({
   setToast,
   show,
   signer,
-<<<<<<< HEAD
   trigger,
-=======
->>>>>>> d73def8 (initial commit)
 }) => {
   const [waitingTx, setWaitingTx] = useState<boolean>(false)
   const [steps, setSteps] = useState<Execute['steps']>()
   const [open, setOpen] = useState(false)
+  const { openConnectModal } = useConnectModal()
 
   // Data from props
-  const [_collection, setCollection] = useState<Collection>()
-  const [details, setDetails] = useState<SWRResponse<Details, any> | Details>()
-  const { dispatch } = useContext(GlobalContext)
+  const [details, setDetails] = useState<
+    UseTokensReturnType | UseTokensReturnType['data']
+  >()
   const reservoirClient = useReservoirClient()
 
   useEffect(() => {
     if (data && open) {
       // Load data if missing
       if ('tokenId' in data) {
-        const { contract, tokenId, collectionId } = data
+        const { contract, tokenId } = data
 
-        getDetails(contract, tokenId, setDetails)
-        getCollection(collectionId, setCollection)
+        getDetails(contract, tokenId, (data) => {
+          setDetails(data.tokens)
+        })
       }
       // Load data if provided
       if ('details' in data) {
-        const { details, collection } = data
-
+        const { details } = data
         setDetails(details)
-        setCollection(collection)
       }
     }
   }, [data, open])
-
-  // Set the token either from SWR or fetch
-  let token: NonNullable<Details['tokens']>[0] = { token: undefined }
-
-  // From fetch
-  if (details && 'tokens' in details && details.tokens?.[0]) {
-    token = details.tokens?.[0]
-  }
-
-  // From SWR
-  if (details && 'data' in details && details?.data?.tokens?.[0]) {
-    token = details.data?.tokens?.[0]
-  }
 
   const handleError = (err: any) => {
     setWaitingTx(false)
@@ -134,7 +106,7 @@ const CancelListing: FC<Props> = ({
   let id: string | undefined = undefined
 
   if ('details' in data) {
-    id = data?.details.data?.tokens?.[0].market?.floorAsk?.id
+    id = data.details.data[0]?.market?.floorAsk?.id
   }
 
   if ('id' in data) {
@@ -162,10 +134,11 @@ const CancelListing: FC<Props> = ({
       .catch(handleError)
   }
 
-<<<<<<< HEAD
   const onTriggerClick = () => {
     if (!id || !signer) {
-      dispatch({ type: 'CONNECT_WALLET', payload: true })
+      if (openConnectModal) {
+        openConnectModal()
+      }
       return
     }
     execute(id)
@@ -194,32 +167,6 @@ const CancelListing: FC<Props> = ({
             )}
           </Dialog.Trigger>
         ))}
-=======
-  return (
-    <Dialog.Root open={open} onOpenChange={setOpen}>
-      {show && (
-        <Dialog.Trigger
-          disabled={waitingTx || isInTheWrongNetwork}
-          onClick={() => {
-            if (!id || !signer) {
-              dispatch({ type: 'CONNECT_WALLET', payload: true })
-              return
-            }
-            execute(id)
-          }}
-        >
-          {waitingTx ? (
-            <p className="btn-primary-outline dark:border-neutral-600  dark:text-white dark:ring-primary-900 dark:focus:ring-4">
-              <CgSpinner className="h-4 w-4 animate-spin" />
-            </p>
-          ) : (
-            <p className="btn-primary-outline dark:border-neutral-600  dark:text-white dark:ring-primary-900 dark:focus:ring-4">
-              Cancel Listing
-            </p>
-          )}
-        </Dialog.Trigger>
-      )}
->>>>>>> d73def8 (initial commit)
       {steps && (
         <Dialog.Portal>
           <Dialog.Overlay>

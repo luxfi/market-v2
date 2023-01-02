@@ -1,11 +1,8 @@
+import useEnvChain from 'hooks/useEnvChain'
 import Link from 'next/link'
 import { FC } from 'react'
 
 const NAVBAR_LOGO = process.env.NEXT_PUBLIC_NAVBAR_LOGO
-<<<<<<< HEAD
-=======
-const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID
->>>>>>> d73def8 (initial commit)
 const SOURCE_ID = process.env.NEXT_PUBLIC_SOURCE_ID
 const SOURCE_NAME = process.env.NEXT_PUBLIC_SOURCE_NAME
 const DESKTOP_NAVBAR_LOGO = process.env.NEXT_PUBLIC_DESKTOP_NAVBAR_LOGO
@@ -17,22 +14,9 @@ type Props = {
 }
 
 const NavbarLogo: FC<Props> = ({ variant, className }) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
-  const logo = NAVBAR_LOGO || '/vera-logo.png'
-  const desktopLogo = DESKTOP_NAVBAR_LOGO || '/vera-logo-desktop.png'
-=======
   const logo = NAVBAR_LOGO || '/reservoir.svg'
   const desktopLogo = DESKTOP_NAVBAR_LOGO || '/reservoir-desktop.svg'
-<<<<<<< HEAD
->>>>>>> d73def8 (initial commit)
   const chain = useEnvChain()
-=======
->>>>>>> 79e0b24 (Update look and feel)
-=======
-  const logo = NAVBAR_LOGO || '/luxlogo.png'
-  const desktopLogo = DESKTOP_NAVBAR_LOGO || '/luxlogo.png'
->>>>>>> adabfbe (navb logos)
   let logoAlt = 'Logo'
 
   if (SOURCE_NAME) {
@@ -43,10 +27,9 @@ const NavbarLogo: FC<Props> = ({ variant, className }) => {
 
   const mobileVariant = variant == 'mobile'
   const desktopVariant = variant == 'desktop'
-  const isTestNet = CHAIN_ID === '4'
 
   return (
-    <Link href={NAVBAR_LOGO_LINK || '/'}>
+    <Link href={NAVBAR_LOGO_LINK || '/'} legacyBehavior={true}>
       <a
         className={`relative inline-flex flex-none items-center gap-1 ${className}`}
       >
@@ -64,7 +47,7 @@ const NavbarLogo: FC<Props> = ({ variant, className }) => {
             !variant ? 'hidden md:block' : ''
           } ${mobileVariant ? 'hidden' : ''} ${desktopVariant ? 'block' : ''}`}
         />
-        {isTestNet && (
+        {chain?.testnet && (
           <div
             className={`reservoir-tiny inline rounded-[4px] bg-[#EFC45C] p-1 py-[2px]
           ${

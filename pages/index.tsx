@@ -11,6 +11,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
+import image from 'next/image'
 
 const ModelViewComp = dynamic(() => import('../components/ModelViewComp'), {
   ssr: false,

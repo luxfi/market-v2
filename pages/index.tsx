@@ -8,12 +8,15 @@ import SortTrendingCollections from 'components/SortTrendingCollections'
 import { useMediaQuery } from '@react-hookz/web'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+<<<<<<< HEAD
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 
 const ModelViewComp = dynamic(() => import('../components/ModelViewComp'), {
   ssr: false,
 })
+=======
+>>>>>>> d73def8 (initial commit)
 
 // Environment variables
 // For more information about these variables
@@ -60,7 +63,10 @@ const metadata = {
 const Home: NextPage<Props> = ({ fallback }) => {
   const isSmallDevice = useMediaQuery('only screen and (max-width : 600px)')
   const router = useRouter()
+<<<<<<< HEAD
   const tokenHref = `/collections/0x666E74369eCEC7621dA5b7336E0C5D3e5b720544/`
+=======
+>>>>>>> d73def8 (initial commit)
 
   const title = META_TITLE && metadata.title(META_TITLE)
   const description = META_DESCRIPTION && metadata.description(META_DESCRIPTION)
@@ -89,6 +95,7 @@ const Home: NextPage<Props> = ({ fallback }) => {
         {description}
         {image}
       </Head>
+<<<<<<< HEAD
 
       <header className="col-span-full mb-12 mt-[66px] px-4 md:mt-40 lg:px-0">
         <h1 className="reservoir-h1 text-center dark:text-white">
@@ -116,11 +123,20 @@ const Home: NextPage<Props> = ({ fallback }) => {
             </Link>
           </div>
         </div>
+=======
+      <header className="col-span-full mb-12 mt-[66px] px-4 md:mt-40 lg:px-0">
+        <h1 className="reservoir-h1 text-center dark:text-white">{tagline}</h1>
+      </header>
+      <div className="col-span-full px-6 md:px-16">
+>>>>>>> d73def8 (initial commit)
         <div className="mb-9 flex w-full items-center justify-between">
           <div className="reservoir-h4 dark:text-white">
             Trending Collections
           </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> d73def8 (initial commit)
           {!isSmallDevice && <SortTrendingCollections />}
         </div>
         <TrendingCollectionTable fallback={fallback} />

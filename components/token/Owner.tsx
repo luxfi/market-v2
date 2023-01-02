@@ -14,7 +14,11 @@ const Owner: FC<Props> = ({ details, bannedOnOpenSea }) => {
   const token = details?.token
 
   const owner =
+<<<<<<< HEAD
     token?.kind === 'erc721A' && details?.market?.floorAsk?.maker
+=======
+    token?.kind === 'erc1155' && details?.market?.floorAsk?.maker
+>>>>>>> d73def8 (initial commit)
       ? details?.market?.floorAsk?.maker
       : token?.owner
 

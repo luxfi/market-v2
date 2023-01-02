@@ -12,8 +12,13 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import Link from 'next/link'
 import { HiOutlineLogout } from 'react-icons/hi'
 import FormatEth from './FormatEth'
+<<<<<<< HEAD
 import { GlobalContext } from 'context/GlobalState'
 import ConnectWalletButton from 'components/ConnectWalletButton'
+=======
+import ConnectWalletModal from './ConnectWalletModal'
+import { GlobalContext } from 'context/GlobalState'
+>>>>>>> d73def8 (initial commit)
 
 const DARK_MODE = process.env.NEXT_PUBLIC_DARK_MODE
 const DISABLE_POWERED_BY_RESERVOIR =
@@ -28,7 +33,13 @@ const ConnectWallet: FC = () => {
   const wallet = connectors[0]
   const { dispatch } = useContext(GlobalContext)
 
+<<<<<<< HEAD
   if (!account.isConnected) return <ConnectWalletButton />
+=======
+  if (account.isConnecting) return null
+
+  if (!account.isConnected) return <ConnectWalletModal />
+>>>>>>> d73def8 (initial commit)
 
   return (
     <DropdownMenu.Root>

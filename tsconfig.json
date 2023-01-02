@@ -23,5 +23,9 @@
     "ui/index.js",
     "ui/buttons.js"
   ],
+<<<<<<< HEAD
   "exclude": ["contracts", "node_modules"]
+=======
+  "exclude": ["node_modules"]
+>>>>>>> d73def8 (initial commit)
 }

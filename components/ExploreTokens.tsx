@@ -91,7 +91,14 @@ const ExploreTokens: FC<Props> = ({ viewRef, attributes }) => {
                           Offer
                         </span>
                         <span className="reservoir-h6 font-headings dark:text-white">
+<<<<<<< HEAD
                           <FormatEth amount={attribute?.topBid?.value} />
+=======
+                          <FormatEth
+                            amount={attribute?.topBid?.value}
+                            logoWidth={7}
+                          />
+>>>>>>> d73def8 (initial commit)
                         </span>
                       </div>
                       <div className="grid text-right">
@@ -99,7 +106,14 @@ const ExploreTokens: FC<Props> = ({ viewRef, attributes }) => {
                           Price
                         </span>
                         <span className="reservoir-h6 font-headings dark:text-white">
+<<<<<<< HEAD
                           <FormatEth amount={attribute?.floorAskPrices?.[0]} />
+=======
+                          <FormatEth
+                            amount={attribute?.floorAskPrices?.[0]}
+                            logoWidth={7}
+                          />
+>>>>>>> d73def8 (initial commit)
                         </span>
                       </div>
                     </div>

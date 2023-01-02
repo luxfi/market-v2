@@ -17,7 +17,11 @@ const Sidebar: FC<Props> = ({ attributes, refreshData }) => {
   return (
     <Accordion.Root
       type="multiple"
+<<<<<<< HEAD
       className="col-span-3 hidden border-r-[1px] border-gray-300 dark:border-neutral-600 md:block "
+=======
+      className="col-span-3 hidden border-r-[1px] border-gray-300 dark:border-neutral-600 md:block"
+>>>>>>> d73def8 (initial commit)
     >
       <div className="overflow-hidden">
         <button
@@ -26,7 +30,11 @@ const Sidebar: FC<Props> = ({ attributes, refreshData }) => {
               ? toggleOffItem(router, 'attribute_key')
               : toggleOnAttributeKey(router, 'attribute_key', '')
           }}
+<<<<<<< HEAD
           className={`w-full border-b-[1px] border-gray-300 px-6 py-5 text-left transition dark:border-neutral-600 dark:text-white ${
+=======
+          className={`reservoir-label-l w-full border-b-[1px] border-gray-300 px-6 py-5 text-left transition dark:border-neutral-600 dark:text-white ${
+>>>>>>> d73def8 (initial commit)
             router.query.attribute_key &&
             router.query.attribute_key.toString() === ''
               ? 'bg-primary-100 hover:bg-primary-300 dark:hover:bg-primary-900'
@@ -43,7 +51,11 @@ const Sidebar: FC<Props> = ({ attributes, refreshData }) => {
           className="overflow-hidden"
         >
           <Accordion.Header
+<<<<<<< HEAD
             className={`flex w-full justify-between border-b-[1px] border-gray-300 dark:border-neutral-600  ${
+=======
+            className={`flex w-full justify-between border-b-[1px] border-gray-300 dark:border-neutral-600 ${
+>>>>>>> d73def8 (initial commit)
               router.query.attribute_key &&
               router.query.attribute_key.toString() === attribute.key
                 ? 'divide-gray-800 dark:divide-gray-300'
@@ -62,7 +74,11 @@ const Sidebar: FC<Props> = ({ attributes, refreshData }) => {
                       )
                 }
               }}
+<<<<<<< HEAD
               className={`w-full py-5 px-6 text-left capitalize transition dark:text-white ${
+=======
+              className={`reservoir-label-l w-full py-5 px-6 text-left capitalize transition dark:text-white ${
+>>>>>>> d73def8 (initial commit)
                 router.query.attribute_key &&
                 router.query.attribute_key.toString() === attribute.key
                   ? 'bg-primary-100 hover:bg-primary-300  dark:bg-primary-900 dark:hover:bg-primary-900'

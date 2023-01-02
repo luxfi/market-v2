@@ -1,9 +1,14 @@
 import { Execute } from '@reservoir0x/reservoir-kit-client'
 import React, {
+<<<<<<< HEAD
   cloneElement,
   ComponentProps,
   FC,
   ReactElement,
+=======
+  ComponentProps,
+  FC,
+>>>>>>> d73def8 (initial commit)
   useContext,
   useEffect,
   useState,
@@ -37,7 +42,10 @@ type Props = {
   setToast: (data: ComponentProps<typeof Toast>['data']) => any
   show: boolean
   signer: ReturnType<typeof useSigner>['data']
+<<<<<<< HEAD
   trigger?: ReactElement<typeof Dialog.Trigger>
+=======
+>>>>>>> d73def8 (initial commit)
 }
 
 const CancelListing: FC<Props> = ({
@@ -47,7 +55,10 @@ const CancelListing: FC<Props> = ({
   setToast,
   show,
   signer,
+<<<<<<< HEAD
   trigger,
+=======
+>>>>>>> d73def8 (initial commit)
 }) => {
   const [waitingTx, setWaitingTx] = useState<boolean>(false)
   const [steps, setSteps] = useState<Execute['steps']>()
@@ -135,6 +146,7 @@ const CancelListing: FC<Props> = ({
       .catch(handleError)
   }
 
+<<<<<<< HEAD
   const onTriggerClick = () => {
     if (!id || !signer) {
       dispatch({ type: 'CONNECT_WALLET', payload: true })
@@ -166,6 +178,32 @@ const CancelListing: FC<Props> = ({
             )}
           </Dialog.Trigger>
         ))}
+=======
+  return (
+    <Dialog.Root open={open} onOpenChange={setOpen}>
+      {show && (
+        <Dialog.Trigger
+          disabled={waitingTx || isInTheWrongNetwork}
+          onClick={() => {
+            if (!id || !signer) {
+              dispatch({ type: 'CONNECT_WALLET', payload: true })
+              return
+            }
+            execute(id)
+          }}
+        >
+          {waitingTx ? (
+            <p className="btn-primary-outline dark:border-neutral-600  dark:text-white dark:ring-primary-900 dark:focus:ring-4">
+              <CgSpinner className="h-4 w-4 animate-spin" />
+            </p>
+          ) : (
+            <p className="btn-primary-outline dark:border-neutral-600  dark:text-white dark:ring-primary-900 dark:focus:ring-4">
+              Cancel Listing
+            </p>
+          )}
+        </Dialog.Trigger>
+      )}
+>>>>>>> d73def8 (initial commit)
       {steps && (
         <Dialog.Portal>
           <Dialog.Overlay>

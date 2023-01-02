@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 import { paths } from '@reservoir0x/client-sdk/dist/types/api'
 import { setParams } from '@reservoir0x/client-sdk/dist/utils/params'
 import FormatCrypto from 'components/FormatCrypto'
 import FormatEth from 'components/FormatEth'
 import useAsks from 'hooks/useAsks'
+=======
+import { useListings } from '@reservoir0x/reservoir-kit-ui'
+import FormatCrypto from '../FormatCrypto'
+>>>>>>> d73def8 (initial commit)
 import { truncateAddress } from 'lib/truncateText'
 import { DateTime } from 'luxon'
 import Link from 'next/link'
@@ -10,6 +15,7 @@ import { FC } from 'react'
 import Card from './Card'
 
 const API_BASE =
+<<<<<<< HEAD
   process.env.RESERVOIR_API_KEY || 'https://api.reservoir.tools'
 
   type Props = {
@@ -20,6 +26,21 @@ const Listings: FC<Props> = ({ asks }) => {
   const orders = asks.data?.orders
 
   if (!orders) return null
+=======
+  process.env.NEXT_PUBLIC_RESERVOIR_API_BASE || 'https://api.reservoir.tools'
+
+type Props = {
+  token?: string
+}
+
+const Listings: FC<Props> = ({ token }) => {
+  const { data: listings } = useListings({
+    token,
+    sortBy: 'price',
+  })
+
+  if (!listings || listings.length === 0) return null
+>>>>>>> d73def8 (initial commit)
 
   return (
     <div className="col-span-full md:col-span-4 lg:col-span-5 lg:col-start-2">
@@ -43,9 +64,15 @@ const Listings: FC<Props> = ({ asks }) => {
               </tr>
             </thead>
             <tbody>
+<<<<<<< HEAD
               {orders.map((order, index) => {
                 const { expiration, from, id, unitPrice, source } =
                   processOrder(order, index)
+=======
+              {listings.map((listing, index) => {
+                const { expiration, from, id, unitPrice, source } =
+                  processOrder(listing, index)
+>>>>>>> d73def8 (initial commit)
                 return (
                   <tr
                     key={id}
@@ -57,7 +84,10 @@ const Listings: FC<Props> = ({ asks }) => {
                         amount={unitPrice?.amount?.decimal}
                         address={unitPrice?.currency?.contract}
                         decimals={unitPrice?.currency?.decimals}
+<<<<<<< HEAD
                         maximumFractionDigits={8}
+=======
+>>>>>>> d73def8 (initial commit)
                       />
                     </td>
 
@@ -102,9 +132,13 @@ const Listings: FC<Props> = ({ asks }) => {
 export default Listings
 
 function processOrder(
+<<<<<<< HEAD
   order:
   | NonNullable<NonNullable<Props['asks']['data']>['orders']>[0]
   | undefined,
+=======
+  order: NonNullable<ReturnType<typeof useListings>>['data']['0'] | undefined,
+>>>>>>> d73def8 (initial commit)
   index: number
 ) {
   const from = {
@@ -118,6 +152,7 @@ function processOrder(
       ? 'Never'
       : DateTime.fromMillis(+`${order?.validUntil}000`).toRelative()
 
+<<<<<<< HEAD
   const url = new URL('/redirect/logo/v1', 'https://api.reservoir.tools')
 
   const query: paths['/redirect/logo/v1']['get']['parameters']['query'] = {
@@ -125,6 +160,8 @@ function processOrder(
     source: order?.source?.name,
   }
 
+=======
+>>>>>>> d73def8 (initial commit)
   const source = {
     ...order?.source,
     logo: `${API_BASE}/redirect/sources/${order?.source?.name}/logo/v2`,

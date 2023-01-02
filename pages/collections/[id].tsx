@@ -26,9 +26,15 @@ import Head from 'next/head'
 import FormatEth from 'components/FormatEth'
 import * as Tabs from '@radix-ui/react-tabs'
 import { toggleOnItem } from 'lib/router'
+<<<<<<< HEAD
 import Sweep from 'components/Sweep'
 import { useCollections, useAttributes } from '@reservoir0x/reservoir-kit-ui'
 import CollectionActivityTab from 'components/tables/CollectionActivityTab'
+=======
+import CollectionActivityTable from 'components/tables/CollectionActivityTable'
+import Sweep from 'components/Sweep'
+import { useCollections, useAttributes } from '@reservoir0x/reservoir-kit-ui'
+>>>>>>> d73def8 (initial commit)
 
 // Environment variables
 // For more information about these variables
@@ -299,9 +305,15 @@ const Home: NextPage<Props> = ({ fallback, id }) => {
           </Tabs.Content>
           <Tabs.Content
             value="activity"
+<<<<<<< HEAD
             className="col-span-full mx-[25px] grid pt-2 lg:col-start-2 lg:col-end-[-2]"
           >
             <CollectionActivityTab collectionId={id} />
+=======
+            className="col-span-full mx-[25px] grid lg:col-start-2 lg:col-end-[-2]"
+          >
+            <CollectionActivityTable collection={collection} />
+>>>>>>> d73def8 (initial commit)
           </Tabs.Content>
         </Tabs.Root>
       </>

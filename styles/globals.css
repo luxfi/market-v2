@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @layer components {
+<<<<<<< HEAD
   .reservoir-h1,
   .reservoir-h2,
   .reservoir-h3,
@@ -27,6 +28,20 @@ model-viewer {
   --poster-color: transparent;
   outline: none;
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+=======
+  .reservoir-h1, .reservoir-h2, .reservoir-h3, .reservoir-h4, .reservoir-h5, .reservoir-h6 {
+    @apply font-headings dark:text-white;
+  }
+  .reservoir-body, .reservoir-subtitle, .reservoir-label-s,.btn-primary-outline {
+    @apply dark:text-white
+  }
+}
+
+
+model-viewer {
+  width: 100%;
+  min-height: 500px;
+>>>>>>> d73def8 (initial commit)
 }
 
 .masonry-grid {
@@ -48,6 +63,7 @@ model-viewer {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
+<<<<<<< HEAD
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 .no-scrollbar::-webkit-scrollbar {
@@ -87,3 +103,5 @@ model-viewer {
 .markdown-support a {
   text-decoration: underline;
 }
+=======
+>>>>>>> d73def8 (initial commit)

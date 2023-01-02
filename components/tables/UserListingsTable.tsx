@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   ComponentProps,
   Dispatch,
@@ -75,11 +76,47 @@ const UserListingsTable: FC<Props> = ({ modal, collectionIds }) => {
     return (
       <div className="my-20 flex justify-center">
         <LoadingIcon />
+=======
+import { ComponentProps, FC } from 'react'
+import { DateTime } from 'luxon'
+import Link from 'next/link'
+import { optimizeImage } from 'lib/optmizeImage'
+import FormatEth from 'components/FormatEth'
+import { useAccount, useSigner } from 'wagmi'
+import Toast from 'components/Toast'
+import CancelListing from 'components/CancelListing'
+import useUserAsks from 'hooks/useUserAsks'
+import FormatCrypto from 'components/FormatCrypto'
+import useCoinConversion from 'hooks/useCoinConversion'
+import { formatDollar } from 'lib/numbers'
+
+type Props = {
+  data: ReturnType<typeof useUserAsks>
+  isOwner: boolean
+  mutate: () => any
+  modal: {
+    accountData: ReturnType<typeof useAccount>
+    collectionId: string | undefined
+    isInTheWrongNetwork: boolean | undefined
+    setToast: (data: ComponentProps<typeof Toast>['data']) => any
+    signer: ReturnType<typeof useSigner>['data']
+  }
+}
+
+const UserListingsTable: FC<Props> = ({ modal, mutate, isOwner, data }) => {
+  const { data: listings, ref } = data
+
+  if (listings.length === 0) {
+    return (
+      <div className="reservoir-body mt-14 grid justify-center dark:text-white">
+        You don&apos;t have any items listed for sale.
+>>>>>>> d73def8 (initial commit)
       </div>
     )
   }
 
   return (
+<<<<<<< HEAD
     <div className="mb-11 overflow-x-auto">
       <ActiveFilters setShowActive={setShowActive} showActive={showActive} />
       {listings.length === 0 && (
@@ -130,10 +167,46 @@ const UserListingsTable: FC<Props> = ({ modal, collectionIds }) => {
               </tbody>
             </table>
           )}
+=======
+    <div className="mb-11 overflow-x-auto border-b border-gray-200 shadow dark:border-neutral-600 sm:rounded-lg">
+      <table className="min-w-full table-auto divide-y divide-gray-200 dark:divide-neutral-600">
+        <thead className="bg-gray-50 dark:bg-neutral-900">
+          <tr>
+            {['Item', 'Price', 'Expiration'].map((item) => (
+              <th
+                key={item}
+                scope="col"
+                className="reservoir-label-l px-6 py-3 text-left dark:text-white"
+              >
+                {item}
+              </th>
+            ))}
+            {isOwner && (
+              <th scope="col" className="relative px-6 py-3">
+                <span className="sr-only">Edit</span>
+              </th>
+            )}
+          </tr>
+        </thead>
+        <tbody>
+          {listings.map((listing, index, arr) => (
+            <UseListingsTableRow
+              key={`${listing?.id}-${index}`}
+              ref={index === arr.length - 5 ? ref : null}
+              listing={listing}
+              isOwner={isOwner}
+              modal={modal}
+              mutate={mutate}
+            />
+          ))}
+        </tbody>
+      </table>
+>>>>>>> d73def8 (initial commit)
     </div>
   )
 }
 
+<<<<<<< HEAD
 type UserListingsRowProps = {
   listing: ReturnType<typeof useListings>['data'][0]
   modal: Props['modal']
@@ -148,6 +221,23 @@ const UserListingsTableRow = ({
   ref,
 }: UserListingsRowProps) => {
   const { data: signer } = useSigner()
+=======
+type UserListingsTableRowProps = {
+  listing: Props['data']['data'][0]
+  modal: Props['modal']
+  isOwner: Props['isOwner']
+  mutate: Props['mutate']
+  ref: null | ((node?: Element | null) => void)
+}
+
+const UseListingsTableRow = ({
+  listing,
+  modal,
+  isOwner,
+  mutate,
+  ref,
+}: UserListingsTableRowProps) => {
+>>>>>>> d73def8 (initial commit)
   const usdConversion = useCoinConversion(
     listing?.price?.currency?.symbol ? 'usd' : undefined,
     listing?.price?.currency?.symbol
@@ -168,12 +258,16 @@ const UserListingsTableRow = ({
     tokenHref,
     tokenId,
     price,
+<<<<<<< HEAD
     source,
+=======
+>>>>>>> d73def8 (initial commit)
   } = processListing(listing)
 
   return (
     <tr
       ref={ref}
+<<<<<<< HEAD
       className="group h-[80px] border-b-[1px] border-solid border-b-neutral-300 bg-white dark:border-b-neutral-600 dark:bg-black"
     >
       {/* ITEM */}
@@ -189,38 +283,75 @@ const UserListingsTableRow = ({
                     className="w-[64px] object-contain"
                     width="64"
                     height="64"
+=======
+      className="group h-[80px] even:bg-neutral-100 dark:bg-neutral-900 dark:text-white dark:even:bg-neutral-800"
+    >
+      {/* ITEM */}
+      <td className="reservoir-body whitespace-nowrap px-6 py-4 dark:text-white">
+        <Link href={tokenHref}>
+          <a className="flex items-center gap-2">
+            <div className="relative h-10 w-10">
+              {image && (
+                <div className="aspect-w-1 aspect-h-1 relative">
+                  <img
+                    alt={`${listing?.id} Listing`}
+                    src={optimizeImage(image, 35)}
+                    className="w-[35px] object-contain"
+                    width="35"
+                    height="35"
+>>>>>>> d73def8 (initial commit)
                   />
                 </div>
               )}
             </div>
             <span className="whitespace-nowrap">
+<<<<<<< HEAD
               <div className="reservoir-h6 max-w-[250px] overflow-hidden text-ellipsis font-headings text-base dark:text-white">
                 {name}
               </div>
               <div className="text-xs text-neutral-600 dark:text-neutral-300">
                 {collectionName}
               </div>
+=======
+              <div className="reservoir-body dark:text-white ">
+                {collectionName}
+              </div>
+              <div className="reservoir-h6 font-headings dark:text-white ">
+                {name}
+              </div>
+>>>>>>> d73def8 (initial commit)
             </span>
           </a>
         </Link>
       </td>
 
       {/* PRICE */}
+<<<<<<< HEAD
       <td className="whitespace-nowrap px-6 py-4 dark:text-white">
+=======
+      <td className="reservoir-body whitespace-nowrap px-6 py-4 dark:text-white">
+>>>>>>> d73def8 (initial commit)
         <FormatCrypto
           amount={price?.amount?.decimal}
           address={price?.currency?.contract}
           decimals={price?.currency?.decimals}
+<<<<<<< HEAD
           maximumFractionDigits={8}
         />
         {usdPrice && (
           <div className="text-xs text-neutral-600 dark:text-neutral-300">
+=======
+        />
+        {usdPrice && (
+          <div className="text-sm text-neutral-600 dark:text-neutral-300">
+>>>>>>> d73def8 (initial commit)
             {formatDollar(usdPrice)}
           </div>
         )}
       </td>
 
       {/* EXPIRATION */}
+<<<<<<< HEAD
       <td className="px-6 py-4 font-light text-neutral-600 dark:text-neutral-300">
         {expiration}
       </td>
@@ -244,17 +375,29 @@ const UserListingsTableRow = ({
 
       <td className="sticky top-0 right-0 whitespace-nowrap dark:text-white">
         <div className="flex items-center">
+=======
+      <td className="reservoir-body whitespace-nowrap px-6 py-4 dark:text-white">
+        {expiration}
+      </td>
+      {isOwner && (
+        <td className="reservoir-body flex justify-end whitespace-nowrap px-6 py-4 dark:text-white">
+>>>>>>> d73def8 (initial commit)
           <CancelListing
             data={{
               id,
               contract,
               tokenId,
             }}
+<<<<<<< HEAD
             signer={signer}
+=======
+            signer={modal.signer}
+>>>>>>> d73def8 (initial commit)
             show={true}
             isInTheWrongNetwork={modal.isInTheWrongNetwork}
             setToast={modal.setToast}
             mutate={mutate}
+<<<<<<< HEAD
             trigger={
               <Dialog.Trigger className="btn-primary-outline min-w-[120px] bg-white py-[3px] text-sm text-[#FF3B3B] dark:border-neutral-600 dark:bg-black dark:text-[#FF9A9A] dark:ring-primary-900 dark:focus:ring-4">
                 Cancel
@@ -263,10 +406,16 @@ const UserListingsTableRow = ({
           />
         </div>
       </td>
+=======
+          />
+        </td>
+      )}
+>>>>>>> d73def8 (initial commit)
     </tr>
   )
 }
 
+<<<<<<< HEAD
 const UserListingsMobileRow = ({
   listing,
   modal,
@@ -424,11 +573,24 @@ function processListing(listing: ReturnType<typeof useListings>['data'][0]) {
   const tokenId = listing?.tokenSetId?.split(':')[2]
   const contract = listing?.tokenSetId?.split(':')[1]
   const collectionRedirectUrl = `${API_BASE}/redirect/collections/${listing?.contract}/image/v1`
+=======
+export default UserListingsTable
+
+function processListing(
+  listing: NonNullable<NonNullable<Props['data']['data']>>[0] | undefined
+) {
+  const tokenId = listing?.tokenSetId?.split(':')[2]
+  const contract = listing?.tokenSetId?.split(':')[1]
+>>>>>>> d73def8 (initial commit)
 
   const data = {
     contract,
     tokenId,
+<<<<<<< HEAD
     image: listing?.metadata?.data?.image || collectionRedirectUrl,
+=======
+    image: listing?.metadata?.data?.image,
+>>>>>>> d73def8 (initial commit)
     name: listing?.metadata?.data?.tokenName,
     expiration:
       listing?.expiration === 0
@@ -437,6 +599,7 @@ function processListing(listing: ReturnType<typeof useListings>['data'][0]) {
     id: listing?.id,
     collectionName: listing?.metadata?.data?.collectionName,
     price: listing?.price,
+<<<<<<< HEAD
     source: {
       icon: (listing?.source?.icon as string) || null,
       name: (listing?.source?.name as string) || null,
@@ -445,6 +608,8 @@ function processListing(listing: ReturnType<typeof useListings>['data'][0]) {
           ? `${API_BASE}/redirect/sources/${listing?.source?.domain}/tokens/${contract}:${tokenId}/link/v2`
           : `https://${listing?.source?.domain as string}` || null,
     },
+=======
+>>>>>>> d73def8 (initial commit)
   }
 
   const tokenHref = `/${data.contract}/${data.tokenId}`

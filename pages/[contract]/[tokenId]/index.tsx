@@ -18,7 +18,10 @@ import {
   useTokens,
   useCollections,
 } from '@reservoir0x/reservoir-kit-ui'
+<<<<<<< HEAD
 import { useAccount } from 'wagmi'
+=======
+>>>>>>> d73def8 (initial commit)
 
 // Environment variables
 // For more information about these variables
@@ -67,11 +70,18 @@ const metadata = {
 }
 
 const Index: NextPage<Props> = ({ collectionId, tokenDetails }) => {
+<<<<<<< HEAD
   const [tokenOpenSea] = useState<any>({
     animation_url: null,
     extension: null,
   })
   const account = useAccount()
+=======
+  const [tokenOpenSea, setTokenOpenSea] = useState<any>({
+    animation_url: null,
+    extension: null,
+  })
+>>>>>>> d73def8 (initial commit)
   const router = useRouter()
   const bannedOnOpenSea = useTokenOpenseaBanned(
     collectionId,
@@ -138,9 +148,12 @@ const Index: NextPage<Props> = ({ collectionId, tokenDetails }) => {
     ? metadata.image(token?.token?.image)
     : null
 
+<<<<<<< HEAD
   const isOwner =
     token?.token?.owner?.toLowerCase() === account?.address?.toLowerCase()
 
+=======
+>>>>>>> d73def8 (initial commit)
   return (
     <Layout navbar={{}}>
       <Head>
@@ -148,15 +161,22 @@ const Index: NextPage<Props> = ({ collectionId, tokenDetails }) => {
         {description}
         {image}
       </Head>
+<<<<<<< HEAD
       <div className="col-span-full content-start space-y-4 px-2 pt-4 md:col-span-4 lg:col-span-5 lg:col-start-2 lg:px-0 2xl:col-span-4 2xl:col-start-3 3xl:col-start-5 4xl:col-start-7">
         <div className="mb-4">
           <TokenMedia token={token.token} />
+=======
+      <div className="col-span-full content-start space-y-4 px-2 md:col-span-4 lg:col-span-5 lg:col-start-2 lg:px-0 2xl:col-span-4 2xl:col-start-3 3xl:col-start-5 4xl:col-start-7">
+        <div className="mb-4">
+          <TokenMedia token={token.token} tokenOpenSea={tokenOpenSea} />
+>>>>>>> d73def8 (initial commit)
         </div>
         <div className="hidden space-y-4 md:block">
           <CollectionInfo collection={collection} token={token.token} />
           <TokenInfo token={token.token} />
         </div>
       </div>
+<<<<<<< HEAD
       <div className="col-span-full mb-4 space-y-4 px-2 pt-0 md:col-span-4 md:col-start-5 md:pt-4 lg:col-span-5 lg:col-start-7 lg:px-0 2xl:col-span-5 2xl:col-start-7 3xl:col-start-9 4xl:col-start-11">
         <Owner details={token} bannedOnOpenSea={bannedOnOpenSea} />
         <PriceData details={tokenData} collection={collection} />
@@ -165,6 +185,12 @@ const Index: NextPage<Props> = ({ collectionId, tokenDetails }) => {
           collection={collection}
           isOwner={isOwner}
         />
+=======
+      <div className="col-span-full mb-4 space-y-4 px-2 md:col-span-4 md:col-start-5 lg:col-span-5 lg:col-start-7 lg:px-0 2xl:col-span-5 2xl:col-start-7 3xl:col-start-9 4xl:col-start-11">
+        <Owner details={token} bannedOnOpenSea={bannedOnOpenSea} />
+        <PriceData details={tokenData} collection={collection} />
+        <TokenAttributes token={token?.token} collection={collection} />
+>>>>>>> d73def8 (initial commit)
         {token.token?.kind === 'erc1155' && (
           <Listings
             token={`${router.query?.contract?.toString()}:${router.query?.tokenId?.toString()}`}

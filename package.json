@@ -8,8 +8,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@datadog/browser-rum": "^4.2.0",
     "@google/model-viewer": "^2.0.2",
+=======
+    "@react-hookz/web": "^14.2.2",
+    "@reservoir0x/reservoir-kit-ui": "0.4.2",
+    "next": "12.1.7-canary.10",
+    "next-themes": "^0.2.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-markdown": "^8.0.3",
+    "@datadog/browser-rum": "^4.2.0",
+>>>>>>> d73def8 (initial commit)
     "@headlessui/react": "^1.5.0",
     "@radix-ui/colors": "^0.1.8",
     "@radix-ui/react-accordion": "1.0.0",
@@ -20,6 +31,7 @@
     "@radix-ui/react-tabs": "1.0.0",
     "@radix-ui/react-toggle-group": "1.0.0",
     "@radix-ui/react-tooltip": "1.0.1-rc.2",
+<<<<<<< HEAD
     "@rainbow-me/rainbowkit": "^0.7.1",
     "@ramosdiego/reservoir": "^0.0.15",
     "@ramosdiego/ui": "^0.0.10",
@@ -29,29 +41,46 @@
     "@stitches/react": "^1.2.8",
     "api": "^5.0.1",
     "downshift": "^6.1.7",
+=======
+    "@ramosdiego/reservoir": "^0.0.15",
+    "@ramosdiego/ui": "^0.0.10",
+    "@reservoir0x/sdk": "^0.0.123",
+    "@stitches/react": "^1.2.8",
+>>>>>>> d73def8 (initial commit)
     "ethers": "^5.7.1",
     "lodash.debounce": "^4.0.8",
     "luxon": "^2.3.0",
     "match-sorter": "^6.3.1",
+<<<<<<< HEAD
     "next": "12.1.7-canary.10",
     "next-themes": "^0.2.0",
     "opensea-js": "^4.0.12",
     "react": "17.0.2",
     "react-debounce-input": "^3.2.5",
     "react-dom": "17.0.2",
+=======
+    "react-debounce-input": "^3.2.5",
+>>>>>>> d73def8 (initial commit)
     "react-hook-form": "^7.28.1",
     "react-hot-toast": "^2.2.0",
     "react-icons": "^4.3.1",
     "react-intersection-observer": "^8.33.1",
     "react-jazzicon": "^1.0.3",
+<<<<<<< HEAD
     "react-markdown": "^8.0.3",
+=======
+>>>>>>> d73def8 (initial commit)
     "react-masonry-css": "^1.0.16",
     "recoil": "^0.7.4",
     "swr": "^1.1.2",
     "tailwindcss": "^3.0.15",
     "tailwindcss-radix": "^1.6.0",
     "wagmi": "^0.6.7",
+<<<<<<< HEAD
     "web3": "^1.8.0"
+=======
+    "downshift": "^6.1.7"
+>>>>>>> d73def8 (initial commit)
   },
   "prettier": {
     "semi": false,

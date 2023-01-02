@@ -11,7 +11,11 @@ type Props = {
 
 const FormatCurrency: FC<Props> = ({
   amount,
+<<<<<<< HEAD
   maximumFractionDigits = 2,
+=======
+  maximumFractionDigits = 4,
+>>>>>>> d73def8 (initial commit)
   children,
   decimals,
 }) => {
@@ -20,7 +24,11 @@ const FormatCurrency: FC<Props> = ({
   return (
     <div className="inline-flex flex-none items-center gap-1">
       {value !== '-' ? children : null}
+<<<<<<< HEAD
       <span className="flex-grow whitespace-nowrap font-semibold">{value}</span>
+=======
+      <span className="flex-grow font-semibold">{value}</span>
+>>>>>>> d73def8 (initial commit)
     </div>
   )
 }

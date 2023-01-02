@@ -1,10 +1,14 @@
 import Layout from 'components/Layout'
+<<<<<<< HEAD
 import {
   GetStaticPaths,
   GetStaticProps,
   InferGetStaticPropsType,
   NextPage,
 } from 'next'
+=======
+import { NextPage } from 'next'
+>>>>>>> d73def8 (initial commit)
 import { useRouter } from 'next/router'
 import {
   useAccount,
@@ -16,7 +20,10 @@ import {
 import * as Tabs from '@radix-ui/react-tabs'
 import { toggleOnItem } from 'lib/router'
 import UserOffersTable from 'components/tables/UserOffersTable'
+<<<<<<< HEAD
 import UserOffersReceivedTable from 'components/tables/UserOffersReceivedTable'
+=======
+>>>>>>> d73def8 (initial commit)
 import UserListingsTable from 'components/tables/UserListingsTable'
 import UserTokensGrid from 'components/UserTokensGrid'
 import Avatar from 'components/Avatar'
@@ -24,27 +31,44 @@ import { ComponentProps } from 'react'
 import Toast from 'components/Toast'
 import toast from 'react-hot-toast'
 import Head from 'next/head'
+<<<<<<< HEAD
 import useSearchCommunity from 'hooks/useSearchCommunity'
 import { truncateAddress } from 'lib/truncateText'
 import { paths, setParams } from '@reservoir0x/reservoir-kit-client'
 import UserActivityTab from 'components/tables/UserActivityTab'
+=======
+import useUserAsks from 'hooks/useUserAsks'
+import { useUserTokens, useBids } from '@reservoir0x/reservoir-kit-ui'
+import useSearchCommunity from 'hooks/useSearchCommunity'
+import { truncateAddress } from 'lib/truncateText'
+>>>>>>> d73def8 (initial commit)
 
 const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID
 const COLLECTION = process.env.NEXT_PUBLIC_COLLECTION
 const COMMUNITY = process.env.NEXT_PUBLIC_COMMUNITY
 const COLLECTION_SET_ID = process.env.NEXT_PUBLIC_COLLECTION_SET_ID
+<<<<<<< HEAD
 const RESERVOIR_API_KEY = process.env.RESERVOIR_API_KEY
 const RESERVOIR_API_BASE = process.env.NEXT_PUBLIC_RESERVOIR_API_BASE
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
+=======
+>>>>>>> d73def8 (initial commit)
 
 const metadata = {
   title: (title: string) => <title>{title}</title>,
 }
 
+<<<<<<< HEAD
 const Address: NextPage<Props> = ({ address, fallback }) => {
   const router = useRouter()
   const accountData = useAccount()
+=======
+const Address: NextPage = () => {
+  const router = useRouter()
+  const accountData = useAccount()
+  const address = router.query.address as string
+>>>>>>> d73def8 (initial commit)
 
   if (!address) {
     throw 'No address set'
@@ -64,6 +88,7 @@ const Address: NextPage<Props> = ({ address, fallback }) => {
     },
   })
   const { chain: activeChain } = useNetwork()
+<<<<<<< HEAD
   const collections = useSearchCommunity()
   let collectionIds: undefined | string[] = undefined
 
@@ -77,6 +102,45 @@ const Address: NextPage<Props> = ({ address, fallback }) => {
         ?.map(({ contract }) => contract)
         .filter((contract) => !!contract) as string[]) || []
   }
+=======
+  const { data: signer } = useSigner()
+  const userTokensParams: Parameters<typeof useUserTokens>['1'] = {
+    limit: 20,
+    includeTopBid: true,
+  }
+  if (COLLECTION_SET_ID) {
+    userTokensParams.collectionsSetId = COLLECTION_SET_ID
+  } else {
+    if (COMMUNITY) userTokensParams.community = COMMUNITY
+  }
+
+  if (COLLECTION && (!COMMUNITY || !COLLECTION_SET_ID)) {
+    userTokensParams.collection = COLLECTION
+  }
+  const userTokens = useUserTokens(address, userTokensParams)
+  const collections = useSearchCommunity()
+  const listings = useUserAsks(address, collections)
+  const params: Parameters<typeof useBids>[0] = {
+    status: 'active',
+    maker: address,
+    limit: 20,
+    includeMetadata: true,
+  }
+  if (COLLECTION && !COMMUNITY && !COLLECTION_SET_ID) {
+    params.contracts = [COLLECTION]
+  }
+
+  if (COMMUNITY || COLLECTION_SET_ID) {
+    collections?.data?.collections
+      ?.map(({ contract }) => contract)
+      .filter((contract) => !!contract)
+      .forEach(
+        // @ts-ignore
+        (contract, index) => (params[`contracts[${index}]`] = contract)
+      )
+  }
+  const bidsResponse = useBids(params)
+>>>>>>> d73def8 (initial commit)
 
   if (!CHAIN_ID) {
     console.debug({ CHAIN_ID })
@@ -91,19 +155,30 @@ const Address: NextPage<Props> = ({ address, fallback }) => {
   const isOwner = address?.toLowerCase() === accountData?.address?.toLowerCase()
   const formattedAddress = truncateAddress(address as string)
 
+<<<<<<< HEAD
   let tabs = [{ name: 'Tokens', id: 'portfolio' }]
+=======
+  let tabs = [{ name: 'Portfolio', id: 'portfolio' }]
+>>>>>>> d73def8 (initial commit)
 
   if (isOwner) {
     tabs = [
       { name: 'Tokens', id: 'portfolio' },
+<<<<<<< HEAD
       { name: 'Offers Received', id: 'received' },
       { name: 'Offers Made', id: 'buying' },
+=======
+      { name: 'Offers', id: 'buying' },
+>>>>>>> d73def8 (initial commit)
       { name: 'Listings', id: 'selling' },
     ]
   }
 
+<<<<<<< HEAD
   tabs.push({ name: 'Activity', id: 'activity' })
 
+=======
+>>>>>>> d73def8 (initial commit)
   return (
     <Layout navbar={{}}>
       <Head>{metadata.title(`${address} Profile`)}</Head>
@@ -127,14 +202,22 @@ const Address: NextPage<Props> = ({ address, fallback }) => {
         </div>
         <div className="px-4 md:px-16">
           <Tabs.Root value={router.query?.tab?.toString() || 'portfolio'}>
+<<<<<<< HEAD
             <Tabs.List className="no-scrollbar mb-4 ml-[-15px] flex w-[calc(100%_+_30px)] overflow-y-scroll border-b border-[rgba(0,0,0,0.05)] dark:border-[rgba(255,255,255,0.2)] md:ml-0 md:w-full">
+=======
+            <Tabs.List className="mb-4 flex w-full overflow-hidden border-b border-[rgba(0,0,0,0.05)] dark:border-[rgba(255,255,255,0.2)]">
+>>>>>>> d73def8 (initial commit)
               {tabs.map(({ name, id }) => (
                 <Tabs.Trigger
                   key={id}
                   id={id}
                   value={id}
                   className={
+<<<<<<< HEAD
                     'group reservoir-label-l relative min-w-0 shrink-0 whitespace-nowrap border-b-2 border-transparent  py-4 px-8 text-center hover:text-gray-700 focus:z-10 radix-state-active:border-black radix-state-active:text-gray-900 dark:text-white dark:radix-state-active:border-primary-900'
+=======
+                    'group reservoir-label-l relative min-w-0 whitespace-nowrap border-b-2 border-transparent py-4  px-8 text-center hover:text-gray-700 focus:z-10 radix-state-active:border-black radix-state-active:text-gray-900 dark:text-white dark:radix-state-active:border-primary-900'
+>>>>>>> d73def8 (initial commit)
                   }
                   onClick={() => toggleOnItem(router, 'tab', id)}
                 >
@@ -144,13 +227,33 @@ const Address: NextPage<Props> = ({ address, fallback }) => {
             </Tabs.List>
             <Tabs.Content value="portfolio">
               <div className="mt-6">
+<<<<<<< HEAD
                 <UserTokensGrid fallback={fallback} owner={address || ''} />
+=======
+                <UserTokensGrid
+                  userTokens={userTokens}
+                  mutate={() => {
+                    userTokens.mutate()
+                    bidsResponse.mutate()
+                    listings.mutate()
+                  }}
+                  isOwner={isOwner}
+                  modal={{
+                    accountData,
+                    isInTheWrongNetwork,
+                    collectionId: undefined,
+                    setToast,
+                    signer,
+                  }}
+                />
+>>>>>>> d73def8 (initial commit)
               </div>
             </Tabs.Content>
             {isOwner && (
               <>
                 <Tabs.Content value="buying">
                   <UserOffersTable
+<<<<<<< HEAD
                     collectionIds={collectionIds}
                     modal={{
                       isInTheWrongNetwork,
@@ -165,23 +268,55 @@ const Address: NextPage<Props> = ({ address, fallback }) => {
                     modal={{
                       isInTheWrongNetwork,
                       setToast,
+=======
+                    data={bidsResponse}
+                    mutate={() => {
+                      userTokens.mutate()
+                      bidsResponse.mutate()
+                    }}
+                    isOwner={isOwner}
+                    modal={{
+                      accountData,
+                      isInTheWrongNetwork,
+                      collectionId: undefined,
+                      setToast,
+                      signer,
+>>>>>>> d73def8 (initial commit)
                     }}
                   />
                 </Tabs.Content>
                 <Tabs.Content value="selling" className="col-span-full">
                   <UserListingsTable
+<<<<<<< HEAD
                     collectionIds={collectionIds}
                     modal={{
                       isInTheWrongNetwork,
                       setToast,
+=======
+                    data={listings}
+                    mutate={() => {
+                      userTokens.mutate()
+                      listings.mutate()
+                    }}
+                    isOwner={isOwner}
+                    modal={{
+                      accountData,
+                      isInTheWrongNetwork,
+                      collectionId: undefined,
+                      setToast,
+                      signer,
+>>>>>>> d73def8 (initial commit)
                     }}
                   />
                 </Tabs.Content>
               </>
             )}
+<<<<<<< HEAD
             <Tabs.Content value="activity" className="col-span-full">
               <UserActivityTab user={address} />
             </Tabs.Content>
+=======
+>>>>>>> d73def8 (initial commit)
           </Tabs.Root>
         </div>
       </div>
@@ -190,6 +325,7 @@ const Address: NextPage<Props> = ({ address, fallback }) => {
 }
 
 export default Address
+<<<<<<< HEAD
 
 export const getStaticPaths: GetStaticPaths = () => {
   return {
@@ -242,3 +378,5 @@ export const getStaticProps: GetStaticProps<{
     },
   }
 }
+=======
+>>>>>>> d73def8 (initial commit)

@@ -12,7 +12,7 @@ function one_lb(tokenId) {
         "seller_fee_basis_points": 500,
         "image": "https://bafkreie257sonrjtpxkyo6jymz7dfn3dytzu24bxo3nmlfwnzupkup7az4.ipfs.nftstorage.link",
         "external_url": "https://lux.market",
-        "edition": "Vera",
+        "edition": "Lux",
         "attributes": [
         {
             "trait_type": "Pounds",
@@ -65,7 +65,7 @@ function ten_lb(tokenId) {
         "seller_fee_basis_points": 500,
         "image": "https://bafkreie257sonrjtpxkyo6jymz7dfn3dytzu24bxo3nmlfwnzupkup7az4.ipfs.nftstorage.link",
         "external_url": "https://lux.market",
-        "edition": "Vera",
+        "edition": "Lux",
         "attributes": [
         {
             "trait_type": "Pounds",
@@ -118,7 +118,7 @@ function hundred_lbs(tokenId) {
         "seller_fee_basis_points": 500,
         "image": "https://bafkreie257sonrjtpxkyo6jymz7dfn3dytzu24bxo3nmlfwnzupkup7az4.ipfs.nftstorage.link",
         "external_url": "https://lux.market",
-        "edition": "Vera",
+        "edition": "Lux",
         "attributes": [
         {
             "trait_type": "Pounds",
@@ -171,7 +171,7 @@ function thousand_lbs(tokenId) {
         "seller_fee_basis_points": 500,
         "image": "https://bafkreie257sonrjtpxkyo6jymz7dfn3dytzu24bxo3nmlfwnzupkup7az4.ipfs.nftstorage.link",
         "external_url": "https://lux.market",
-        "edition": "Vera",
+        "edition": "Lux",
         "attributes": [
         {
             "trait_type": "Pounds",
@@ -223,7 +223,7 @@ function two_thousand_lbs(tokenId) {
         "seller_fee_basis_points": 500,
         "image": "https://bafkreie257sonrjtpxkyo6jymz7dfn3dytzu24bxo3nmlfwnzupkup7az4.ipfs.nftstorage.link",
         "external_url": "https://lux.market",
-        "edition": "Vera",
+        "edition": "Lux",
         "attributes": [
         {
             "trait_type": "Pounds",

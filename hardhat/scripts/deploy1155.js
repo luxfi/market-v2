@@ -9,7 +9,7 @@ const sleep = (milliseconds) => {
 
 async function main() {
 
-  const veraDrop = await ethers.getContractFactory("VeraLUXDrop");
+  const veraDrop = await ethers.getContractFactory("LuxLUXDrop");
   console.log('1');
   const vera = await veraDrop.deploy();
   console.log('2');

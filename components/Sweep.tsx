@@ -168,13 +168,21 @@ const Sweep: FC<Props> = ({ tokens, collection, mutate, setToast }) => {
     setWaitingTx(true)
     const tokens = sweepTokens.reduce((tokens, token) => {
       if (token?.token?.tokenId && token.token.contract) {
+<<<<<<< HEAD
         tokens?.push({
+=======
+        tokens.push({
+>>>>>>> d73def8 (initial commit)
           tokenId: token.token.tokenId,
           contract: token.token.contract,
         })
       }
       return tokens
+<<<<<<< HEAD
     }, [] as NonNullable<Parameters<typeof reservoirClient.actions.buyToken>['0']['tokens']>)
+=======
+    }, [] as Parameters<typeof reservoirClient.actions.buyToken>['0']['tokens'])
+>>>>>>> d73def8 (initial commit)
     await reservoirClient.actions
       .buyToken({
         expectedPrice: sweepTotal,
@@ -349,11 +357,17 @@ const Sweep: FC<Props> = ({ tokens, collection, mutate, setToast }) => {
                             maximumFractionDigits={4}
                           />
                         </div>
+<<<<<<< HEAD
                         {usdConversion && (
                           <div className="text-sm font-normal text-neutral-600 dark:text-neutral-300">
                             {formatDollar(usdConversion * sweepTotal)}
                           </div>
                         )}
+=======
+                        <div className="text-sm font-normal text-neutral-600 dark:text-neutral-300">
+                          {formatDollar(usdConversion * sweepTotal)}
+                        </div>
+>>>>>>> d73def8 (initial commit)
                       </div>
                     </div>
                     <button

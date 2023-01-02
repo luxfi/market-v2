@@ -1,10 +1,17 @@
 import { Signer } from 'ethers'
+<<<<<<< HEAD
 import { Execute } from '@reservoir0x/reservoir-kit-client'
 import React, {
   cloneElement,
   ComponentProps,
   FC,
   ReactElement,
+=======
+import { Execute, paths } from '@reservoir0x/reservoir-kit-client'
+import React, {
+  ComponentProps,
+  FC,
+>>>>>>> d73def8 (initial commit)
   useContext,
   useEffect,
   useState,
@@ -37,7 +44,10 @@ type Props = {
   setToast: (data: ComponentProps<typeof Toast>['data']) => any
   show: boolean
   signer: ReturnType<typeof useSigner>['data']
+<<<<<<< HEAD
   trigger?: ReactElement<typeof Dialog.Trigger>
+=======
+>>>>>>> d73def8 (initial commit)
 }
 
 const CancelOffer: FC<Props> = ({
@@ -47,7 +57,10 @@ const CancelOffer: FC<Props> = ({
   setToast,
   show,
   signer,
+<<<<<<< HEAD
   trigger,
+=======
+>>>>>>> d73def8 (initial commit)
 }) => {
   const [waitingTx, setWaitingTx] = useState<boolean>(false)
   const [steps, setSteps] = useState<Execute['steps']>()
@@ -79,6 +92,21 @@ const CancelOffer: FC<Props> = ({
     }
   }, [data, open])
 
+<<<<<<< HEAD
+=======
+  // Set the token either from SWR or fetch
+  let token: UseTokensReturnType['data'][0] = { token: undefined }
+
+  const fetchedDetails = details as UseTokensReturnType['data']
+  if (fetchedDetails && fetchedDetails?.[0]) {
+    // From fetch
+    token = fetchedDetails[0]
+  } else if (details && 'data' in details && details.data[0]) {
+    // From swr
+    token = details.data[0]
+  }
+
+>>>>>>> d73def8 (initial commit)
   const handleError = (err: any) => {
     setWaitingTx(false)
     setOpen(false)
@@ -134,6 +162,7 @@ const CancelOffer: FC<Props> = ({
     setWaitingTx(false)
   }
 
+<<<<<<< HEAD
   const onTriggerClick = () => {
     if (!id || !signer) {
       dispatch({ type: 'CONNECT_WALLET', payload: true })
@@ -165,6 +194,29 @@ const CancelOffer: FC<Props> = ({
             )}
           </Dialog.Trigger>
         ))}
+=======
+  return (
+    <Dialog.Root open={open} onOpenChange={setOpen}>
+      {show && (
+        <Dialog.Trigger
+          disabled={waitingTx || isInTheWrongNetwork}
+          onClick={() => {
+            if (!id || !signer) {
+              dispatch({ type: 'CONNECT_WALLET', payload: true })
+              return
+            }
+            execute(id, signer)
+          }}
+          className="btn-primary-outline dark:border-neutral-600  dark:text-white dark:ring-primary-900 dark:focus:ring-4"
+        >
+          {waitingTx ? (
+            <CgSpinner className="h-4 w-4 animate-spin" />
+          ) : (
+            'Cancel Your Offer'
+          )}
+        </Dialog.Trigger>
+      )}
+>>>>>>> d73def8 (initial commit)
       {steps && (
         <Dialog.Portal>
           <Dialog.Overlay>

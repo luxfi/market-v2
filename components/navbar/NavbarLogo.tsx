@@ -3,6 +3,10 @@ import Link from 'next/link'
 import { FC } from 'react'
 
 const NAVBAR_LOGO = process.env.NEXT_PUBLIC_NAVBAR_LOGO
+<<<<<<< HEAD
+=======
+const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID
+>>>>>>> d73def8 (initial commit)
 const SOURCE_ID = process.env.NEXT_PUBLIC_SOURCE_ID
 const SOURCE_NAME = process.env.NEXT_PUBLIC_SOURCE_NAME
 const DESKTOP_NAVBAR_LOGO = process.env.NEXT_PUBLIC_DESKTOP_NAVBAR_LOGO
@@ -14,8 +18,13 @@ type Props = {
 }
 
 const NavbarLogo: FC<Props> = ({ variant, className }) => {
+<<<<<<< HEAD
   const logo = NAVBAR_LOGO || '/vera-logo.png'
   const desktopLogo = DESKTOP_NAVBAR_LOGO || '/vera-logo-desktop.png'
+=======
+  const logo = NAVBAR_LOGO || '/reservoir.svg'
+  const desktopLogo = DESKTOP_NAVBAR_LOGO || '/reservoir-desktop.svg'
+>>>>>>> d73def8 (initial commit)
   const chain = useEnvChain()
   let logoAlt = 'Logo'
 

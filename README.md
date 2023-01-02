@@ -1,4 +1,4 @@
-<h3 align="center">Vera Market</h3>
+<h3 align="center">LUX Market</h3>
   <p align="center">
 An open source NFT marketplace.
 
@@ -8,15 +8,15 @@ An open source NFT marketplace.
 
 Vera Market is an open source NFT marketplace.
 
-CID 
+CID
 
 bafybeihpzncecide2ymairuiylbb4dw664s33q625oojivyacyuhdsck7m
 
-IPFS URL 
+IPFS URL
 
 ipfs://bafybeihpzncecide2ymairuiylbb4dw664s33q625oojivyacyuhdsck7m
 
-Gateway URL 
+Gateway URL
 
 https://nftstorage.link/ipfs/bafybeihpzncecide2ymairuiylbb4dw664s33q625oojivyacyuhdsck7m
 

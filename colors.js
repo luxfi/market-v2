@@ -40,7 +40,6 @@ const primaryColors = {
     500: '#22c55e',
     700: '#15803d',
     900: '#14532d',
-   
   },
   blue: {
     100: '#dbeafe',
@@ -48,8 +47,6 @@ const primaryColors = {
     500: '#3b82f6',
     700: '#1d4ed8',
     900: '#1e3a8a',
-    920: '#3366FF',
-    930: '#00CCFF',
   },
   purple: {
     100: '#EBDCFF',
@@ -157,24 +154,11 @@ const primaryColors = {
     900: '#111827',
   },
   default: {
-<<<<<<< HEAD
     100: '#F1E5FF',
     300: '#E2CCFF',
     500: '#A966FF',
-<<<<<<< HEAD
-    700: '#0AB3E5',
-    900: '#17D0FF',
-=======
     700: '#7000FF',
     900: '#430099',
->>>>>>> d73def8 (initial commit)
-=======
-    100: '#f3f4f6',
-    300: '#d1d5db',
-    500: '#6b7280',
-    700: '#374151',
-    900: '#111827',
->>>>>>> 947dedb (theme colors test smartcontract)
   },
 }
 

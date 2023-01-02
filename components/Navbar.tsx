@@ -2,18 +2,14 @@ import { FC, ReactElement, useEffect, useState } from 'react'
 import ConnectWallet from './ConnectWallet'
 import HamburgerMenu from './HamburgerMenu'
 import dynamic from 'next/dynamic'
-import { paths } from '@reservoir0x/reservoir-kit-client'
+import { paths } from '@reservoir0x/reservoir-sdk'
 import setParams from 'lib/params'
 import NavbarLogo from 'components/navbar/NavbarLogo'
 import ThemeSwitcher from './ThemeSwitcher'
 import CartMenu from './CartMenu'
-<<<<<<< HEAD
 import SearchMenu from './SearchMenu'
 import { useMediaQuery } from '@react-hookz/web'
 import useMounted from 'hooks/useMounted'
-import ListItemButton from './navbar/ListItemButton'
-=======
->>>>>>> 96757b6 (Update look and feel)
 
 const SearchCollections = dynamic(() => import('./SearchCollections'))
 const CommunityDropdown = dynamic(() => import('./CommunityDropdown'))
@@ -22,7 +18,6 @@ const COLLECTION = process.env.NEXT_PUBLIC_COLLECTION
 const COMMUNITY = process.env.NEXT_PUBLIC_COMMUNITY
 const COLLECTION_SET_ID = process.env.NEXT_PUBLIC_COLLECTION_SET_ID
 const DEFAULT_TO_SEARCH = process.env.NEXT_PUBLIC_DEFAULT_TO_SEARCH
-const THEME_SWITCHING_ENABLED = process.env.NEXT_PUBLIC_THEME_SWITCHING_ENABLED
 
 function getInitialSearchHref() {
   const PROXY_API_BASE = process.env.NEXT_PUBLIC_PROXY_API_BASE
@@ -45,13 +40,10 @@ const Navbar: FC = () => {
   const [filterComponent, setFilterComponent] = useState<ReactElement | null>(
     null
   )
-<<<<<<< HEAD
   const isMobile = useMediaQuery('(max-width: 770px)')
   const showDesktopSearch = useMediaQuery('(min-width: 1200px)')
   const [hasCommunityDropdown, setHasCommunityDropdown] =
     useState<boolean>(false)
-=======
->>>>>>> 96757b6 (Update look and feel)
 
   const externalLinks: { name: string; url: string }[] = []
 
@@ -69,7 +61,6 @@ const Navbar: FC = () => {
 
   const isGlobal = !COMMUNITY && !COLLECTION && !COLLECTION_SET_ID
   const filterableCollection = isGlobal || COMMUNITY || COLLECTION_SET_ID
-  const themeSwitcherEnabled = THEME_SWITCHING_ENABLED
 
   useEffect(() => {
     setShowLinks(externalLinks.length > 0)
@@ -92,20 +83,20 @@ const Navbar: FC = () => {
           initialResults.collections.length >= 2 &&
           initialResults.collections.length <= 10
 
-        if (
+        const hasCommunityDropdown =
           !DEFAULT_TO_SEARCH &&
           (COMMUNITY || COLLECTION_SET_ID) &&
           smallCommunity
-        ) {
+
+        if (hasCommunityDropdown) {
           setFilterComponent(
             <CommunityDropdown
               collections={initialResults?.collections}
               defaultCollectionId={COLLECTION}
             />
           )
+          setHasCommunityDropdown(true)
         } else {
-          setShowLinks(false)
-<<<<<<< HEAD
           setHasCommunityDropdown(false)
           !showDesktopSearch
             ? setFilterComponent(
@@ -124,43 +115,20 @@ const Navbar: FC = () => {
       })
     }
   }, [filterableCollection, showDesktopSearch])
-=======
-          setFilterComponent(
-            <SearchCollections
-              communityId={COMMUNITY}
-              initialResults={initialResults}
-            />
-          )
-        }
-      })
-    }
-  }, [filterableCollection])
->>>>>>> 96757b6 (Update look and feel)
 
-<<<<<<< HEAD
   if (!isMounted) {
     return null
   }
-=======
-<<<<<<< HEAD
-  if (typeof window === 'undefined') return null
->>>>>>> 183137d (initial commit)
 
   return (
     <nav className="sticky top-0 z-[1000] col-span-full flex items-center justify-between gap-2 border-b border-[#D4D4D4] bg-white px-6 py-4 dark:border-neutral-600 dark:bg-black md:gap-3 md:py-6 md:px-16">
-=======
-  return (
-    <nav className="sticky top-0 z-[1000] col-span-full mb-[10px] flex items-center justify-between gap-2 border-b border-[#D4D4D4] bg-white px-6 py-4 dark:border-neutral-600 dark:bg-black md:gap-3 md:py-6 md:px-16">
->>>>>>> d73def8 (initial commit)
       <NavbarLogo className="z-10 max-w-[300px]" />
       {showLinks && (
-        <div className="z-10 ml-12 hidden items-center gap-11 lg:flex">
+        <div className="z-10 ml-12 mr-12 hidden items-center gap-11 md:flex">
           {externalLinks.map(({ name, url }) => (
             <a
               key={url}
               href={url}
-              rel="noopener noreferrer"
-              target="_blank"
               className="text-dark reservoir-h6 hover:text-[#1F2937] dark:text-white"
             >
               {name}
@@ -168,9 +136,8 @@ const Navbar: FC = () => {
           ))}
         </div>
       )}
-<<<<<<< HEAD
       {(hasCommunityDropdown || showDesktopSearch) && (
-        <div className="absolute top-0 left-0 right-0 flex h-full w-full items-center justify-center">
+        <div className="flex h-full w-full items-center">
           {filterComponent && filterComponent}
         </div>
       )}
@@ -188,28 +155,10 @@ const Navbar: FC = () => {
             </div>
           )}
           <CartMenu />
-          {hasCommunityDropdown &&
-          themeSwitcherEnabled &&
-          !showDesktopSearch ? null : (
-            <ListItemButton />
-          )}
           <ConnectWallet />
           <ThemeSwitcher />
         </div>
       )}
-=======
-      <div className="flex h-full w-full items-center justify-center">
-        <div className="absolute left-0 right-0 z-[1] flex w-full justify-center">
-          {filterComponent && filterComponent}
-        </div>
-      </div>
-      <HamburgerMenu externalLinks={externalLinks} />
-      <div className="z-10 ml-auto hidden shrink-0 md:flex md:gap-2">
-        <ConnectWallet />
-        <ThemeSwitcher />
-      </div>
-      <CartMenu />
->>>>>>> 96757b6 (Update look and feel)
     </nav>
   )
 }

@@ -3,63 +3,18 @@
 @tailwind utilities;
 
 @layer components {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e64d8d6 (modelviecomp)
-  .reservoir-h1,
-  .reservoir-h2,
-  .reservoir-h3,
-  .reservoir-h4,
-  .reservoir-h5,
-  .reservoir-h6 {
-<<<<<<< HEAD
-    @apply font-headings dark:text-white;
-  }
-  .reservoir-body,
-  .reservoir-subtitle,
-  .reservoir-label-s,
-  .btn-primary-outline {
-    @apply dark:text-white;
-  }
-}
-
-/* model viewer */
-model-viewer {
-  width: inherit;
-  height: inherit;
-  background-color: transparent;
-  --poster-color: transparent;
-  outline: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-=======
   .reservoir-h1, .reservoir-h2, .reservoir-h3, .reservoir-h4, .reservoir-h5, .reservoir-h6 {
-=======
->>>>>>> e64d8d6 (modelviecomp)
     @apply font-headings dark:text-white;
   }
-  .reservoir-body,
-  .reservoir-subtitle,
-  .reservoir-label-s,
-  .btn-primary-outline {
-    @apply dark:text-white;
+  .reservoir-body, .reservoir-subtitle, .reservoir-label-s,.btn-primary-outline {
+    @apply dark:text-white
   }
 }
 
-/* model viewer */
+
 model-viewer {
-<<<<<<< HEAD
   width: 100%;
   min-height: 500px;
->>>>>>> d73def8 (initial commit)
-=======
-  width: inherit;
-  height: inherit;
-  background-color: transparent;
-  --poster-color: transparent;
-  outline: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
->>>>>>> e64d8d6 (modelviecomp)
 }
 
 .masonry-grid {
@@ -81,28 +36,19 @@ model-viewer {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
-<<<<<<< HEAD
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
-.abt-grad{
-    background: linear-gradient(90deg, rgba(136, 85, 255, 0.1) 0%, rgba(0, 204, 255, 0.2) 100%);
-
-}
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
-.markdown-support h1,
-.markdown-support h2,
-.markdown-support h3,
-.markdown-support h4,
-.markdown-support h5 {
+.markdown-support h1, .markdown-support h2, .markdown-support h3, .markdown-support h4, .markdown-support h5 {
   font-weight: bold;
   margin-top: 0;
   margin-bottom: 1em;
@@ -125,5 +71,3 @@ model-viewer {
 .markdown-support a {
   text-decoration: underline;
 }
-=======
->>>>>>> d73def8 (initial commit)

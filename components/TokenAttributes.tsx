@@ -8,20 +8,13 @@ import {
   TokenDetailsAttribute,
 } from 'types/reservoir'
 import { formatNumber } from 'lib/numbers'
-<<<<<<< HEAD
 import * as Accordion from '@radix-ui/react-accordion'
 import { StyledChevron, StyledContent } from './radix/Accordion'
-<<<<<<< HEAD
 import useMounted from 'hooks/useMounted'
-=======
-=======
->>>>>>> d73def8 (initial commit)
->>>>>>> 183137d (initial commit)
 
 type Props = {
   token?: TokenDetails
   collection?: Collection
-<<<<<<< HEAD
   isOwner?: boolean
 }
 
@@ -32,7 +25,7 @@ const TokenAttributes: FC<Props> = ({ token, collection, isOwner }) => {
     return null
   }
 
-  if (token?.attributes?.length === 0) return null
+  if (!token?.attributes || token?.attributes?.length === 0) return null
 
   return (
     <div className="col-span-full md:col-span-4 lg:col-span-5 lg:col-start-2">
@@ -51,9 +44,8 @@ const TokenAttributes: FC<Props> = ({ token, collection, isOwner }) => {
           </Accordion.Header>
           <StyledContent className="grid max-h-[440px] grid-cols-1 gap-2 overflow-y-auto px-6 lg:grid-cols-2">
             {token?.attributes
-              ?.sort(
-                (a, b) => (b?.floorAskPrice || 0) - (a?.floorAskPrice || 0)
-              )
+              ?.slice()
+              .sort((a, b) => (b?.floorAskPrice || 0) - (a?.floorAskPrice || 0))
               .map((attribute) => (
                 <TokenAttribute
                   key={attribute.key}
@@ -65,30 +57,6 @@ const TokenAttributes: FC<Props> = ({ token, collection, isOwner }) => {
           </StyledContent>
         </Accordion.Item>
       </Accordion.Root>
-=======
-}
-
-const TokenAttributes: FC<Props> = ({ token, collection }: Props) => {
-  if (token?.attributes?.length === 0) return null
-
-  return (
-    <div className="col-span-full md:col-span-4 lg:col-span-5 lg:col-start-2">
-      <article className="col-span-full rounded-2xl border-[1px] border-gray-300 bg-white p-6 dark:border-neutral-600 dark:bg-black">
-        <p className="reservoir-h5 mb-4 dark:text-white">Attributes</p>
-        <div className="grid max-h-[440px] grid-cols-1 gap-2 overflow-y-auto lg:grid-cols-2">
-          {token?.attributes
-            ?.sort((a, b) => (b?.floorAskPrice || 0) - (a?.floorAskPrice || 0))
-            .map((attribute) => (
-              <TokenAttribute
-                key={attribute.key}
-                attribute={attribute}
-                collectionId={token?.collection?.id}
-                collectionTokenCount={collection?.tokenCount}
-              />
-            ))}
-        </div>
-      </article>
->>>>>>> d73def8 (initial commit)
     </div>
   )
 }
@@ -117,6 +85,7 @@ const TokenAttribute: FC<TokenAttributeProps> = ({
       href={`/collections/${collectionId}?${formatUrl(
         `attributes[${attribute.key}]`
       )}=${formatUrl(`${attribute.value}`)}`}
+      legacyBehavior={true}
     >
       <a className="rounded-lg bg-neutral-100 px-4 py-3 ring-inset ring-blue-600 transition-colors	hover:bg-neutral-300 focus-visible:outline-none focus-visible:ring-2 dark:bg-neutral-800 dark:hover:bg-neutral-600">
         <div className="text-sm text-primary-700 dark:text-primary-300">

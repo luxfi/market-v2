@@ -25,7 +25,7 @@ function meta_data( tokenId: number,
         "seller_fee_basis_points": 500,
         "image": "https://bafkreie257sonrjtpxkyo6jymz7dfn3dytzu24bxo3nmlfwnzupkup7az4.ipfs.nftstorage.link",
         "external_url": "https://lux.market",
-        "edition": "Vera",
+        "edition": "Lux",
         "attributes": [
         {
             "trait_type": "Pounds",

@@ -86,9 +86,6 @@ import { useAccount, useSigner } from 'wagmi'
 import Toast from 'components/Toast'
 import CancelListing from 'components/CancelListing'
 import useUserAsks from 'hooks/useUserAsks'
-import FormatCrypto from 'components/FormatCrypto'
-import useCoinConversion from 'hooks/useCoinConversion'
-import { formatDollar } from 'lib/numbers'
 
 type Props = {
   data: ReturnType<typeof useUserAsks>
@@ -189,16 +186,83 @@ const UserListingsTable: FC<Props> = ({ modal, mutate, isOwner, data }) => {
           </tr>
         </thead>
         <tbody>
-          {listings.map((listing, index, arr) => (
-            <UseListingsTableRow
-              key={`${listing?.id}-${index}`}
-              ref={index === arr.length - 5 ? ref : null}
-              listing={listing}
-              isOwner={isOwner}
-              modal={modal}
-              mutate={mutate}
-            />
-          ))}
+          {listings.map((position, index, arr) => {
+            const {
+              collectionName,
+              contract,
+              expiration,
+              id,
+              image,
+              name,
+              tokenHref,
+              tokenId,
+              price,
+            } = processListing(position)
+
+            return (
+              <tr
+                key={`${position?.id}-${index}`}
+                ref={index === arr.length - 5 ? ref : null}
+                className="group h-[80px] even:bg-neutral-100 dark:bg-neutral-900 dark:text-white dark:even:bg-neutral-800"
+              >
+                {/* ITEM */}
+                <td className="reservoir-body whitespace-nowrap px-6 py-4 dark:text-white">
+                  <Link href={tokenHref}>
+                    <a className="flex items-center gap-2">
+                      <div className="relative h-10 w-10">
+                        {image && (
+                          <div className="aspect-w-1 aspect-h-1 relative">
+                            <img
+                              alt={`${position?.id} Listing`}
+                              src={optimizeImage(image, 35)}
+                              className="w-[35px] object-contain"
+                              width="35"
+                              height="35"
+                            />
+                          </div>
+                        )}
+                      </div>
+                      <span className="whitespace-nowrap">
+                        <div className="reservoir-body dark:text-white ">
+                          {collectionName}
+                        </div>
+                        <div className="reservoir-h6 font-headings dark:text-white ">
+                          {name}
+                        </div>
+                      </span>
+                    </a>
+                  </Link>
+                </td>
+
+                {/* PRICE */}
+                <td className="reservoir-body whitespace-nowrap px-6 py-4 dark:text-white">
+                  <FormatEth amount={price} />
+                </td>
+
+                {/* EXPIRATION */}
+                <td className="reservoir-body whitespace-nowrap px-6 py-4 dark:text-white">
+                  {expiration}
+                </td>
+                {isOwner && (
+                  <td className="reservoir-body flex justify-end whitespace-nowrap px-6 py-4 dark:text-white">
+                    <CancelListing
+                      data={{
+                        collectionId: modal?.collectionId,
+                        id,
+                        contract,
+                        tokenId,
+                      }}
+                      signer={modal.signer}
+                      show={true}
+                      isInTheWrongNetwork={modal.isInTheWrongNetwork}
+                      setToast={modal.setToast}
+                      mutate={mutate}
+                    />
+                  </td>
+                )}
+              </tr>
+            )
+          })}
         </tbody>
       </table>
 >>>>>>> d73def8 (initial commit)
@@ -206,6 +270,7 @@ const UserListingsTable: FC<Props> = ({ modal, mutate, isOwner, data }) => {
   )
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 type UserListingsRowProps = {
   listing: ReturnType<typeof useListings>['data'][0]
@@ -574,6 +639,8 @@ function processListing(listing: ReturnType<typeof useListings>['data'][0]) {
   const contract = listing?.tokenSetId?.split(':')[1]
   const collectionRedirectUrl = `${API_BASE}/redirect/collections/${listing?.contract}/image/v1`
 =======
+=======
+>>>>>>> 79e0b24 (Update look and feel)
 export default UserListingsTable
 
 function processListing(

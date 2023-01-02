@@ -1,10 +1,10 @@
-import { useTokens } from '@reservoir0x/reservoir-kit-ui'
+import useDetails from 'hooks/useDetails'
 import { optimizeImage } from 'lib/optmizeImage'
 import Script from 'next/script'
 import { FC } from 'react'
-import { TokenDetails } from 'types/reservoir'
 
 type Props = {
+<<<<<<< HEAD
   token?: TokenDetails
 <<<<<<< HEAD
 }
@@ -16,13 +16,18 @@ const TokenMedia: FC<Props> = ({ token }) => {
         <img
           alt="Token Image"
 =======
+=======
+  details: ReturnType<typeof useDetails>
+>>>>>>> 79e0b24 (Update look and feel)
   tokenOpenSea: {
     animation_url: string | null
     extension: string | null
   }
 }
 
-const TokenMedia: FC<Props> = ({ token, tokenOpenSea }) => {
+const TokenMedia: FC<Props> = ({ details, tokenOpenSea }) => {
+  const token = details.data?.tokens?.[0]
+
   return (
     <div className="col-span-full md:col-span-4 lg:col-span-5 lg:col-start-2">
       <Script
@@ -37,7 +42,7 @@ const TokenMedia: FC<Props> = ({ token, tokenOpenSea }) => {
         <img
 >>>>>>> d73def8 (initial commit)
           className="w-full rounded-2xl"
-          src={optimizeImage(token?.image, 533)}
+          src={optimizeImage(token?.token?.image, 533)}
         />
       ) : (
         <Media
@@ -45,8 +50,12 @@ const TokenMedia: FC<Props> = ({ token, tokenOpenSea }) => {
           media={token?.media as string}
 =======
           tokenOpenSea={tokenOpenSea}
+<<<<<<< HEAD
 >>>>>>> d73def8 (initial commit)
           tokenImage={optimizeImage(token?.image, 533)}
+=======
+          tokenImage={optimizeImage(token?.token?.image, 533)}
+>>>>>>> 79e0b24 (Update look and feel)
         />
       )}
     </div>

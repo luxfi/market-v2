@@ -6,7 +6,6 @@ type Props = {
   amount: BigNumberish | null | undefined
   maximumFractionDigits?: number
   children?: React.ReactNode
-  decimals?: number
 }
 
 const FormatCurrency: FC<Props> = ({
@@ -17,9 +16,8 @@ const FormatCurrency: FC<Props> = ({
   maximumFractionDigits = 4,
 >>>>>>> d73def8 (initial commit)
   children,
-  decimals,
 }) => {
-  const value = formatBN(amount, maximumFractionDigits, decimals)
+  const value = formatBN(amount, maximumFractionDigits)
 
   return (
     <div className="inline-flex flex-none items-center gap-1">

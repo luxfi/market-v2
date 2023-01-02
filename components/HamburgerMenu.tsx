@@ -58,6 +58,7 @@ const HamburgerMenu: FC<Props> = ({ externalLinks }) => {
       </Dialog.Trigger>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
       <Dialog.Content
         className="fixed inset-0 z-20 transform bg-white shadow-md dark:bg-black"
         onInteractOutside={(e) => {
@@ -67,6 +68,9 @@ const HamburgerMenu: FC<Props> = ({ externalLinks }) => {
 =======
       <Dialog.Content className="fixed inset-0 z-20 transform bg-white shadow-md dark:bg-black">
 >>>>>>> d73def8 (initial commit)
+=======
+      <Dialog.Content className="fixed inset-0 z-10 transform bg-white shadow-md dark:bg-black">
+>>>>>>> 79e0b24 (Update look and feel)
         <div className="flex items-center justify-between gap-3 border-b border-neutral-300 px-6 py-4 dark:border-neutral-600">
           <NavbarLogo variant="desktop" />
           <Dialog.Close className="btn-primary-outline py-1.5 px-[5px] dark:text-white">
@@ -157,7 +161,7 @@ const HamburgerMenu: FC<Props> = ({ externalLinks }) => {
               </div>
             )}
             <ThemeSwitcher />
-            {accountData.isConnected ? (
+            {accountData ? (
               <>
                 <div className="reservoir-label-l flex items-center justify-center border-b border-neutral-300 bg-neutral-100 p-4 text-[#4B5563] hover:text-[#1F2937] dark:border-neutral-600 dark:bg-black dark:text-white dark:hover:bg-neutral-600">
                   <EthAccount

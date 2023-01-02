@@ -12,7 +12,9 @@ import Toast from './Toast'
 import { useAccount, useNetwork, useSigner } from 'wagmi'
 import { SWRInfiniteResponse } from 'swr/infinite/dist/infinite'
 import { GlobalContext } from 'context/GlobalState'
+import useTokens from 'hooks/useTokens'
 import { HiX } from 'react-icons/hi'
+import useCollection from 'hooks/useCollection'
 import { optimizeImage } from 'lib/optmizeImage'
 import FormatEth from './FormatEth'
 import AttributesFlex from './AttributesFlex'
@@ -23,10 +25,7 @@ import * as SliderPrimitive from '@radix-ui/react-slider'
 import Link from 'next/link'
 import { Signer } from 'ethers'
 import { FaBroom } from 'react-icons/fa'
-import { useReservoirClient, useTokens } from '@reservoir0x/reservoir-kit-ui'
-import { Collection } from 'types/reservoir'
-import useCoinConversion from 'hooks/useCoinConversion'
-import { formatDollar } from 'lib/numbers'
+import { useReservoirClient } from '@reservoir0x/reservoir-kit-ui'
 
 const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID
 const DARK_MODE = process.env.NEXT_PUBLIC_DARK_MODE
@@ -35,11 +34,13 @@ const DISABLE_POWERED_BY_RESERVOIR =
 const API_BASE =
   process.env.NEXT_PUBLIC_RESERVOIR_API_BASE || 'https://api.reservoir.tools'
 
-type UseTokensReturnType = ReturnType<typeof useTokens>
+type Details = paths['/tokens/details/v4']['get']['responses']['200']['schema']
+
+type Tokens = ReturnType<typeof useTokens>['tokens']
 
 type Props = {
-  tokens: UseTokensReturnType['data']
-  collection?: Collection
+  tokens: Tokens
+  collection: ReturnType<typeof useCollection>
   mutate?: SWRResponse['mutate'] | SWRInfiniteResponse['mutate']
   setToast: (data: ComponentProps<typeof Toast>['data']) => any
 }
@@ -84,7 +85,6 @@ const StyledThumb = styled(SliderPrimitive.Thumb, {
   backgroundColor: 'white',
   boxShadow: `0 2px 10px ${blackA.blackA7}`,
   borderRadius: 10,
-  cursor: 'pointer',
   '&:hover': { backgroundColor: violet.violet3 },
   '&:focus': { boxShadow: `0 0 0 5px ${blackA.blackA8}` },
 })
@@ -98,13 +98,11 @@ const Sweep: FC<Props> = ({ tokens, collection, mutate, setToast }) => {
   const [sweepAmount, setSweepAmount] = useState<number>(1)
   const [maxInput, setMaxInput] = useState<number>(0)
   const [sweepTokens, setSweepTokens] = useState<
-    NonNullable<UseTokensReturnType['data']>
+    NonNullable<Tokens['data']>[0]['tokens']
   >([])
   const [sweepTotal, setSweepTotal] = useState<number>(0)
   const [open, setOpen] = useState(false)
-  const [details, _setDetails] = useState<
-    SWRResponse<UseTokensReturnType, any> | UseTokensReturnType['data']
-  >()
+  const [details, _setDetails] = useState<SWRResponse<Details, any> | Details>()
   const { dispatch } = useContext(GlobalContext)
   const reservoirClient = useReservoirClient()
 
@@ -112,44 +110,50 @@ const Sweep: FC<Props> = ({ tokens, collection, mutate, setToast }) => {
     signer && CHAIN_ID && activeChain?.id !== +CHAIN_ID
   )
 
-  const usdConversion = useCoinConversion('usd', 'ETH')
+  const { data } = tokens
+
+  // Reference: https://swr.vercel.app/examples/infinite-loading
+  const mappedTokens = data
+    ? data
+        .flatMap(({ tokens }) => tokens)
+        .filter((token) => token?.floorAskPrice)
+    : []
 
   useEffect(() => {
-    const availableTokens = tokens.filter(
-      (token) =>
-        token !== undefined &&
-        token?.token !== undefined &&
-        token?.market?.floorAsk?.price?.amount?.native !== undefined &&
-        token?.market?.floorAsk?.price?.amount?.native !== null &&
-        token?.market?.floorAsk?.price?.currency?.symbol === 'ETH' &&
-        token?.token?.owner?.toLowerCase() !==
-          accountData?.address?.toLowerCase()
-    )
-    setMaxInput(availableTokens.length)
-    const sweepTokens = availableTokens.slice(0, sweepAmount)
-
+    const sweepTokens = mappedTokens
+      .filter((value) => value !== undefined)
+      .filter(
+        (token) =>
+          token?.owner?.toLowerCase() !== accountData?.address?.toLowerCase()
+      )
+      .slice(0, sweepAmount)
+    // @ts-ignore
     setSweepTokens(sweepTokens)
 
-    const total = sweepTokens.reduce((total, token) => {
-      if (token?.market?.floorAsk?.price?.amount?.native) {
-        total += token.market.floorAsk.price.amount.native
+    let total = 0
+
+    sweepTokens.forEach((token) => {
+      if (token?.floorAskPrice) {
+        total += token?.floorAskPrice
       }
-      return total
-    }, 0)
+    })
 
     setSweepTotal(total)
-  }, [sweepAmount, tokens])
+  }, [sweepAmount, data])
+
+  useEffect(() => setMaxInput(mappedTokens.length), [mappedTokens])
 
   // Set the token either from SWR or fetch
-  let token: UseTokensReturnType['data'][0] = { token: undefined }
+  let token: NonNullable<Details['tokens']>[0] = { token: undefined }
 
-  const fetchedDetails = details as UseTokensReturnType['data']
-  if (fetchedDetails && fetchedDetails?.[0]) {
-    // From fetch
-    token = fetchedDetails[0]
-  } else if (details && 'data' in details && details.data?.data) {
-    // From swr
-    token = details.data?.data[0]
+  // From fetch
+  if (details && 'tokens' in details && details.tokens?.[0]) {
+    token = details.tokens?.[0]
+  }
+
+  // From SWR
+  if (details && 'data' in details && details?.data?.tokens?.[0]) {
+    token = details.data?.tokens?.[0]
   }
 
   const execute = async (signer: Signer) => {
@@ -166,6 +170,7 @@ const Sweep: FC<Props> = ({ tokens, collection, mutate, setToast }) => {
     }
 
     setWaitingTx(true)
+<<<<<<< HEAD
     const tokens = sweepTokens.reduce((tokens, token) => {
       if (token?.token?.tokenId && token.token.contract) {
 <<<<<<< HEAD
@@ -183,10 +188,13 @@ const Sweep: FC<Props> = ({ tokens, collection, mutate, setToast }) => {
 =======
     }, [] as Parameters<typeof reservoirClient.actions.buyToken>['0']['tokens'])
 >>>>>>> d73def8 (initial commit)
+=======
+
+>>>>>>> 79e0b24 (Update look and feel)
     await reservoirClient.actions
       .buyToken({
         expectedPrice: sweepTotal,
-        tokens: tokens,
+        tokens: sweepTokens,
         signer,
         onProgress: setSteps,
         options: {
@@ -270,12 +278,15 @@ const Sweep: FC<Props> = ({ tokens, collection, mutate, setToast }) => {
                       <Dialog.Title className="reservoir-h4 font-headings dark:text-white">
                         <div className="flex items-center gap-4">
                           <img
-                            src={collection?.image}
+                            src={
+                              collection?.data?.collection?.metadata
+                                ?.imageUrl as string
+                            }
                             alt=""
                             className="block h-12 w-12 rounded-full"
                           />
                           <div className="reservoir-h5 dark:text-white">
-                            {collection?.name}
+                            {collection?.data?.collection?.name}
                           </div>
                         </div>
                       </Dialog.Title>
@@ -315,25 +326,20 @@ const Sweep: FC<Props> = ({ tokens, collection, mutate, setToast }) => {
                     </div>
                     <div className="mb-8 grid h-[215px] grid-cols-5 justify-center gap-2 overflow-y-auto pr-2 md:grid-cols-7">
                       {sweepTokens?.map((token) => (
-                        <div className="relative" key={token?.token?.tokenId}>
+                        <div className="relative" key={token.tokenId}>
                           <img
                             className="absolute top-1 right-1 h-4 w-4"
-                            src={`${API_BASE}/redirect/sources/${token?.market?.floorAsk?.source?.domain}/logo/v2`}
-                            alt={`${token?.token?.contract} icon`}
+                            src={`${API_BASE}/redirect/sources/${token?.sourceDomain}/logo/v2`}
+                            alt={`${token?.source} icon`}
                           />
                           <img
-                            src={optimizeImage(
-                              token?.token?.image || collection?.image,
-                              72
-                            )}
+                            src={optimizeImage(token?.image, 72)}
                             className="mb-2 h-[72px] w-full rounded-lg object-cover"
-                            alt={`${token?.token?.name} image`}
+                            alt={`${token?.name} image`}
                           />
                           <div className="reservoir-subtitle text-center text-xs dark:text-white md:text-sm">
                             <FormatEth
-                              amount={
-                                token?.market?.floorAsk?.price?.amount?.native
-                              }
+                              amount={token?.floorAskPrice}
                               maximumFractionDigits={4}
                               logoWidth={7}
                             />
@@ -345,6 +351,7 @@ const Sweep: FC<Props> = ({ tokens, collection, mutate, setToast }) => {
                       <div className="reservoir-h6 text-center dark:text-white">
                         Total Price
                       </div>
+<<<<<<< HEAD
                       <div>
                         <div className="reservoir-h5 text-right dark:text-white">
                           <FormatEth
@@ -364,6 +371,14 @@ const Sweep: FC<Props> = ({ tokens, collection, mutate, setToast }) => {
                           {formatDollar(usdConversion * sweepTotal)}
                         </div>
 >>>>>>> d73def8 (initial commit)
+=======
+                      <div className="reservoir-h5 text-center dark:text-white">
+                        <FormatEth
+                          amount={sweepTotal}
+                          maximumFractionDigits={4}
+                          logoWidth={7}
+                        />
+>>>>>>> 79e0b24 (Update look and feel)
                       </div>
                     </div>
                     <button

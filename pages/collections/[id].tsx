@@ -7,6 +7,7 @@ import type {
 import { useRouter } from 'next/router'
 import Layout from 'components/Layout'
 import { useState } from 'react'
+import useCollection from 'hooks/useCollection'
 import useCollectionStats from 'hooks/useCollectionStats'
 import useTokens from 'hooks/useTokens'
 import useCollectionAttributes from 'hooks/useCollectionAttributes'
@@ -24,6 +25,7 @@ import ExploreTokens from 'components/ExploreTokens'
 import TokensGrid from 'components/TokensGrid'
 import Head from 'next/head'
 import FormatEth from 'components/FormatEth'
+import useAttributes from 'hooks/useAttributes'
 import * as Tabs from '@radix-ui/react-tabs'
 import { toggleOnItem } from 'lib/router'
 <<<<<<< HEAD
@@ -33,8 +35,11 @@ import CollectionActivityTab from 'components/tables/CollectionActivityTab'
 =======
 import CollectionActivityTable from 'components/tables/CollectionActivityTable'
 import Sweep from 'components/Sweep'
+<<<<<<< HEAD
 import { useCollections, useAttributes } from '@reservoir0x/reservoir-kit-ui'
 >>>>>>> d73def8 (initial commit)
+=======
+>>>>>>> 79e0b24 (Update look and feel)
 
 // Environment variables
 // For more information about these variables
@@ -44,7 +49,7 @@ import { useCollections, useAttributes } from '@reservoir0x/reservoir-kit-ui'
 const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID
 
 // OPTIONAL
-const RESERVOIR_API_KEY = process.env.NEXT_PUBLIC_RESERVOIR_API_KEY
+const RESERVOIR_API_KEY = process.env.RESERVOIR_API_KEY
 
 const envBannerImage = process.env.NEXT_PUBLIC_BANNER_IMAGE
 
@@ -68,16 +73,7 @@ const Home: NextPage<Props> = ({ fallback, id }) => {
   const [localListings, setLocalListings] = useState(false)
   const [refreshLoading, setRefreshLoading] = useState(false)
 
-  const collectionResponse = useCollections(
-    { id },
-    {
-      fallback: fallback.collection,
-    }
-  )
-  const collection =
-    collectionResponse.data && collectionResponse.data[0]
-      ? collectionResponse.data[0]
-      : undefined
+  const collection = useCollection(fallback.collection, id)
 
   const stats = useCollectionStats(router, id)
 
@@ -154,15 +150,19 @@ const Home: NextPage<Props> = ({ fallback, id }) => {
   const title = metaTitle ? (
     <title>{metaTitle}</title>
   ) : (
-    <title>{collection?.name}</title>
+    <title>{collection.data?.collection?.name}</title>
   )
   const description = metaDescription ? (
     <meta name="description" content={metaDescription} />
   ) : (
-    <meta name="description" content={collection?.description as string} />
+    <meta
+      name="description"
+      content={collection.data?.collection?.metadata?.description as string}
+    />
   )
 
-  const bannerImage = (envBannerImage || collection?.banner) as string
+  const bannerImage = (envBannerImage ||
+    collection?.data?.collection?.metadata?.bannerImageUrl) as string
 
   const image = metaImage ? (
     <>
@@ -211,12 +211,7 @@ const Home: NextPage<Props> = ({ fallback, id }) => {
           </Tabs.List>
           <Tabs.Content value="items" asChild>
             <>
-              <Sidebar
-                attributes={attributes.data}
-                refreshData={() => {
-                  tokens.setSize(1)
-                }}
-              />
+              <Sidebar attributes={attributes} setTokensSize={tokens.setSize} />
               <div className="col-span-full mx-6 mt-4 sm:col-end-[-1] md:col-start-4">
                 <div className="mb-4 hidden items-center justify-between md:flex">
                   <div className="flex items-center gap-6">
@@ -225,7 +220,7 @@ const Home: NextPage<Props> = ({ fallback, id }) => {
                         <div>{formatNumber(tokenCount)} items</div>
 
                         <div className="h-9 w-px bg-gray-300 dark:bg-neutral-600"></div>
-                        <div className="flex items-center gap-1">
+                        <div>
                           <FormatEth
                             amount={stats?.data?.stats?.market?.floorAsk?.price}
                           />{' '}
@@ -258,9 +253,8 @@ const Home: NextPage<Props> = ({ fallback, id }) => {
                     </button>
                     <Sweep
                       collection={collection}
-                      tokens={tokens.data}
+                      tokens={tokens}
                       setToast={setToast}
-                      mutate={tokens.mutate}
                     />
                   </div>
                 </div>
@@ -297,7 +291,9 @@ const Home: NextPage<Props> = ({ fallback, id }) => {
                   <TokensGrid
                     tokens={tokens}
                     viewRef={refTokens}
-                    collectionImage={collection?.image as string}
+                    collectionImage={
+                      collection.data?.collection?.metadata?.imageUrl as string
+                    }
                   />
                 )}
               </div>
@@ -312,8 +308,12 @@ const Home: NextPage<Props> = ({ fallback, id }) => {
 =======
             className="col-span-full mx-[25px] grid lg:col-start-2 lg:col-end-[-2]"
           >
+<<<<<<< HEAD
             <CollectionActivityTable collection={collection} />
 >>>>>>> d73def8 (initial commit)
+=======
+            <CollectionActivityTable collection={collection.data?.collection} />
+>>>>>>> 79e0b24 (Update look and feel)
           </Tabs.Content>
         </Tabs.Root>
       </>
@@ -332,7 +332,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 
   if (COLLECTION && (COMMUNITY || COLLECTION_SET_ID)) {
-    const url = new URL(`${RESERVOIR_API_BASE}/search/collections/v1`)
+    const url = new URL(`/search/collections/v1`, RESERVOIR_API_BASE)
 
     const query: paths['/search/collections/v1']['get']['parameters']['query'] =
       { limit: 20 }
@@ -385,8 +385,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<{
   collectionId?: string
   fallback: {
-    collection: paths['/collections/v5']['get']['responses']['200']['schema']
-    tokens: paths['/tokens/v5']['get']['responses']['200']['schema']
+    collection: paths['/collection/v3']['get']['responses']['200']['schema']
+    tokens: paths['/tokens/v4']['get']['responses']['200']['schema']
   }
   id: string | undefined
 }> = async ({ params }) => {
@@ -401,13 +401,12 @@ export const getStaticProps: GetStaticProps<{
   const id = params?.id?.toString()
 
   // COLLECTION
-  const collectionUrl = new URL(`${RESERVOIR_API_BASE}/collections/v5`)
+  const collectionUrl = new URL('/collection/v3', RESERVOIR_API_BASE)
 
-  let collectionQuery: paths['/collections/v5']['get']['parameters']['query'] =
-    {
-      id,
-      includeTopBid: true,
-    }
+  let collectionQuery: paths['/collection/v3']['get']['parameters']['query'] = {
+    id,
+    includeTopBid: true,
+  }
 
   setParams(collectionUrl, collectionQuery)
 
@@ -417,9 +416,9 @@ export const getStaticProps: GetStaticProps<{
     (await collectionRes.json()) as Props['fallback']['collection']
 
   // TOKENS
-  const tokensUrl = new URL(`${RESERVOIR_API_BASE}/tokens/v5`)
+  const tokensUrl = new URL('/tokens/v4', RESERVOIR_API_BASE)
 
-  let tokensQuery: paths['/tokens/v5']['get']['parameters']['query'] = {
+  let tokensQuery: paths['/tokens/v4']['get']['parameters']['query'] = {
     collection: id,
     sortBy: 'floorAskPrice',
     includeTopBid: true,

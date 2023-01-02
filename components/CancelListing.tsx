@@ -1,4 +1,4 @@
-import { Execute } from '@reservoir0x/reservoir-kit-client'
+import { Execute, paths } from '@reservoir0x/reservoir-kit-client'
 import React, {
 <<<<<<< HEAD
   cloneElement,
@@ -19,19 +19,22 @@ import ModalCard from './modal/ModalCard'
 import { useSigner } from 'wagmi'
 import Toast from './Toast'
 import { SWRInfiniteResponse } from 'swr/infinite/dist/infinite'
-import { getDetails } from 'lib/fetch/fetch'
+import { getCollection, getDetails } from 'lib/fetch/fetch'
 import { CgSpinner } from 'react-icons/cg'
 import { GlobalContext } from 'context/GlobalState'
-import { useReservoirClient, useTokens } from '@reservoir0x/reservoir-kit-ui'
+import { useReservoirClient } from '@reservoir0x/reservoir-kit-ui'
 
-type UseTokensReturnType = ReturnType<typeof useTokens>
+type Details = paths['/tokens/details/v4']['get']['responses']['200']['schema']
+type Collection = paths['/collection/v3']['get']['responses']['200']['schema']
 
 type Props = {
   data:
     | {
-        details: UseTokensReturnType
+        details: SWRResponse<Details, any>
+        collection: Collection | undefined
       }
     | {
+        collectionId: string | undefined
         contract?: string | undefined
         tokenId?: string | undefined
         id?: string | undefined
@@ -65,9 +68,8 @@ const CancelListing: FC<Props> = ({
   const [open, setOpen] = useState(false)
 
   // Data from props
-  const [details, setDetails] = useState<
-    UseTokensReturnType | UseTokensReturnType['data']
-  >()
+  const [_collection, setCollection] = useState<Collection>()
+  const [details, setDetails] = useState<SWRResponse<Details, any> | Details>()
   const { dispatch } = useContext(GlobalContext)
   const reservoirClient = useReservoirClient()
 
@@ -75,19 +77,33 @@ const CancelListing: FC<Props> = ({
     if (data && open) {
       // Load data if missing
       if ('tokenId' in data) {
-        const { contract, tokenId } = data
+        const { contract, tokenId, collectionId } = data
 
-        getDetails(contract, tokenId, (data) => {
-          setDetails(data.tokens)
-        })
+        getDetails(contract, tokenId, setDetails)
+        getCollection(collectionId, setCollection)
       }
       // Load data if provided
       if ('details' in data) {
-        const { details } = data
+        const { details, collection } = data
+
         setDetails(details)
+        setCollection(collection)
       }
     }
   }, [data, open])
+
+  // Set the token either from SWR or fetch
+  let token: NonNullable<Details['tokens']>[0] = { token: undefined }
+
+  // From fetch
+  if (details && 'tokens' in details && details.tokens?.[0]) {
+    token = details.tokens?.[0]
+  }
+
+  // From SWR
+  if (details && 'data' in details && details?.data?.tokens?.[0]) {
+    token = details.data?.tokens?.[0]
+  }
 
   const handleError = (err: any) => {
     setWaitingTx(false)
@@ -118,7 +134,7 @@ const CancelListing: FC<Props> = ({
   let id: string | undefined = undefined
 
   if ('details' in data) {
-    id = data.details.data[0]?.market?.floorAsk?.id
+    id = data?.details.data?.tokens?.[0].market?.floorAsk?.id
   }
 
   if ('id' in data) {

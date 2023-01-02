@@ -3,15 +3,21 @@ import React, { FC, useContext } from 'react'
 import { SWRResponse } from 'swr'
 import { useSigner } from 'wagmi'
 import { GlobalContext } from 'context/GlobalState'
-import { BuyModal, useTokens } from '@reservoir0x/reservoir-kit-ui'
+import { BuyModal } from '@reservoir0x/reservoir-kit-ui'
 import { useSwitchNetwork } from 'wagmi'
 
 const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID
 
+type Details = paths['/tokens/details/v4']['get']['responses']['200']['schema']
+type Collection = paths['/collection/v3']['get']['responses']['200']['schema']
+
 type Props = {
   data: {
-    details?: ReturnType<typeof useTokens>
-    token?: ReturnType<typeof useTokens>['data'][0]
+    details?: SWRResponse<Details, any>
+    collection?: Collection
+    token?: NonNullable<
+      paths['/tokens/v4']['get']['responses']['200']['schema']['tokens']
+    >[0]
   }
   isInTheWrongNetwork: boolean | undefined
   signer: ReturnType<typeof useSigner>['data']
@@ -34,20 +40,17 @@ const BuyNow: FC<Props> = ({
   let forSale = false
   let tokenId: string | undefined
   let collectionId: string | undefined
-  data.details?.data[0]?.token?.tokenId
-  if ('details' in data && data.details?.data[0]?.token?.tokenId) {
-    const token = data.details.data[0].token
+
+  if ('details' in data && data?.details?.data?.tokens?.[0].token?.tokenId) {
+    const token = data.details.data.tokens[0].token
     tokenId = token.tokenId
     collectionId = token.collection?.id
-    forSale = data.details?.data[0]?.market?.floorAsk?.price != null
+    forSale = data.details.data.tokens[0].market?.floorAsk?.price != null
   } else if (data.token) {
-    const token = data.token.token
-    const marketData = data.token.market
-    tokenId = token?.tokenId
-    collectionId = token?.collection?.id
+    tokenId = data.token.tokenId
+    collectionId = data.token.collection?.id
     forSale =
-      marketData?.floorAsk?.price?.amount != null &&
-      marketData?.floorAsk?.price?.amount != undefined
+      data.token.floorAskPrice != null && data.token.floorAskPrice != undefined
   }
 
   const trigger = <button className={buttonClassName}>Buy Now</button>

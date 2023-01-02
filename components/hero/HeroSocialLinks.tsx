@@ -1,11 +1,13 @@
 import { useMediaQuery } from '@react-hookz/web'
+import { paths } from '@reservoir0x/reservoir-kit-client'
 import { FC } from 'react'
 import { FiGlobe, FiMoreVertical } from 'react-icons/fi'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-import { Collection } from 'types/reservoir'
 
 type Props = {
-  collection?: Collection
+  collection:
+    | paths['/collection/v3']['get']['responses']['200']['schema']['collection']
+    | undefined
 }
 
 const DARK_MODE = process.env.NEXT_PUBLIC_DARK_MODE
@@ -13,9 +15,9 @@ const DARK_MODE = process.env.NEXT_PUBLIC_DARK_MODE
 const HeroSocialLinks: FC<Props> = ({ collection }) => {
   const isSmallDevice = useMediaQuery('only screen and (max-width : 600px)')
   const social = {
-    twitterUsername: collection?.twitterUsername,
-    externalUrl: collection?.externalUrl,
-    discordUrl: collection?.discordUrl,
+    twitterUsername: collection?.metadata?.twitterUsername,
+    externalUrl: collection?.metadata?.externalUrl,
+    discordUrl: collection?.metadata?.discordUrl,
     etherscanUrl: `https://etherscan.io/address/${collection?.id}`,
   }
 

@@ -3,15 +3,19 @@ import { toggleOffItem, toggleOnAttributeKey } from 'lib/router'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
 import AttributeSelector from './filter/AttributeSelector'
+import { SWRResponse } from 'swr'
+import { SWRInfiniteResponse } from 'swr/infinite/dist/infinite'
 import { FiChevronDown } from 'react-icons/fi'
-import { useAttributes } from '@reservoir0x/reservoir-kit-ui'
+import { paths } from '@reservoir0x/reservoir-kit-client'
 
 type Props = {
-  attributes: ReturnType<typeof useAttributes>['data']
-  refreshData: () => void
+  attributes: SWRResponse<
+    paths['/collections/{collection}/attributes/all/v1']['get']['responses']['200']['schema']
+  >
+  setTokensSize: SWRInfiniteResponse['setSize']
 }
 
-const Sidebar: FC<Props> = ({ attributes, refreshData }) => {
+const Sidebar: FC<Props> = ({ attributes, setTokensSize }) => {
   const router = useRouter()
 
   return (
@@ -44,7 +48,7 @@ const Sidebar: FC<Props> = ({ attributes, refreshData }) => {
           Explore All
         </button>
       </div>
-      {attributes?.map((attribute) => (
+      {attributes.data?.attributes?.map((attribute) => (
         <Accordion.Item
           value={`item-${attribute.key}`}
           key={attribute.key}
@@ -104,7 +108,7 @@ const Sidebar: FC<Props> = ({ attributes, refreshData }) => {
           <Accordion.Content>
             <AttributeSelector
               attribute={attribute}
-              refreshData={refreshData}
+              setTokensSize={setTokensSize}
             />
           </Accordion.Content>
         </Accordion.Item>

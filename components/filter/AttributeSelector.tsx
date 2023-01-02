@@ -2,43 +2,30 @@ import React, { FC, useEffect, useState } from 'react'
 import AttributeButton from 'components/AttributeButton'
 import { DebounceInput } from 'react-debounce-input'
 import { matchSorter } from 'match-sorter'
+import { sortAttributes } from './functions'
+import { SWRInfiniteResponse } from 'swr/infinite/dist/infinite'
 import { FiSearch, FiXCircle } from 'react-icons/fi'
-import { useAttributes } from '@reservoir0x/reservoir-kit-ui'
+import { paths } from '@reservoir0x/reservoir-kit-client'
 
 type Props = {
-  attribute: NonNullable<ReturnType<typeof useAttributes>['data']>[0]
-  refreshData: () => void
+  attribute: NonNullable<
+    paths['/collections/{collection}/attributes/all/v1']['get']['responses']['200']['schema']['attributes']
+  >[number]
+  setTokensSize: SWRInfiniteResponse['setSize']
 }
 
 const AttributeSelector: FC<Props> = ({
   attribute: { key, values },
-  refreshData,
+  setTokensSize,
 }) => {
   const [searchedValues, setsearchedValues] = useState(values || [])
   const [query, setQuery] = useState('')
 
   useEffect(() => {
-    const results = matchSorter(values || [], query, {
+    let results = matchSorter(values || [], query, {
       keys: ['value'],
     })
-      .sort((a, b) => {
-        if (!a.value || !b.value) return 0
-        var nameA = a.value?.toUpperCase()
-        var nameB = b.value?.toUpperCase()
-        if (nameA < nameB) {
-          return -1
-        }
-        if (nameA > nameB) {
-          return 1
-        }
-
-        // names must be equal
-        return 0
-      })
-      .sort((a, b) => {
-        if (!a.count || !b.count) return 0
-        return b.count - a.count
-      })
+    sortAttributes(results)
     setsearchedValues(results)
   }, [query, values])
 
@@ -79,7 +66,7 @@ const AttributeSelector: FC<Props> = ({
               value={value}
               attribute={key}
               key={`${value}${index}`}
-              refreshData={refreshData}
+              setTokensSize={setTokensSize}
             >
               <span className="reservoir-body dark:text-white">{value}</span>
               <span className="reservoir-body dark:text-white">{count}</span>

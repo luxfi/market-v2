@@ -1,3 +1,5 @@
+import useAttributes from 'hooks/useAttributes'
+import useCollection from 'hooks/useCollection'
 import useCollectionAttributes from 'hooks/useCollectionAttributes'
 import useCollectionStats from 'hooks/useCollectionStats'
 import useTokens from 'hooks/useTokens'
@@ -17,7 +19,6 @@ import ViewMenu from './ViewMenu'
 import Toast from './Toast'
 import { FiRefreshCcw } from 'react-icons/fi'
 import FormatEth from './FormatEth'
-import { useCollections, useAttributes } from '@reservoir0x/reservoir-kit-ui'
 
 const envBannerImage = process.env.NEXT_PUBLIC_BANNER_IMAGE
 
@@ -31,9 +32,10 @@ type Props = {
   chainId: ChainId
   collectionId: string | undefined
   fallback: {
-    tokens: paths['/tokens/v5']['get']['responses']['200']['schema']
-    collection: paths['/collections/v5']['get']['responses']['200']['schema']
+    tokens: paths['/tokens/v4']['get']['responses']['200']['schema']
+    collection: paths['/collection/v3']['get']['responses']['200']['schema']
   }
+  openSeaApiKey: string | undefined
   setToast: (data: ComponentProps<typeof Toast>['data']) => any
 }
 
@@ -41,13 +43,7 @@ const TokensMain: FC<Props> = ({ collectionId, fallback, setToast }) => {
   const router = useRouter()
   const [refreshLoading, setRefreshLoading] = useState(false)
 
-  const collections = useCollections(
-    { id: collectionId },
-    { fallbackData: fallback.collection }
-  )
-
-  const collection =
-    collections.data && collections.data[0] ? collections.data[0] : undefined
+  const collection = useCollection(fallback.collection, collectionId)
 
   const stats = useCollectionStats(router, collectionId)
 
@@ -67,7 +63,8 @@ const TokensMain: FC<Props> = ({ collectionId, fallback, setToast }) => {
   }
 
   const tokenCount = stats?.data?.stats?.tokenCount ?? 0
-  const bannerImage = (envBannerImage || collection?.banner) as string
+  const bannerImage = (envBannerImage ||
+    collection?.data?.collection?.metadata?.bannerImageUrl) as string
 
   async function refreshCollection(collectionId: string | undefined) {
     function handleError(message?: string) {
@@ -122,12 +119,15 @@ const TokensMain: FC<Props> = ({ collectionId, fallback, setToast }) => {
   const title = metaTitle ? (
     <title>{metaTitle}</title>
   ) : (
-    <title>{collection?.name} | Reservoir Market</title>
+    <title>{collection.data?.collection?.name} | Reservoir Market</title>
   )
   const description = metaDescription ? (
     <meta name="description" content={metaDescription} />
   ) : (
-    <meta name="description" content={collection?.description as string} />
+    <meta
+      name="description"
+      content={collection.data?.collection?.metadata?.description as string}
+    />
   )
   const image = metaImage ? (
     <>
@@ -151,28 +151,26 @@ const TokensMain: FC<Props> = ({ collectionId, fallback, setToast }) => {
       <Hero fallback={fallback} collectionId={collectionId} />
       <div className="col-span-full grid grid-cols-4 gap-x-4 md:grid-cols-8 lg:grid-cols-12 3xl:grid-cols-16 4xl:grid-cols-21">
         <hr className="col-span-full border-gray-300 dark:border-neutral-600" />
-        <Sidebar
-          attributes={attributes.data}
-          refreshData={() => {
-            tokens.setSize(1)
-          }}
-        />
+        <Sidebar attributes={attributes} setTokensSize={tokens.setSize} />
         <div className="col-span-full mx-6 mt-4 sm:col-end-[-1] md:col-start-4">
           <div className="mb-10 hidden items-center justify-between md:flex">
             <div className="flex items-center gap-6">
-              {!!tokenCount && tokenCount > 0 && (
-                <>
-                  <div>{formatNumber(tokenCount)} items</div>
+              {!!stats?.data?.stats?.tokenCount &&
+                stats?.data?.stats?.tokenCount > 0 && (
+                  <>
+                    <div>
+                      {formatNumber(stats?.data?.stats?.tokenCount)} items
+                    </div>
 
-                  <div className="h-9 w-px bg-gray-300 dark:bg-neutral-600"></div>
-                  <div className="flex items-center gap-1">
-                    <FormatEth
-                      amount={stats?.data?.stats?.market?.floorAsk?.price}
-                    />{' '}
-                    floor price
-                  </div>
-                </>
-              )}
+                    <div className="h-9 w-px bg-gray-300 dark:bg-neutral-600"></div>
+                    <div>
+                      <FormatEth
+                        amount={stats?.data?.stats?.market?.floorAsk?.price}
+                      />{' '}
+                      floor price
+                    </div>
+                  </>
+                )}
             </div>
             <div className="flex gap-4">
               {router.query?.attribute_key ||
@@ -207,7 +205,9 @@ const TokensMain: FC<Props> = ({ collectionId, fallback, setToast }) => {
             <TokensGrid
               tokens={tokens}
               viewRef={refTokens}
-              collectionImage={collection?.image as string}
+              collectionImage={
+                collection.data?.collection?.metadata?.imageUrl as string
+              }
             />
           )}
         </div>

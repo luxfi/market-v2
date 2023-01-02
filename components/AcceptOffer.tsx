@@ -1,17 +1,11 @@
-import { Signer } from 'ethers'
-<<<<<<< HEAD
-import { Execute } from '@reservoir0x/reservoir-kit-client'
-import React, {
-  cloneElement,
-  ComponentProps,
-  FC,
-  ReactElement,
-=======
-import { Execute, paths } from '@reservoir0x/reservoir-kit-client'
+import {
+  Execute,
+  paths,
+  ReservoirClientActions,
+} from '@reservoir0x/reservoir-kit-client'
 import React, {
   ComponentProps,
   FC,
->>>>>>> d73def8 (initial commit)
   useContext,
   useEffect,
   useState,
@@ -37,64 +31,63 @@ type Props = {
         collection: Collection | undefined
       }
     | {
-        collectionId: string | undefined
-        contract?: string | undefined
-        tokenId?: string | undefined
-        id?: string | undefined
+        contract: string | undefined
+        tokenId: string | undefined
       }
   isInTheWrongNetwork: boolean | undefined
   mutate?: SWRResponse['mutate'] | SWRInfiniteResponse['mutate']
   setToast: (data: ComponentProps<typeof Toast>['data']) => any
   show: boolean
   signer: ReturnType<typeof useSigner>['data']
-<<<<<<< HEAD
-  trigger?: ReactElement<typeof Dialog.Trigger>
-=======
->>>>>>> d73def8 (initial commit)
 }
 
-const CancelOffer: FC<Props> = ({
-  data,
+const AcceptOffer: FC<Props> = ({
   isInTheWrongNetwork,
   mutate,
-  setToast,
-  show,
+  data,
+  children,
   signer,
-<<<<<<< HEAD
-  trigger,
-=======
->>>>>>> d73def8 (initial commit)
+  show,
+  setToast,
 }) => {
   const [waitingTx, setWaitingTx] = useState<boolean>(false)
   const [steps, setSteps] = useState<Execute['steps']>()
   const [open, setOpen] = useState(false)
-
-  // Data from props
-  const [details, setDetails] = useState<SWRResponse<Details, any> | Details>()
   const { dispatch } = useContext(GlobalContext)
+
+  const [details, setDetails] = useState<SWRResponse<Details, any> | Details>()
   const reservoirClient = useReservoirClient()
 
   useEffect(() => {
-    if (data && open) {
+    if (data && open && !details) {
       // Load data if missing
       if ('tokenId' in data) {
-        const { contract, tokenId } = data
-
-        getDetails(contract, tokenId, setDetails)
+        getDetails(data.contract, data.tokenId, setDetails)
       }
       // Load data if provided
       if ('details' in data) {
-        const { details } = data
-
-        setDetails(details)
+        setDetails(data.details)
       }
     }
-  }, [data, open])
+  }, [data, open, details])
 
-<<<<<<< HEAD
-=======
+  let tokenId: string | undefined = undefined
+  let contract: string | undefined = undefined
+
+  if ('tokenId' in data) {
+    tokenId = data.tokenId
+    contract = data.contract
+  }
+
+  if ('details' in data) {
+    tokenId = data.details.data?.tokens?.[0].token?.tokenId
+    contract = data.details.data?.tokens?.[0].token?.contract
+  }
+
   // Set the token either from SWR or fetch
   let token: NonNullable<Details['tokens']>[0] = { token: undefined }
+
+  let topBuyValueExists = false
 
   // From fetch
   if (details && 'tokens' in details && details.tokens?.[0]) {
@@ -104,13 +97,21 @@ const CancelOffer: FC<Props> = ({
   // From SWR
   if (details && 'data' in details && details?.data?.tokens?.[0]) {
     token = details.data?.tokens?.[0]
+    topBuyValueExists = !token?.market?.topBid?.value
   }
 
->>>>>>> d73def8 (initial commit)
   const handleError = (err: any) => {
     setWaitingTx(false)
     setOpen(false)
     setSteps(undefined)
+    if (err?.type === 'price mismatch') {
+      setToast({
+        kind: 'error',
+        message: 'Offer was lower than expected.',
+        title: 'Could not accept offer',
+      })
+      return
+    }
     // Handle user rejection
     if (err?.code === 4001) {
       setToast({
@@ -123,7 +124,7 @@ const CancelOffer: FC<Props> = ({
     setToast({
       kind: 'error',
       message: 'The transaction was not completed.',
-      title: 'Could not cancel offer',
+      title: 'Could not accept offer',
     })
   }
 
@@ -133,98 +134,81 @@ const CancelOffer: FC<Props> = ({
     mutate && mutate()
   }
 
-  let id: string | undefined = undefined
+  let acceptOfferToken:
+    | Parameters<ReservoirClientActions['acceptOffer']>['0']['token']
+    | undefined = undefined
 
-  if ('details' in data) {
-    id = data.details.data?.tokens?.[0]?.market?.topBid?.id
+  if (contract && tokenId) {
+    acceptOfferToken = {
+      contract,
+      tokenId: tokenId,
+    }
   }
 
-  if ('id' in data) {
-    id = data?.id
+  if (token?.token?.contract && token?.token?.tokenId) {
+    acceptOfferToken = {
+      contract: token.token.contract,
+      tokenId: token.token.tokenId,
+    }
   }
 
-  const execute = async (id: string, signer: Signer) => {
+  const expectedPrice = token?.market?.topBid?.value
+
+  const execute = async (
+    token: Parameters<ReservoirClientActions['acceptOffer']>['0']['token']
+  ) => {
+    if (!signer) {
+      throw 'Missing a signer'
+    }
+
     if (!reservoirClient) {
-      throw 'reservoirClient not initialized'
+      throw 'reservoirClient is not initialized'
     }
 
     setWaitingTx(true)
 
-    await reservoirClient.actions
-      .cancelOrder({
-        id,
+    reservoirClient.actions
+      .acceptOffer({
         signer,
+        expectedPrice,
+        token,
         onProgress: setSteps,
       })
       .then(handleSuccess)
       .catch(handleError)
-
-    setWaitingTx(false)
   }
 
-<<<<<<< HEAD
-  const onTriggerClick = () => {
-    if (!id || !signer) {
-      dispatch({ type: 'CONNECT_WALLET', payload: true })
-      return
-    }
-    execute(id, signer)
-  }
-
-  const triggerDisabled = waitingTx || isInTheWrongNetwork
-
-  return (
-    <Dialog.Root open={open} onOpenChange={setOpen}>
-      {show &&
-        (trigger ? (
-          cloneElement(trigger as React.ReactElement<any>, {
-            disabled: triggerDisabled,
-            onClick: onTriggerClick,
-          })
-        ) : (
-          <Dialog.Trigger
-            disabled={triggerDisabled}
-            onClick={onTriggerClick}
-            className="btn-primary-outline dark:border-neutral-600  dark:text-white dark:ring-primary-900 dark:focus:ring-4"
-          >
-            {waitingTx ? (
-              <CgSpinner className="h-4 w-4 animate-spin" />
-            ) : (
-              'Cancel Your Offer'
-            )}
-          </Dialog.Trigger>
-        ))}
-=======
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       {show && (
         <Dialog.Trigger
-          disabled={waitingTx || isInTheWrongNetwork}
+          disabled={waitingTx || topBuyValueExists || isInTheWrongNetwork}
           onClick={() => {
-            if (!id || !signer) {
+            if (!acceptOfferToken || !signer) {
               dispatch({ type: 'CONNECT_WALLET', payload: true })
               return
             }
-            execute(id, signer)
+
+            execute(acceptOfferToken)
           }}
-          className="btn-primary-outline dark:border-neutral-600  dark:text-white dark:ring-primary-900 dark:focus:ring-4"
         >
-          {waitingTx ? (
-            <CgSpinner className="h-4 w-4 animate-spin" />
+          {children ? (
+            children
+          ) : waitingTx ? (
+            <p className="btn-primary-outline w-full dark:text-white">
+              <CgSpinner className="h-4 w-4 animate-spin" />
+            </p>
           ) : (
-            'Cancel Your Offer'
+            <p className="btn-primary-outline w-full dark:text-white">
+              Accept Offer
+            </p>
           )}
         </Dialog.Trigger>
       )}
->>>>>>> d73def8 (initial commit)
       {steps && (
         <Dialog.Portal>
           <Dialog.Overlay>
-            <ModalCard
-              title="Cancel your offer"
-              loading={waitingTx}
-              steps={steps}
-            />
+            <ModalCard title="Accept Offer" loading={waitingTx} steps={steps} />
           </Dialog.Overlay>
         </Dialog.Portal>
       )}
@@ -232,4 +216,4 @@ const CancelOffer: FC<Props> = ({
   )
 }
 
-export default CancelOffer
+export default AcceptOffer

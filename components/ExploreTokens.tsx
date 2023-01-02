@@ -111,7 +111,7 @@ const ExploreTokens: FC<Props> = ({ viewRef, attributes }) => {
 =======
                           <FormatEth
                             amount={attribute?.floorAskPrices?.[0]}
-                            logoWidth={7}
+                            logoWidth={5}
                           />
 >>>>>>> d73def8 (initial commit)
                         </span>

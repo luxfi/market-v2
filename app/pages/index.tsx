@@ -63,7 +63,7 @@ const Home: NextPage<Props> = ({ fallback }) => {
   const isSmallDevice = useMediaQuery('only screen and (max-width : 600px)')
 
   const router = useRouter()
-  const tokenHref = `/collections/0x94c23d792d628e38bacb7f6bfa8dd3cc054502e4/`
+  const tokenHref = `/collections/0x31e0F919C67ceDd2Bc3E294340Dc900735810311`
 
   const title = META_TITLE && metadata.title(META_TITLE)
   const description = META_DESCRIPTION && metadata.description(META_DESCRIPTION)

@@ -13,6 +13,7 @@
   "private": true,
   "scripts": {
     "build": "yarn build:contracts build:app",
+    "dev": "yarn workspace @luxmarket/app dev",
     "build:app": "yarn workspace @luxmarket/app build",
     "build:contracts": "yarn workspace @luxmarket/contracts build"
   },

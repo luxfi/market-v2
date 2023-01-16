@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.17;
 
 import "erc721a/contracts/ERC721A.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -8,9 +8,7 @@ import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
-// Change "myNFT" with your NFT project name
-
-contract LuxNFT308 is ERC721A, Ownable, ReentrancyGuard {
+contract LuxNFT is ERC721A, Ownable, ReentrancyGuard {
     using Strings for uint256;
     using Counters for Counters.Counter;
 
@@ -18,7 +16,6 @@ contract LuxNFT308 is ERC721A, Ownable, ReentrancyGuard {
 
     // Provenance Hash helps your customers know you aren't scamming them pre-reveal.
     // Read more here: https://medium.com/coinmonks/the-elegance-of-the-nft-provenance-hash-solution-823b39f99473
-
     string public provenanceHash;
 
     // When deploying the smart contract you will be asked to insert your baseURI. This is the location of your
@@ -35,7 +32,7 @@ contract LuxNFT308 is ERC721A, Ownable, ReentrancyGuard {
 
     // whitelist_LIMIT is the maximum number of tokens a whitelisted address can mint.
     // whitelist_PRICE is the price per token during the whitelist sale.
-    // replace these with the limit and price values you would like. 
+    // replace these with the limit and price values you would like.
     // when these functions are called they return the maximum number of NFTs that can be minted by one specific address during the whitelist sale and the price per NFT during the whitelist sale respectively.
 
     uint256 public constant whitelist_LIMIT = 1;
@@ -43,26 +40,25 @@ contract LuxNFT308 is ERC721A, Ownable, ReentrancyGuard {
 
     // public_LIMIT is the maximum number of tokens that can be minted by one address during the public sale.
     // public_PRICE is the price per token during the public sale.
-    // replace these with the limit and price values you would like. 
+    // replace these with the limit and price values you would like.
     // when these functions are called they return the maximum number of NFTs that can be minted by one specific address during the public sale and the price per NFT during the public sale respectively.
 
     uint256 public constant public_LIMIT = 5;
     uint256 public constant public_PRICE = .01 ether;
 
-    // These return whether or not the whitelist sale or public sale is active. 
+    // These return whether or not the whitelist sale or public sale is active.
     // Once the contract is deployed and you decide you want to begin the public or whitelist sale then set that respective value to true
     // When you want to start the other sale, simply return the value of the previous sale to false and set the value of the new sale to true
     bool public publicIsActive = false;
     bool public whitelistIsActive = false;
 
-    
     // This is your Merkle Tree root. Here is a great video for reference https://www.youtube.com/watch?v=YDWYrVtqLRU
-    bytes32 public root; 
+    bytes32 public root;
 
     // This returns the number of NFTs already minted by an address. This allows the contract to know whether or not
     // The address has minted the maximum number of NFTs allowed for the respective sales
     mapping(address => uint256) private _alreadyMinted;
-    
+
     // This is the address which will receive Ether from the sale when it is withdrawn from the smart contract
     // You will be asked to set this before deployment
     // I recommend setting it to a cold wallet which is seperate from the address used to deploy the contract
@@ -81,14 +77,14 @@ contract LuxNFT308 is ERC721A, Ownable, ReentrancyGuard {
     constructor(
         address _royalties,
         address _beneficiary,
-        string memory _initBaseURI, 
+        string memory _initBaseURI,
         bytes32 _root
         ) ERC721A("LUX", "LUXNFTU308") {
         beneficiary = _beneficiary;
         royalties = _royalties;
         setBaseURI(_initBaseURI);
         root = _root;
-        ownerMint(msg.sender, 1110); 
+        ownerMint(msg.sender, 1110);
     }
 
     // Accessors
@@ -133,7 +129,7 @@ contract LuxNFT308 is ERC721A, Ownable, ReentrancyGuard {
     function setWhitelistActive(bool _whitelistIsActive) public onlyOwner {
         whitelistIsActive = _whitelistIsActive;
     }
-    
+
     // The next two functions have been more or less explained in previos comments
     function _baseURI() internal view virtual override returns (string memory) {
         return baseURI;
@@ -143,16 +139,17 @@ contract LuxNFT308 is ERC721A, Ownable, ReentrancyGuard {
         return _alreadyMinted[addr];
     }
 
-    //                                  Whitelist Sale
+    //                              Whitelist Sale
 
-
-    // This function sets the parameters to determine whether or not an address is actually on the whitelist
-    // Required in the whitelistMint function and makes sure that the address minting is in fact on the whitelist
+    // This function sets the parameters to determine whether or not an address
+    // is actually on the whitelist Required in the whitelistMint function and
+    // makes sure that the address minting is in fact on the whitelist
     function isValid(bytes32[] memory proof, bytes32 leaf) public view returns (bool) {
         return MerkleProof.verify(proof, root, leaf);
     }
 
-    // Allows whitelisted members to mint and prevents non-whitelisted members from minting
+    // Allows whitelisted members to mint and prevents non-whitelisted members
+    // from minting
     function whitelistMint(uint256 quantity, bytes32[] memory proof) public payable nonReentrant {
         address sender = _msgSender();
         require(isValid(proof, keccak256(abi.encodePacked(msg.sender))), "Address is not on the whitelist");
@@ -167,10 +164,10 @@ contract LuxNFT308 is ERC721A, Ownable, ReentrancyGuard {
         _internalMint(sender, quantity);
     }
 
-    //                                   Public Sale
+    //                              Public Sale
 
-
-    // This is the function that allows participants in the public sale to buy and mint your NFT
+    // This is the function that allows participants in the public sale to buy
+    // and mint your NFT
     function publicMint(uint256 quantity) public payable nonReentrant {
         address sender = _msgSender();
 
@@ -185,9 +182,7 @@ contract LuxNFT308 is ERC721A, Ownable, ReentrancyGuard {
         _internalMint(sender, quantity);
     }
 
-
-    //                                     Owner
-
+    //                              Owner
 
     // Allows you (The owner of this contract) and only you to mint NFTs for free
     function ownerMint(address to, uint256 quantity) public onlyOwner {
@@ -201,7 +196,8 @@ contract LuxNFT308 is ERC721A, Ownable, ReentrancyGuard {
 
     // Metadata
 
-    // Shows the location of the metadata for a particular tokenId when called and provided with tokenId
+    // Shows the location of the metadata for a particular tokenId when called
+    // and provided with tokenId
     function tokenURI(uint256 tokenId)
     public
     view
@@ -221,19 +217,21 @@ contract LuxNFT308 is ERC721A, Ownable, ReentrancyGuard {
         : "";
     }
 
-    // Allows the owner of this contract to set (in this case reset because setting it is required upon deployment) the baseURI (folder where metadata for all minted tokens is stored)
+    // Allows the owner of this contract to set (in this case reset because
+    // setting it is required upon deployment) the baseURI (folder where
+    // metadata for all minted tokens is stored)
     function setBaseURI(string memory _newBaseURI) public onlyOwner {
     baseURI = _newBaseURI;
     }
 
     // Private
 
-    //Records the number of tokens minted by a particular address
+    // Records the number of tokens minted by a particular address
     function numberMinted(address owner) public view returns (uint256) {
         return _numberMinted(owner);
     }
 
-    // This is the function that actually mints the NFT. 
+    // This is the function that actually mints the NFT.
     // It is private so is not directly accessible
     // It is called by the public mint, whitelist mint, and owner mint functions
     function _internalMint(address to, uint256 quantity) private {
@@ -241,13 +239,15 @@ contract LuxNFT308 is ERC721A, Ownable, ReentrancyGuard {
             numberMinted(msg.sender) + quantity <= MAX_SUPPLY,
             "can not mint this many"
         );
-    //This is the real difference between ERC721 and ERC721A. Rather than a single token being minted and the tokenID being recorded, the quantity of tokens being minted and recorded is completed in one transaction
-            _safeMint(to, quantity);
+
+        // This is the real difference between ERC721 and ERC721A. Rather than
+        // a single token being minted and the tokenID being recorded, the
+        // quantity of tokens being minted and recorded is completed in one
+        // transaction
+        _safeMint(to, quantity);
     }
-    
 
     // Set the royalty amount you want here
-
     function royaltyInfo(uint256 _tokenId, uint256 _salePrice)
         external
         view
@@ -258,7 +258,6 @@ contract LuxNFT308 is ERC721A, Ownable, ReentrancyGuard {
         return (royalties, royaltyAmount);
     }
 
-   
     function supportsInterface(bytes4 interfaceId)
         public
         view

@@ -1,6 +1,7 @@
 {
   "name": "@luxmarket/app",
   "version": "1.0.0",
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "prettier": "prettier --write .",
@@ -64,7 +65,7 @@
     "@types/react": "^18.0",
     "@types/react-dom": "^18.0",
     "autoprefixer": "^10.4.2",
-    "eslint": "8.7.0",
+    "eslint": "^8.30.0",
     "eslint-config-next": "12.0.8",
     "next-transpile-modules": "^10.0.0",
     "postcss": "^8.4.5",

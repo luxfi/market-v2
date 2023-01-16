@@ -6,7 +6,7 @@ async function main() {
   createClient({
     apiBase: "https://api-goerli.reservoir.tools",
     apiKey: process.env.RESERVOIR_API_KEY,
-    source: "Lux.Market"
+    source: "lux.market"
   });
 
   const TOKEN_CONTRACT = '0x94C23D792D628E38bAcb7f6BFa8dD3cc054502E4'
@@ -18,22 +18,22 @@ async function main() {
   const TEN_POUNDS = "280830000000000000"
   const HUNDRED_POUNDS = "2808300000000000000"
   const TWO_THOUSAND = "56166000000000000000"
-  
+
   const wait = (ms: number) => new Promise(
     (resolve, reject) => setTimeout(resolve, ms)
   );
-  
+
   const list_nfts = async ( start_id: number, end_id: number, poundage: number, priceWei: string) => {
     for (let idx = start_id; idx < end_id; idx++) {
       console.log("LISTING: ",idx)
       const [signer] = await ethers.getSigners();
       console.log(signer)
       await getClient()?.actions.listToken({
-        listings: [{  
-                token: `${TOKEN_CONTRACT}:${idx}`,  
+        listings: [{
+                token: `${TOKEN_CONTRACT}:${idx}`,
                 weiPrice: priceWei,
-                orderbook: "reservoir",  
-                orderKind: "seaport",  
+                orderbook: "reservoir",
+                orderKind: "seaport",
                 currency: CONTROLLED_VERA_COIN,
                 fees: [`${BENEFICIARY}:100`]
         }],
@@ -51,11 +51,11 @@ async function main() {
       await wait(1000);
       console.log('READY')
     }
-  } 
+  }
 
   await list_nfts(0, 1, 1, ONE_POUND)
     .then(()=>console.log("one pound done bish"))
-    .catch(()=>console.log('failed'))  
+    .catch(()=>console.log('failed'))
   console.log("list_nfts for 1 completed")
   // console.log("one pound done bish")
 
@@ -65,7 +65,7 @@ async function main() {
   // await list_nfts(1100, 1110, 100, HUNDRED_POUNDS)
   // console.log("hundred pounds DONE")
 
-  // await list_nfts(1110, 1111, 2000, TWO_THOUSAND) 
+  // await list_nfts(1110, 1111, 2000, TWO_THOUSAND)
   // console.log("two thousand pounds DONE LFG!!!")
 }
 

@@ -11,7 +11,6 @@ import '@nomiclabs/hardhat-etherscan';
 import 'hardhat-contract-sizer';
 import "hardhat-gas-reporter"
 
-require("@nomiclabs/hardhat-waffle");
 const ALCHEMY_API_KEY_URL = process.env.ALCHEMY_API_KEY_URL
 const GOERLI_PRIVATE_KEY = process.env.GOERLI_PRIVATE_KEY || ''
 const ETHERSCAN = process.env.ETHERSCAN || ''
@@ -22,12 +21,6 @@ const config: HardhatUserConfig = {
   },
   solidity: {
     compilers: [
-      {
-        version: "0.8.4",
-      },
-      {
-        version: "0.8.7",
-      },
       {
         version: "0.8.17",
       },

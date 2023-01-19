@@ -116,12 +116,12 @@ const Home: NextPage<Props> = ({ fallback }) => {
           </div>
           <div className="grid h-[100px] w-[380px] grid-cols-2 gap-4">
             <Link href="https://lux.market/uranium">
-              <button className="mt-2 h-[50px] w-full rounded-lg bg-white  p-2 text-md text-black overflow-hidden">
+              <button className="mt-2 w-full dark:btn-contained dark:bg-grey-50 dark:text-grey-800 light:btn-outline">
                 Learn More
               </button>
             </Link>
             <Link href={tokenHref}>
-              <button className="mt-2 h-[50px] w-full rounded-lg  p-2 text-md text-black bg-[#00ff9f]  overflow-hidden ">
+              <button className="mt-2 w-full dark:btn-contained dark:bg-primary-700 dark:text-grey-50 light:btn-outline">
                 Buy Now
               </button>
             </Link>

@@ -2,7 +2,7 @@ import * as Dialog from '@radix-ui/react-dialog'
 import ConnectWalletButton from 'components/ConnectWalletButton'
 import NavbarLogo from 'components/navbar/NavbarLogo'
 import Link from 'next/link'
-import { FC, useState } from 'react'
+import React, { useState } from 'react'
 import { FiMenu } from 'react-icons/fi'
 import { HiOutlineLogout, HiX } from 'react-icons/hi'
 import {
@@ -15,15 +15,13 @@ import {
 import { Balance } from './ConnectWallet'
 import EthAccount from './EthAccount'
 import ThemeSwitcher from './ThemeSwitcher'
+import type { NavLink } from 'uiTypes'
 
-type Props = {
-  externalLinks: {
-    name: string
-    url: string
-  }[]
-}
-
-const HamburgerMenu: FC<Props> = ({ externalLinks }) => {
+const HamburgerMenu: React.FC<{
+  navbarLinks: NavLink[] | undefined
+}> = ({ 
+  navbarLinks 
+}) => {
   const [open, setOpen] = useState(false)
   const { connectors } = useConnect()
   const accountData = useAccount()
@@ -32,7 +30,7 @@ const HamburgerMenu: FC<Props> = ({ externalLinks }) => {
   const { data: ensAvatar } = useEnsAvatar()
   const wallet = connectors[0]
 
-  const hasExternalLinks = externalLinks.length > 0
+  const hasExternalLinks = navbarLinks && navbarLinks.length 
   return (
     <Dialog.Root onOpenChange={setOpen} open={open} modal={false}>
       <Dialog.Trigger className="z-10 block p-1.5 md:hidden">
@@ -78,7 +76,7 @@ const HamburgerMenu: FC<Props> = ({ externalLinks }) => {
 
             {hasExternalLinks && (
               <div className="grid">
-                {externalLinks.map(({ name, url }) => (
+                {navbarLinks.map(({ name, url }) => (
                   <a
                     key={url}
                     href={url}

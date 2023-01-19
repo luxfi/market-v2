@@ -1,19 +1,27 @@
-import { FC, ReactElement, useEffect, useState } from 'react'
-import ConnectWallet from './ConnectWallet'
-import HamburgerMenu from './HamburgerMenu'
+import React, { 
+  ReactElement, 
+  useEffect, 
+  useState 
+} from 'react'
+
 import dynamic from 'next/dynamic'
 import { paths } from '@reservoir0x/reservoir-sdk'
+import { useMediaQuery } from '@react-hookz/web'
+
+import ConnectWallet from './ConnectWallet'
+import HamburgerMenu from './HamburgerMenu'
 import setParams from 'lib/params'
 import NavbarLogo from 'components/navbar/NavbarLogo'
 import ThemeSwitcher from './ThemeSwitcher'
 import CartMenu from './CartMenu'
 import SearchMenu from './SearchMenu'
-import { useMediaQuery } from '@react-hookz/web'
+import Link from './Link'
 import useMounted from 'hooks/useMounted'
+import type { NavLink } from 'uiTypes'
 
 const SearchCollections = dynamic(() => import('./SearchCollections'))
 const CommunityDropdown = dynamic(() => import('./CommunityDropdown'))
-const EXTERNAL_LINKS = process.env.NEXT_PUBLIC_EXTERNAL_LINKS || null
+const NAVBAR_LINKS = process.env.NEXT_PUBLIC_NAVBAR_LINKS || null
 const COLLECTION = process.env.NEXT_PUBLIC_COLLECTION
 const COMMUNITY = process.env.NEXT_PUBLIC_COMMUNITY
 const COLLECTION_SET_ID = process.env.NEXT_PUBLIC_COLLECTION_SET_ID
@@ -34,37 +42,38 @@ function getInitialSearchHref() {
   return setParams(pathname, query)
 }
 
-const Navbar: FC = () => {
+const Navbar: React.FC = () => {
   const isMounted = useMounted()
-  const [showLinks, setShowLinks] = useState(true)
-  const [filterComponent, setFilterComponent] = useState<ReactElement | null>(
-    null
-  )
+  //const [showLinks, setShowLinks] = useState(true)
+  const [filterComponent, setFilterComponent] = useState<ReactElement | null>(null)
+
+    // TODO :aa consolidate these into util hooks that have predefined params
   const isMobile = useMediaQuery('(max-width: 770px)')
   const showDesktopSearch = useMediaQuery('(min-width: 1200px)')
-  const [hasCommunityDropdown, setHasCommunityDropdown] =
-    useState<boolean>(false)
 
-  const externalLinks: { name: string; url: string }[] = []
+  const [hasCommunityDropdown, setHasCommunityDropdown] = useState<boolean>(false)
+  const [navbarLinks, setNavbarLinks] = useState<NavLink[] | undefined>(undefined)
 
-  if (typeof EXTERNAL_LINKS === 'string') {
-    const linksArray = EXTERNAL_LINKS.split(',')
-
-    linksArray.forEach((link) => {
-      let values = link.split('::')
-      externalLinks.push({
-        name: values[0],
-        url: values[1],
+  
+  useEffect(() => {
+    const result: NavLink[] = []
+    if (typeof NAVBAR_LINKS === 'string') {
+      const linksArray = NAVBAR_LINKS.split(',')
+  
+      linksArray.forEach((link) => {
+        let values = link.split('::')
+        result.push({
+          name: values[0],
+          url: values[1],
+        })
       })
-    })
-  }
+    }
+    setNavbarLinks(result)
+  }, [NAVBAR_LINKS])
+
 
   const isGlobal = !COMMUNITY && !COLLECTION && !COLLECTION_SET_ID
   const filterableCollection = isGlobal || COMMUNITY || COLLECTION_SET_ID
-
-  useEffect(() => {
-    setShowLinks(externalLinks.length > 0)
-  }, [])
 
   useEffect(() => {
     if (filterableCollection) {
@@ -123,16 +132,16 @@ const Navbar: FC = () => {
   return (
     <nav className="sticky top-0 z-[1000] col-span-full flex items-center justify-between gap-2 border-b border-[#D4D4D4] bg-white px-6 py-4 dark:border-neutral-600 dark:bg-black md:gap-3 md:py-6 md:px-16">
       <NavbarLogo className="z-10 max-w-[300px]" />
-      {showLinks && (
+      {navbarLinks && (
         <div className="z-10 ml-12 mr-12 hidden items-center gap-11 md:flex">
-          {externalLinks.map(({ name, url }) => (
-            <a
+          {navbarLinks.map(({ name, url }) => (
+            <Link
               key={url}
               href={url}
-              className="text-dark reservoir-h6 hover:text-[#1F2937] dark:text-white"
+              className="navlink text-base"
             >
               {name}
-            </a>
+            </Link>
           ))}
         </div>
       )}
@@ -145,7 +154,7 @@ const Navbar: FC = () => {
         <div className="ml-auto flex gap-x-5">
           {!hasCommunityDropdown && filterComponent && filterComponent}
           <CartMenu />
-          <HamburgerMenu externalLinks={externalLinks} />
+          <HamburgerMenu navbarLinks={navbarLinks} />
         </div>
       ) : (
         <div className="z-10 ml-auto shrink-0 gap-2 md:flex xl:gap-4">

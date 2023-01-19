@@ -1,4 +1,7 @@
 /**
+ * 
+ * TODO: :aa  React 18 has as the useSearchParams() hook for this! 
+ * 
  *  Set URL query params using a typed objects
  *
  * This will convert an object

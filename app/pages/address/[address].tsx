@@ -126,7 +126,7 @@ const Address: NextPage<Props> = ({ address, fallback }) => {
                 {ensName || formattedAddress}
               </p>
               {ensName && (
-                <p className="reservoir-label text-md font-semibold opacity-60">
+                <p className="reservoir-label text-base font-semibold opacity-60">
                   {formattedAddress}
                 </p>
               )}

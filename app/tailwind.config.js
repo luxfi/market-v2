@@ -1,15 +1,13 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
+
 const FONT_FAMILY = process.env.NEXT_PUBLIC_FONT_FAMILY || 'Inter'
 const BODY_FONT_FAMILY = process.env.NEXT_PUBLIC_BODY_FONT_FAMILY || 'Inter'
-const MONO_FONT_FAMILY =
-  process.env.NEXT_PUBLIC_BODY_FONT_FAMILY || 'ui-monospace'
-const PRIMARY_COLOR = process.env.NEXT_PUBLIC_PRIMARY_COLOR || 'default'
+const MONO_FONT_FAMILY = process.env.NEXT_PUBLIC_BODY_FONT_FAMILY || 'ui-monospace'
 
-const primaryColors = require('./colors')
+const colors = require('./colorsForTailwind')
 
 module.exports = {
-  presetColors: primaryColors,
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
@@ -42,11 +40,7 @@ module.exports = {
         'spin-reverse': 'spin 1s reverse linear infinite',
       },
 
-      colors: {
-        primary: primaryColors[PRIMARY_COLOR],
-        'dark-backdrop': 'rgba(0, 0, 0, 0.8)',
-        backdrop: 'rgba(255, 255, 255, 0.8)',
-      },
+      colors
     },
   },
   plugins: [

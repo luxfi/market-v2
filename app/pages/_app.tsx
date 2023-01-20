@@ -1,3 +1,6 @@
+import React, { useEffect, useState } from 'react'
+
+
 import 'styles/globals.css'
 import 'styles/inter.css'
 import 'styles/druk.css'
@@ -16,13 +19,18 @@ import 'styles/gothicusroman.css'
 import 'styles/roobert.css'
 import 'styles/rodger.css'
 import 'styles/ingrammono.css'
+
 import type { AppContext, AppProps } from 'next/app'
 import { default as NextApp } from 'next/app'
+import { ThemeProvider as NextThemeProvider, useTheme } from 'next-themes'
+
 import { WagmiConfig, createClient, configureChains } from 'wagmi'
 import * as allChains from 'wagmi/chains'
-import AnalyticsProvider from 'components/AnalyticsProvider'
-import { ThemeProvider, useTheme } from 'next-themes'
+import { alchemyProvider } from 'wagmi/providers/alchemy'
+import { publicProvider } from 'wagmi/providers/public'
+
 import { RecoilRoot } from 'recoil'
+
 import {
   darkTheme,
   lightTheme,
@@ -30,7 +38,6 @@ import {
   ReservoirKitProviderProps,
   ReservoirKitTheme,
 } from '@reservoir0x/reservoir-kit-ui'
-import { FC, useEffect, useState } from 'react'
 import '@rainbow-me/rainbowkit/styles.css'
 
 import {
@@ -39,8 +46,8 @@ import {
   darkTheme as rainbowKitDarkTheme,
   lightTheme as rainbowKitLightTheme,
 } from '@rainbow-me/rainbowkit'
-import { alchemyProvider } from 'wagmi/providers/alchemy'
-import { publicProvider } from 'wagmi/providers/public'
+
+import AnalyticsProvider from 'components/AnalyticsProvider'
 
 // Select a custom ether.js interface for connecting to a network
 // Reference = https://wagmi-xyz.vercel.app/docs/provider#provider-optional
@@ -60,7 +67,6 @@ const FONT_FAMILY = process.env.NEXT_PUBLIC_FONT_FAMILY || 'Inter'
 const PRIMARY_COLOR = process.env.NEXT_PUBLIC_PRIMARY_COLOR || 'default'
 const DISABLE_POWERED_BY_RESERVOIR =
   process.env.NEXT_PUBLIC_DISABLE_POWERED_BY_RESERVOIR
-import presetColors from '../colors'
 
 const FEE_BPS = process.env.NEXT_PUBLIC_FEE_BPS
 const FEE_RECIPIENT = process.env.NEXT_PUBLIC_FEE_RECIPIENT
@@ -68,6 +74,9 @@ const SOURCE_DOMAIN = process.env.NEXT_PUBLIC_SOURCE_DOMAIN
 const API_BASE = process.env.NEXT_PUBLIC_RESERVOIR_API_BASE
 const SOURCE_NAME = process.env.NEXT_PUBLIC_SOURCE_NAME
 const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID
+
+const colorsForTailwind = require('../colorsForTailwind')
+
 
 const envChain = Object.values(allChains).find(
   (chain) => chain.id === +(CHAIN_ID || allChains.mainnet)
@@ -89,27 +98,28 @@ const wagmiClient = createClient({
   provider,
 })
 
+const nextThemeType = DARK_MODE_ENABLED ? 'dark' : 'light'
+
 function AppWrapper(props: AppProps & { baseUrl: string }) {
-  const defaultTheme = DARK_MODE_ENABLED ? 'dark' : 'light'
+
 
   return (
-    <ThemeProvider
+    <NextThemeProvider
       attribute="class"
-      defaultTheme={defaultTheme}
-      forcedTheme={!THEME_SWITCHING_ENABLED ? defaultTheme : undefined}
+      defaultTheme={nextThemeType}
+      forcedTheme={!THEME_SWITCHING_ENABLED ? nextThemeType : undefined}
     >
       <App {...props} />
-    </ThemeProvider>
+    </NextThemeProvider>
   )
 }
 
-const App: FC<AppProps & { baseUrl: string }> = ({
+const App: React.FC<AppProps & { baseUrl: string }> = ({
   Component,
   pageProps,
   baseUrl,
 }) => {
   const { theme } = useTheme()
-  const defaultTheme = DARK_MODE_ENABLED ? 'dark' : 'light'
   const [reservoirKitTheme, setReservoirKitTheme] = useState<
     ReservoirKitTheme | undefined
   >()
@@ -118,21 +128,17 @@ const App: FC<AppProps & { baseUrl: string }> = ({
     | ReturnType<typeof rainbowKitLightTheme>
     | undefined
   >()
-  const marketplaceTheme = THEME_SWITCHING_ENABLED ? theme : defaultTheme
+  const marketplaceTheme = THEME_SWITCHING_ENABLED ? theme : nextThemeType
 
   useEffect(() => {
-    const primaryColor = (PRIMARY_COLOR as string) || 'default'
-    const primaryColorPalette = (
-      presetColors as Record<string, Record<string, string>>
-    )[primaryColor]
 
     if (marketplaceTheme == 'dark') {
       setReservoirKitTheme(
         darkTheme({
           headlineFont: FONT_FAMILY,
           font: BODY_FONT_FAMILY,
-          primaryColor: primaryColorPalette['700'],
-          primaryHoverColor: primaryColorPalette['900'],
+          primaryColor: colorsForTailwind.primary['700'],
+          primaryHoverColor: colorsForTailwind.primary['900'],
         })
       )
       setRainbowKitTheme(
@@ -145,8 +151,8 @@ const App: FC<AppProps & { baseUrl: string }> = ({
         lightTheme({
           headlineFont: FONT_FAMILY,
           font: BODY_FONT_FAMILY,
-          primaryColor: primaryColorPalette['700'],
-          primaryHoverColor: primaryColorPalette['900'],
+          primaryColor: colorsForTailwind.primary['700'],
+          primaryHoverColor: colorsForTailwind.primary['900'],
         })
       )
       setRainbowKitTheme(
@@ -155,7 +161,7 @@ const App: FC<AppProps & { baseUrl: string }> = ({
         })
       )
     }
-  }, [defaultTheme, theme])
+  }, [nextThemeType, colorsForTailwind])
 
   let options: ReservoirKitProviderProps['options'] = {
     apiKey: RESERVOIR_API_KEY,

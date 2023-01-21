@@ -7,7 +7,7 @@ const twcolors = require('tailwindcss/colors')
 module.exports = {
   primary: twcolors['white'],
   secondary: twcolors['black'],
-  grey: twcolors['slate'],
+  grey: 'rgba(0, 0, 0, 0.5)',
   'background-dk': 'rgba(0, 0, 0, 0.8)',
   'background-lt': 'rgba(255, 255, 255, 0.8)',
 }

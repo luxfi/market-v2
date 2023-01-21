@@ -101,7 +101,7 @@ const Home: NextPage<Props> = ({ fallback }) => {
           {/* <header className="col-span-full mb-12 mt-[66px] px-4 md:mt-40 lg:px-0 "> */}
           <p className="reservoir-h4 text-center text-[#00ff9f]">ALL-NEW ASSET-BACKEND NFTS</p>
           <h1 className="reservoir-h1 text-center text-white">
-            LUX URANIUM NFT
+            LUX URANIUM
           </h1>
           {/* </header> */}
           <div className="mt-2 h-[300px] w-[250px] md:h-[400px] md:w-[400px]">

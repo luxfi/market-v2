@@ -1,7 +1,7 @@
 import { styled, keyframes } from '@stitches/react'
 import * as Popover from '@radix-ui/react-popover'
 import { FC, useState } from 'react'
-import { FaShoppingCart, FaTrashAlt } from 'react-icons/fa'
+import { FaShoppingBag, FaTrashAlt } from 'react-icons/fa'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { Execute } from '@reservoir0x/reservoir-sdk'
 import { Signer } from 'ethers'
@@ -129,7 +129,7 @@ const CartMenu: FC = () => {
               {cartCount}
             </div>
           )}
-          <FaShoppingCart className="h-[18px] w-[18px]" />
+          <FaShoppingBag className="h-[18px] w-[18px]" />
         </div>
       </Popover.Trigger>
       <StyledContent
@@ -138,7 +138,7 @@ const CartMenu: FC = () => {
       >
         <div className="mb-4 flex justify-between">
           <div className="flex items-center">
-            <div className="reservoir-h6 mr-3">My Cart</div>
+            <div className="reservoir-h6 mr-3">Your Bag</div>
             <div className="reservoir-subtitle flex h-5 w-5 items-center justify-center rounded-full bg-primary-700 text-white">
               {cartCount}
             </div>

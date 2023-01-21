@@ -5,8 +5,8 @@ const twcolors = require('tailwindcss/colors')
 // in _app.js.  It provides the common link between them.
 
 module.exports = {
-  primary: twcolors['violet'],
-  secondary: twcolors['emerald'],
+  primary: twcolors['white'],
+  secondary: twcolors['black'],
   grey: twcolors['slate'],
   'background-dk': 'rgba(0, 0, 0, 0.8)',
   'background-lt': 'rgba(255, 255, 255, 0.8)',

@@ -398,29 +398,6 @@ const Sweep: FC<Props> = ({ tokens, collection, mutate, setToast }) => {
                       Buy Now
                     </button>
                   </div>
-                  {!DISABLE_POWERED_BY_RESERVOIR && (
-                    <div className="mx-auto flex items-center justify-center rounded-b-2xl bg-neutral-100 py-4 dark:bg-neutral-800 md:w-[639px]">
-                      <Link
-                        href="https://reservoirprotocol.github.io/"
-                        legacyBehavior={true}
-                      >
-                        <a
-                          className="reservoir-tiny flex gap-2 dark:text-white"
-                          target="_blank"
-                        >
-                          Powered by{' '}
-                          <img
-                            alt="Reservoir Watermark"
-                            src={
-                              !!DARK_MODE
-                                ? `/reservoir_watermark_dark.svg`
-                                : `/reservoir_watermark_light.svg`
-                            }
-                          />
-                        </a>
-                      </Link>
-                    </div>
-                  )}
                 </div>
               </div>
             </Dialog.Content>

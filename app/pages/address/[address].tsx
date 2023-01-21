@@ -103,14 +103,14 @@ const Address: NextPage<Props> = ({ address, fallback }) => {
 
   if (isOwner) {
     tabs = [
-      { name: 'Tokens', id: 'portfolio' },
-      { name: 'Offers Made', id: 'buying' },
-      { name: 'Active Listings', id: 'listings' },
-      { name: 'Inactive Listings', id: 'listings_inactive' },
+      { name: 'Portfolio', id: 'portfolio' },
+      { name: 'Buying', id: 'buying' },
+      { name: 'Selling', id: 'listings' },
+      { name: 'Inactive', id: 'listings_inactive' },
     ]
   }
 
-  tabs.push({ name: 'Activity', id: 'activity' })
+  tabs.push({ name: 'History', id: 'activity' })
 
   return (
     <Layout navbar={{}}>

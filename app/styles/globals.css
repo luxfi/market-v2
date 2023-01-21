@@ -11,7 +11,7 @@
   }
 
   a.navlink {
-    @apply text-grey-800 dark:text-white opacity-[.67] font-nav
+    @apply text-grey-800 dark:text-white opacity-[.67] font-nav;
   }
 
   a.navlink.active-link {
@@ -131,6 +131,14 @@ model-viewer {
   margin-right: 80px;
 }
 
+.absolute {
+  display: none;
+}
+
+.min-w-\[222px\]
+{
+  border-radius: 8px;
+}
 
 .border-b {
   border-radius: 8px;
@@ -140,6 +148,10 @@ model-viewer {
 
 #activity, #items {
   border-radius: 99999px;
+}
+
+.text-white {
+  display: none;
 }
 
 .btn-primary-fill {

@@ -4,7 +4,7 @@
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
-    transpilePackages: ['@reservoir0x/reservoir-kit-ui'],
+    transpilePackages: ['@luxmarket/ui'],
   },
 }
 

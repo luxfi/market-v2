@@ -1,4 +1,4 @@
-import { Execute, paths } from '@reservoir0x/reservoir-sdk'
+import { Execute, paths } from '@luxmarket/sdk'
 import React, {
   ComponentProps,
   FC,
@@ -22,7 +22,7 @@ import * as SliderPrimitive from '@radix-ui/react-slider'
 import Link from 'next/link'
 import { Signer } from 'ethers'
 import { FaBroom } from 'react-icons/fa'
-import { useReservoirClient, useTokens } from '@reservoir0x/reservoir-kit-ui'
+import { useReservoirClient, useTokens } from '@luxmarket/ui'
 import { Collection } from 'types/reservoir'
 import useCoinConversion from 'hooks/useCoinConversion'
 import { formatDollar } from 'lib/numbers'
@@ -181,7 +181,7 @@ const Sweep: FC<Props> = ({ tokens, collection, mutate, setToast }) => {
         })
       }
       return tokens
-    }, [] as NonNullable<Parameters<typeof reservoirClient.actions.buyToken>['0']['tokens']>)
+    }, [] as any)
     await reservoirClient.actions
       .buyToken({
         expectedPrice: sweepTotal,

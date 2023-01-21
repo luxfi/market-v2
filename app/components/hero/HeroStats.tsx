@@ -2,7 +2,7 @@ import { FC, ReactNode } from 'react'
 import FormatNativeCrypto from 'components/FormatNativeCrypto'
 import { formatNumber } from 'lib/numbers'
 import FormatCrypto from 'components/FormatCrypto'
-import { useCollections } from '@reservoir0x/reservoir-kit-ui'
+import { useCollections } from '@luxmarket/ui'
 
 const API_BASE =
   process.env.NEXT_PUBLIC_RESERVOIR_API_BASE || 'https://api.reservoir.tools'

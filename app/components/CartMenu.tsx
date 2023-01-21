@@ -3,11 +3,11 @@ import * as Popover from '@radix-ui/react-popover'
 import { FC, useState } from 'react'
 import { FaShoppingBag, FaTrashAlt } from 'react-icons/fa'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { Execute } from '@reservoir0x/reservoir-sdk'
+import { Execute } from '@luxmarket/sdk'
 import { Signer } from 'ethers'
 import { setToast } from './token/setToast'
 import { useAccount, useBalance, useSigner } from 'wagmi'
-import { useReservoirClient } from '@reservoir0x/reservoir-kit-ui'
+import { useReservoirClient } from '@luxmarket/ui'
 import cartTokensAtom, {
   getCartCount,
   getCartCurrency,

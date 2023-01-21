@@ -2,7 +2,7 @@ import * as Accordion from '@radix-ui/react-accordion'
 import { FC, MutableRefObject } from 'react'
 import AttributeSelector from './filter/AttributeSelector'
 import { FiChevronDown } from 'react-icons/fi'
-import { useAttributes } from '@reservoir0x/reservoir-kit-ui'
+import { useAttributes } from '@luxmarket/ui'
 import { styled } from '@stitches/react'
 
 const StyledChevron = styled(FiChevronDown, {

@@ -2,7 +2,7 @@ import * as Dialog from '@radix-ui/react-dialog'
 import {
   useCollectionActivity,
   useUsersActivity,
-} from '@reservoir0x/reservoir-kit-ui'
+} from '@luxmarket/ui'
 import { FC, useState } from 'react'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { FaCheck } from 'react-icons/fa'

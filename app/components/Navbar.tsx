@@ -5,7 +5,7 @@ import React, {
 } from 'react'
 
 import dynamic from 'next/dynamic'
-import { paths } from '@reservoir0x/reservoir-sdk'
+import { paths } from '@luxmarket/sdk'
 import { useMediaQuery } from '@react-hookz/web'
 
 import ConnectWallet from './ConnectWallet'

@@ -7,7 +7,7 @@ import {
   useUserTopBids,
   AcceptBidModal,
   ListModal,
-} from '@reservoir0x/reservoir-kit-ui'
+} from '@luxmarket/ui'
 import { useInView } from 'react-intersection-observer'
 import LoadingIcon from 'components/LoadingIcon'
 import useCoinConversion from 'hooks/useCoinConversion'

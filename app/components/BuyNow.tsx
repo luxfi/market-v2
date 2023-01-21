@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { SWRResponse } from 'swr'
 import { useSigner } from 'wagmi'
-import { BuyModal, useTokens } from '@reservoir0x/reservoir-kit-ui'
+import { BuyModal, useTokens } from '@luxmarket/ui'
 import { useSwitchNetwork } from 'wagmi'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 

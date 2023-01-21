@@ -1,7 +1,7 @@
 import { FC, useEffect, useState, ComponentProps, useRef } from 'react'
 import { FiChevronDown, FiMoreVertical, FiRefreshCcw } from 'react-icons/fi'
-import { paths } from '@reservoir0x/reservoir-sdk'
-import { BidModal, Trait } from '@reservoir0x/reservoir-kit-ui'
+import { paths } from '@luxmarket/sdk'
+import { BidModal, Trait } from '@luxmarket/ui'
 import { useNetwork, useSigner } from 'wagmi'
 import Toast from 'components/Toast'
 import toast from 'react-hot-toast'
@@ -14,7 +14,7 @@ import HeroStats from 'components/hero/HeroStats'
 import Sweep from './Sweep'
 import ReactMarkdown from 'react-markdown'
 import { useMediaQuery } from '@react-hookz/web'
-import { useCollections } from '@reservoir0x/reservoir-kit-ui'
+import { useCollections } from '@luxmarket/ui'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 const PROXY_API_BASE = process.env.NEXT_PUBLIC_PROXY_API_BASE

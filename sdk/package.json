@@ -1,0 +1,57 @@
+{
+    "name": "@luxmarket/sdk",
+    "version": "0.3.13",
+    "description": "An SDK that can be used in any javascript/typescript context to easily interact with LUX liquidity APIs",
+    "author": "Lux Partners Limited",
+    "license": "MIT",
+    "source": "index.ts",
+    "main": "dist/index.js",
+    "module": "dist/index.module.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "index.ts",
+        "actions",
+        "dist",
+        "types",
+        "utils"
+    ],
+    "scripts": {
+        "build": "parcel build index.ts",
+        "clean": "rm -rf dist",
+        "version": "yarn version",
+        "version:package": "sh ../scripts/package-version.sh",
+        "version:update": "yarn version ${0}; PACKAGE_VERSION=$(yarn version:package); git add -A; git commit -m \"🎉 Release client package v$PACKAGE_VERSION\"; git push",
+        "syncApi": "node ./sync-api.mjs",
+        "changelog": "node ../scripts/generate-changelog.js package=sdk"
+    },
+    "engines": {
+        "node": ">=12",
+        "yarn": ">=2"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/luxdefi/market-kit"
+    },
+    "sideEffects": false,
+    "keywords": [
+        "nft",
+        "lux",
+        "lux-sdk",
+        "marketkit",
+        "protocol",
+        "sdk"
+    ],
+    "peerDependencies": {
+        "ethers": "^5.7.2"
+    },
+    "dependencies": {
+        "axios": "^0.27.2"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "devDependencies": {
+        "openapi-typescript": "^5.4.1",
+        "parcel": "^2.8.3"
+    }
+}

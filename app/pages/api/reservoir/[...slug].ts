@@ -1,4 +1,4 @@
-import { setParams } from '@reservoir0x/reservoir-sdk'
+import { setParams } from '@luxmarket/sdk'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 const RESERVOIR_API_KEY = process.env.NEXT_PUBLIC_RESERVOIR_API_KEY
@@ -36,11 +36,11 @@ const proxy = async (req: NextApiRequest, res: NextApiResponse) => {
     return
   }
 
-  try {
-    const options: RequestInit | undefined = {
-      method,
-    }
+  const options: RequestInit | undefined = {
+    method,
+  }
 
+  try {
     const headers = new Headers()
 
     if (RESERVOIR_API_KEY) headers.set('x-api-key', RESERVOIR_API_KEY)
@@ -50,21 +50,27 @@ const proxy = async (req: NextApiRequest, res: NextApiResponse) => {
       options.body = JSON.stringify(body)
     }
 
-    if (
-      reqHeaders['x-rkc-version'] &&
-      typeof reqHeaders['x-rkc-version'] === 'string'
-    ) {
-      headers.set('x-rkc-version', reqHeaders['x-rkc-version'])
-    }
+    // if (
+    //   reqHeaders['x-rkc-version'] &&
+    //   typeof reqHeaders['x-rkc-version'] === 'string'
+    // ) {
+    //   headers.set('x-rkc-version', reqHeaders['x-rkc-version'])
+    // }
 
-    if (
-      reqHeaders['x-rkui-version'] &&
-      typeof reqHeaders['x-rkui-version'] === 'string'
-    ) {
-      headers.set('x-rkui-version', reqHeaders['x-rkui-version'])
-    }
+    // if (
+    //   reqHeaders['x-rkui-version'] &&
+    //   typeof reqHeaders['x-rkui-version'] === 'string'
+    // ) {
+    //   headers.set('x-rkui-version', reqHeaders['x-rkui-version'])
+    // }
 
+    // Hardcode versions
+    headers.set('x-rkc-version', '0.3.4')
+    headers.set('x-rkui-version', '0.8.7')
     options.headers = headers
+
+    // Fix strange error
+    url.href = url.href.replace('%2C%2C0.3.13', '')
 
     const response = await fetch(url.href, options)
 
@@ -89,6 +95,8 @@ const proxy = async (req: NextApiRequest, res: NextApiResponse) => {
       res.status(200).json(data)
     }
   } catch (error) {
+    console.error('Error proxying API request:', error)
+    console.error('Request', url, options)
     // 400 Bad Request
     // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
     res.status(400).json(error)

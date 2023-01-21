@@ -1,4 +1,4 @@
-import { paths } from '@reservoir0x/reservoir-sdk'
+import { paths } from '@luxmarket/sdk'
 import fetcher from 'lib/fetcher'
 import setParams from 'lib/params'
 import { NextRouter } from 'next/router'

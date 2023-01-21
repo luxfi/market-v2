@@ -1,4 +1,4 @@
-import { useUsersActivity } from '@reservoir0x/reservoir-kit-ui'
+import { useUsersActivity } from '@luxmarket/ui'
 import ActivityTable from 'components/tables/ActivityTable'
 import { FC, useEffect, useState } from 'react'
 

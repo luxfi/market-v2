@@ -1,5 +1,5 @@
 import { Signer } from 'ethers'
-import { Execute } from '@reservoir0x/reservoir-sdk'
+import { Execute } from '@luxmarket/sdk'
 import React, {
   cloneElement,
   ComponentProps,
@@ -17,7 +17,7 @@ import Toast from './Toast'
 import { SWRInfiniteResponse } from 'swr/infinite/dist/infinite'
 import { getDetails } from 'lib/fetch/fetch'
 import { CgSpinner } from 'react-icons/cg'
-import { useReservoirClient, useTokens } from '@reservoir0x/reservoir-kit-ui'
+import { useReservoirClient, useTokens } from '@luxmarket/ui'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 
 type UseTokensReturnType = ReturnType<typeof useTokens>

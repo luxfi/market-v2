@@ -1,4 +1,4 @@
-import { useTokens } from '@reservoir0x/reservoir-kit-ui'
+import { useTokens } from '@luxmarket/ui'
 import { atom } from 'recoil'
 
 type UseTokensReturnType = ReturnType<typeof useTokens>

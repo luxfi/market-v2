@@ -1,9 +1,9 @@
-import { paths } from '@reservoir0x/reservoir-sdk'
-import { useReservoirClient } from '@reservoir0x/reservoir-kit-ui'
+import { paths } from '@luxmarket/sdk'
+import { useReservoirClient } from '@luxmarket/ui'
 import { NextRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
-import { useTokens as useTokensRk } from '@reservoir0x/reservoir-kit-ui'
+import { useTokens as useTokensRk } from '@luxmarket/ui'
 
 const PROXY_API_BASE = process.env.NEXT_PUBLIC_PROXY_API_BASE
 

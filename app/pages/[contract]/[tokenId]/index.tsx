@@ -4,7 +4,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import TokenAttributes from 'components/TokenAttributes'
 import Head from 'next/head'
-import { paths } from '@reservoir0x/reservoir-sdk'
+import { paths } from '@luxmarket/sdk'
 import Listings from 'components/token/Listings'
 import TokenInfo from 'components/token/TokenInfo'
 import CollectionInfo from 'components/token/CollectionInfo'
@@ -18,7 +18,7 @@ import {
   useTokens,
   useCollections,
   useUserTokens,
-} from '@reservoir0x/reservoir-kit-ui'
+} from '@luxmarket/ui'
 import { useAccount } from 'wagmi'
 
 // Environment variables

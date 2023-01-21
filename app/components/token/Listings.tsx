@@ -1,4 +1,4 @@
-import { useListings } from '@reservoir0x/reservoir-kit-ui'
+import { useListings } from '@luxmarket/ui'
 import FormatCrypto from '../FormatCrypto'
 import { truncateAddress } from 'lib/truncateText'
 import { DateTime } from 'luxon'

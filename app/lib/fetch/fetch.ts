@@ -1,4 +1,4 @@
-import { paths } from '@reservoir0x/reservoir-sdk'
+import { paths } from '@luxmarket/sdk'
 import setParams from 'lib/params'
 import { Dispatch } from 'react'
 

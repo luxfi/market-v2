@@ -3,7 +3,7 @@ import AttributeButton from 'components/AttributeButton'
 import { DebounceInput } from 'react-debounce-input'
 import { matchSorter } from 'match-sorter'
 import { FiSearch, FiXCircle } from 'react-icons/fi'
-import { useAttributes } from '@reservoir0x/reservoir-kit-ui'
+import { useAttributes } from '@luxmarket/ui'
 
 type Props = {
   attribute: NonNullable<ReturnType<typeof useAttributes>['data']>[0]

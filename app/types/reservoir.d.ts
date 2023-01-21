@@ -1,4 +1,4 @@
-import { paths } from '@reservoir0x/reservoir-sdk'
+import { paths } from '@luxmarket/sdk'
 
 type TokenSale = NonNullable<
   paths['/sales/v4']['get']['responses']['200']['schema']['sales']

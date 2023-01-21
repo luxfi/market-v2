@@ -36,7 +36,7 @@ import {
   ReservoirKitProvider,
   ReservoirKitProviderProps,
   ReservoirKitTheme,
-} from '@reservoir0x/reservoir-kit-ui'
+} from '@luxmarket/ui'
 import '@rainbow-me/rainbowkit/styles.css'
 
 import {

@@ -15,15 +15,30 @@
     "build": "yarn build:app",
     "build:app": "yarn workspace @luxmarket/app build",
     "build:contracts": "yarn workspace @luxmarket/contracts build",
+    "build:sdk": "yarn workspace @luxmarket/sdk build",
+    "build:ui": "yarn workspace @luxmarket/ui build",
     "dev": "yarn workspace @luxmarket/app dev"
+  },
+  "engines": {
+    "node": ">=12",
+    "yarn": ">=2"
   },
   "workspaces": {
     "packages": [
-      "app", "contracts"
+      "app",
+      "contracts",
+      "sdk",
+      "ui"
     ],
     "nohoist": [
       "**/@openzeppelin/contracts-upgradeable/**",
       "**/@openzeppelin/contracts"
     ]
+  },
+  "packageManager": "yarn@3.3.1",
+  "devDependencies": {
+    "@parcel/packager-ts": "2.8.3",
+    "@parcel/transformer-typescript-types": "2.8.3",
+    "typescript": ">=3.0.0"
   }
 }

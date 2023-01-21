@@ -2,7 +2,7 @@ import React, { FC, ReactNode } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { HiX } from 'react-icons/hi'
 import Steps from 'components/Steps'
-import { Execute } from '@reservoir0x/reservoir-sdk'
+import { Execute } from '@luxmarket/sdk'
 import FormatNativeCrypto from 'components/FormatNativeCrypto'
 import Link from 'next/link'
 

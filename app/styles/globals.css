@@ -134,3 +134,47 @@ model-viewer {
 .absolute {
   display: none;
 }
+
+.min-w-\[222px\]
+{
+  border-radius: 8px;
+}
+
+.border-b {
+  border-radius: 8px;
+  color: white;
+  border: none;
+}
+
+#activity, #items {
+  border-radius: 99999px;
+}
+
+.text-white {
+  display: none;
+}
+
+.btn-primary-fill {
+  border-radius: 99999px;
+}
+
+.min-w-\[222px\] {
+  border-radius: 99999px;
+  font-family: 'Druk Text Wide';
+  font-size: .8rem;
+  padding: .7rem .9rem;
+}
+
+#radix-\:R1dbhkm\: {
+  padding: .7rem .7rem;
+}
+
+.px-8 {
+  padding-top: .7rem;
+  padding-bottom: .7rem;
+}
+
+.py-4 {
+  padding-left: 1.1rem;
+  padding-right: 1.1rem;
+}

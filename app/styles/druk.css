@@ -1,5 +1,6 @@
 @font-face {
   font-family: 'Druk Text Wide Web Medium Regular';
+  size-adjust: 80%;
   src: url('/fonts/druk/3724259186746d86859fbb0fde0fa44a.eot'); /* IE9*/
   src: url('/fonts/druk/3724259186746d86859fbb0fde0fa44a.eot?#iefix')
       format('embedded-opentype'),

@@ -37,7 +37,7 @@ const ConnectWallet: FC = () => {
   if (!account.isConnected)
     return (
       <ConnectWalletButton>
-        Connect
+      <>{`Connect`}</>
       </ConnectWalletButton>
     )
 

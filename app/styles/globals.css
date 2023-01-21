@@ -11,7 +11,7 @@
   }
 
   a.navlink {
-    @apply text-grey-800 dark:text-white opacity-[.67] font-nav text-[14px];
+    @apply text-grey-800 dark:text-white opacity-[.67] font-nav
   }
 
   a.navlink.active-link {

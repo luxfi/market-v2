@@ -110,13 +110,13 @@ model-viewer {
   padding: 10px 20px;
   background-color: white;
   color: black !important;
-  font-family: 'Druk Text Wide';
+  font-family: 'Druk Text Wide Web Medium Regular';
   font-size: 14px;
 }
 
 .dark\:btn-outline-dk, .dark\:btn-contained-white {
   padding: 10px 20px !important;
-  font-family: 'Druk Text Wide';
+  font-family: 'Druk Text Wide Web Medium Regular';
   font-size: 14px !important;
 }
 
@@ -152,7 +152,7 @@ model-viewer {
 
 .min-w-\[222px\] {
   border-radius: 99999px;
-  font-family: 'Druk Text Wide';
+  font-family: 'Druk Text Wide Web Medium Regular';
   font-size: .8rem;
   padding: .7rem .9rem;
 }

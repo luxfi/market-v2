@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from 'react'
 
-
 import 'styles/globals.css'
 import 'styles/inter.css'
 import 'styles/druk.css'
-import 'styles/montserrat.css'
+//import 'styles/montserrat.css'
 import 'styles/open-sans.css'
-import 'styles/playfair-display.css'
-import 'styles/roboto.css'
-import 'styles/chalkboard.css'
-import 'styles/frankruhllibre.css'
-import 'styles/gazpacho.css'
-import 'styles/editorialnew.css'
-import 'styles/lucidagrande.css'
-import 'styles/nunitosans.css'
-import 'styles/styreneb.css'
-import 'styles/gothicusroman.css'
-import 'styles/roobert.css'
-import 'styles/rodger.css'
-import 'styles/ingrammono.css'
+//import 'styles/playfair-display.css'
+//import 'styles/roboto.css'
+//import 'styles/chalkboard.css'
+//import 'styles/frankruhllibre.css'
+//import 'styles/gazpacho.css'
+//import 'styles/editorialnew.css'
+//import 'styles/lucidagrande.css'
+//import 'styles/nunitosans.css'
+//import 'styles/styreneb.css'
+//import 'styles/gothicusroman.css'
+//import 'styles/roobert.css'
+//import 'styles/rodger.css'
+//import 'styles/ingrammono.css'
 
 import type { AppContext, AppProps } from 'next/app'
 import { default as NextApp } from 'next/app'
@@ -62,11 +61,7 @@ const THEME_SWITCHING_ENABLED = process.env.NEXT_PUBLIC_THEME_SWITCHING_ENABLED
 const DARK_MODE_ENABLED = process.env.NEXT_PUBLIC_DARK_MODE
 const PROXY_API_BASE = process.env.NEXT_PUBLIC_PROXY_API_BASE
 const RESERVOIR_API_KEY = process.env.NEXT_PUBLIC_RESERVOIR_API_KEY
-const BODY_FONT_FAMILY = process.env.NEXT_PUBLIC_BODY_FONT_FAMILY || 'Inter'
-const FONT_FAMILY = process.env.NEXT_PUBLIC_FONT_FAMILY || 'Inter'
-const PRIMARY_COLOR = process.env.NEXT_PUBLIC_PRIMARY_COLOR || 'default'
-const DISABLE_POWERED_BY_RESERVOIR =
-  process.env.NEXT_PUBLIC_DISABLE_POWERED_BY_RESERVOIR
+const DISABLE_POWERED_BY_RESERVOIR = process.env.NEXT_PUBLIC_DISABLE_POWERED_BY_RESERVOIR
 
 const FEE_BPS = process.env.NEXT_PUBLIC_FEE_BPS
 const FEE_RECIPIENT = process.env.NEXT_PUBLIC_FEE_RECIPIENT
@@ -75,8 +70,8 @@ const API_BASE = process.env.NEXT_PUBLIC_RESERVOIR_API_BASE
 const SOURCE_NAME = process.env.NEXT_PUBLIC_SOURCE_NAME
 const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID
 
-const colorsForTailwind = require('../colorsForTailwind')
-
+const colors = require('../colors.tailwind')
+const fonts = require('../fonts.tailwind')
 
 const envChain = Object.values(allChains).find(
   (chain) => chain.id === +(CHAIN_ID || allChains.mainnet)
@@ -135,10 +130,10 @@ const App: React.FC<AppProps & { baseUrl: string }> = ({
     if (marketplaceTheme == 'dark') {
       setReservoirKitTheme(
         darkTheme({
-          headlineFont: FONT_FAMILY,
-          font: BODY_FONT_FAMILY,
-          primaryColor: colorsForTailwind.primary['700'],
-          primaryHoverColor: colorsForTailwind.primary['900'],
+          headlineFont: fonts.headings[0],
+          font: fonts.body[0],
+          primaryColor: colors.primary['700'],
+          primaryHoverColor: colors.primary['900'],
         })
       )
       setRainbowKitTheme(
@@ -149,10 +144,10 @@ const App: React.FC<AppProps & { baseUrl: string }> = ({
     } else {
       setReservoirKitTheme(
         lightTheme({
-          headlineFont: FONT_FAMILY,
-          font: BODY_FONT_FAMILY,
-          primaryColor: colorsForTailwind.primary['700'],
-          primaryHoverColor: colorsForTailwind.primary['900'],
+          headlineFont: fonts.headings[0],
+          font: fonts.body[0],
+          primaryColor: colors.primary['700'],
+          primaryHoverColor: colors.primary['900'],
         })
       )
       setRainbowKitTheme(
@@ -161,7 +156,7 @@ const App: React.FC<AppProps & { baseUrl: string }> = ({
         })
       )
     }
-  }, [nextThemeType, colorsForTailwind])
+  }, [nextThemeType, colors])
 
   let options: ReservoirKitProviderProps['options'] = {
     apiKey: RESERVOIR_API_KEY,

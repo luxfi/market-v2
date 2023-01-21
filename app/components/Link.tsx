@@ -50,28 +50,9 @@ const Link: React.FC<
   }
 
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center'
-    }}>
-      <div // just to achieve centering
-        style={{
-          fontSize: '0.7rem', 
-          visibility: 'hidden'
-        }}
-      >&#9660;</div>
-
-      <NextLink href={href} {...toSpread}>
-        {children}
-      </NextLink>
-      <div 
-        style={{
-          fontSize: '0.7rem', 
-          visibility: isActive ? 'visible' : 'hidden'
-        }}
-      >&#9660;</div>
-    </div>
+    <NextLink href={href} {...toSpread}>
+      {children}
+    </NextLink>
   )
 }
 

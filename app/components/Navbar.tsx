@@ -11,7 +11,7 @@ import { useMediaQuery } from '@react-hookz/web'
 import ConnectWallet from './ConnectWallet'
 import HamburgerMenu from './HamburgerMenu'
 import setParams from 'lib/params'
-import NavbarLogo from 'components/navbar/NavbarLogo'
+import Logo from 'components/navbar/LogoSimple'
 import ThemeSwitcher from './ThemeSwitcher'
 import CartMenu from './CartMenu'
 import SearchMenu from './SearchMenu'
@@ -130,16 +130,12 @@ const Navbar: React.FC = () => {
   }
 
   return (
-    <nav className="sticky top-0 z-[1000] col-span-full flex items-center justify-between gap-2 border-b border-[#D4D4D4] bg-white px-6 py-4 dark:border-neutral-600 dark:bg-black md:gap-3 md:py-6 md:px-16">
-      <NavbarLogo className="z-10 max-w-[300px]" />
+    <nav className="sticky top-0 z-[1000] col-span-full flex items-center justify-between gap-2 border-b border-[#D4D4D4] bg-white px-6 py-4 dark:border-neutral-600 dark:bg-black md:gap-3 md:py-3 md:px-16">
+      <Logo className="text-[48px]" />
       {navbarLinks && (
-        <div className="z-10 ml-12 mr-12 hidden items-center gap-11 md:flex">
+      <div className="ml-8 mr-8 hidden items-center gap-11 md:flex">
           {navbarLinks.map(({ name, url }) => (
-            <Link
-              key={url}
-              href={url}
-              className="navlink text-base"
-            >
+            <Link key={url} href={url} className="navlink text-base" >
               {name}
             </Link>
           ))}

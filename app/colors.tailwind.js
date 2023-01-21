@@ -1,6 +1,6 @@
 const twcolors = require('tailwindcss/colors')
 
-// Note, this file is injested by tailwind.config.js
+// Note: This file is injested by tailwind.config.js
 // and also by setReservoirKitTheme(), and setRainbowKitTheme()
 // in _app.js.  It provides the common link between them.
 

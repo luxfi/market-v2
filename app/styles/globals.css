@@ -11,11 +11,11 @@
   }
 
   a.navlink {
-    @apply text-grey-800 dark:text-grey-100 text-[1.2rem];
+    @apply text-grey-800 dark:text-white opacity-[.67] font-nav text-[1.2rem];
   }
 
   a.navlink.active-link {
-    @apply text-grey-900 dark:text-white cursor-default;   
+    @apply text-grey-900 dark:text-white cursor-default opacity-100;   
   }
 
   a.navlink.active-link:hover {
@@ -23,21 +23,26 @@
   }
 
   a.navlink:hover {
-    @apply text-primary-500; 
+    @apply opacity-100;
   }
 
   .border-black {
     @apply border border-grey-800 border-solid;
   }
 
-  .btn-contained {
-    @apply rounded-lg p-2 text-base overflow-hidden h-[50px];
+  .btn-contained-white {
+    @apply rounded-lg p-2 text-base overflow-hidden h-[50px] bg-grey-100  text-grey-700 font-medium;
+  }
+  .btn-contained-white:hover {
+    @apply bg-white text-black;
   }
 
-  .btn-outline {
-    @apply rounded-lg bg-transparent p-2 text-base text-grey-800 overflow-hidden border-black h-[50px];
+  .btn-outline-dk {
+    @apply rounded-lg bg-transparent p-2 text-base text-grey-100 overflow-hidden h-[50px] border border-grey-100 border-solid;
   }
-
+  .btn-outline-dk:hover {
+    @apply text-white border-white bg-grey-800;
+  }
 }
 
 

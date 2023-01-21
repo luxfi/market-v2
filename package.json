@@ -12,10 +12,10 @@
   ],
   "private": true,
   "scripts": {
-    "build": "yarn build:contracts build:app",
-    "dev": "yarn workspace @luxmarket/app dev",
+    "build": "yarn build:app",
     "build:app": "yarn workspace @luxmarket/app build",
-    "build:contracts": "yarn workspace @luxmarket/contracts build"
+    "build:contracts": "yarn workspace @luxmarket/contracts build",
+    "dev": "yarn workspace @luxmarket/app dev"
   },
   "workspaces": {
     "packages": [

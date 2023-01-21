@@ -131,10 +131,6 @@ model-viewer {
   margin-right: 80px;
 }
 
-.absolute {
-  display: none;
-}
-
 .min-w-\[222px\]
 {
   border-radius: 8px;
@@ -148,10 +144,6 @@ model-viewer {
 
 #activity, #items {
   border-radius: 99999px;
-}
-
-.text-white {
-  display: none;
 }
 
 .btn-primary-fill {

@@ -1,7 +1,7 @@
-import React, { 
-  ReactElement, 
-  useEffect, 
-  useState 
+import React, {
+  ReactElement,
+  useEffect,
+  useState
 } from 'react'
 
 import dynamic from 'next/dynamic'
@@ -54,12 +54,12 @@ const Navbar: React.FC = () => {
   const [hasCommunityDropdown, setHasCommunityDropdown] = useState<boolean>(false)
   const [navbarLinks, setNavbarLinks] = useState<NavLink[] | undefined>(undefined)
 
-  
+
   useEffect(() => {
     const result: NavLink[] = []
     if (typeof NAVBAR_LINKS === 'string') {
       const linksArray = NAVBAR_LINKS.split(',')
-  
+
       linksArray.forEach((link) => {
         let values = link.split('::')
         result.push({
@@ -131,7 +131,7 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="sticky top-0 z-[1000] col-span-full flex items-center justify-between gap-2 border-b border-[#D4D4D4] bg-white px-6 py-4 dark:border-neutral-600 dark:bg-black md:gap-3 md:py-3 md:px-16">
-      <Logo className="text-[48px]" />
+      <Logo className="text-[22px]" />
       {navbarLinks && (
       <div className="ml-8 mr-8 hidden items-center gap-11 md:flex">
           {navbarLinks.map(({ name, url }) => (
